@@ -6,10 +6,26 @@
 
 package Entity;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Computer
  */
 public class Kunde {
+    private String name;
+    private int telefon;
+    private String email;
+    private int rabat;
+    private ArrayList<Ordre> ordreList;
+
+    public Kunde(String name, int telefon, String email, int rabat, ArrayList<Ordre> ordreList) {
+        this.name = name;
+        this.telefon = telefon;
+        this.email = email;
+        this.rabat = rabat;
+        this.ordreList = ordreList;
+    }
+    
     
 }
