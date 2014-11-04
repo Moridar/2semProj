@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Computer
+ * @author Umair
  */
 public class Kunde {
     private String name;
@@ -26,6 +26,28 @@ public class Kunde {
         this.rabat = rabat;
         this.ordreList = ordreList;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getTelefon() {
+        return telefon;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getRabat() {
+        return rabat;
+    }
+
+    public ArrayList<Ordre> getOrdreList() {
+        return ordreList;
+    }
+    
+    
     
     
 }
