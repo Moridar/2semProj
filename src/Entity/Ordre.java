@@ -6,7 +6,7 @@
 
 package Entity;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Date;
 
 /**
@@ -22,9 +22,20 @@ public class Ordre {
     private double pris;
     private Date datoStart;
     private Date datoSlut;
-//    private ArrayList<Komponent> KompList;
-//    private ArrayList<Staff> StaffList;
-//    private ArrayList<Lastbil> LastbilList;
+
+//    private HashMap<Integer, Komponent> KompList;
+//    private HashMap<Integer, Staff> StaffList;
+//    private HashMap<Integer, Lastbil> LastbilList;
+    public Ordre(int SalgsmedarbsID, int KundeID, String vej, int PostNR, boolean confirmation, double pris, Date datoStart, Date datoSlut) {
+        this.SalgsmedarbsID = SalgsmedarbsID;
+        this.KundeID = KundeID;
+        this.vej = vej;
+        this.PostNR = PostNR;
+        this.confirmation = confirmation;
+        this.pris = pris;
+        this.datoStart = datoStart;
+        this.datoSlut = datoSlut;
+    }
     
     public Ordre(int SalgsmedarbsID, int KundeID, String vej, int PostNR, double pris, Date datoStart, Date datoSlut) {
         this.SalgsmedarbsID = SalgsmedarbsID;
@@ -78,15 +89,15 @@ public class Ordre {
         return datoSlut;
     }
 
-//    public ArrayList<Komponent> getKompList() {
+//    public HashMap<Integer, Komponent> getKompList() {
 //        return KompList;
 //    }
 //
-//    public ArrayList<Staff> getStaffList() {
+//    public HashMap<Integer, Staff> getStaffList() {
 //        return StaffList;
 //    }
 //
-//    public ArrayList<Lastbil> getLastbilList() {
+//    public HashMap<Integer, Lastbil> getLastbilList() {
 //        return LastbilList;
 //    }
 
