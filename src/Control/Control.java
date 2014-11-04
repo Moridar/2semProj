@@ -7,27 +7,27 @@
 package Control;
 
 import Entity.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
  * @author Computer
  */
 public class Control {
-    ArrayList<Kunde> KundeList;
-    ArrayList<Ordre> OrdreList;
-    ArrayList<Komponent> KompList;
-    ArrayList<Staff> StaffList;
-    ArrayList<Lastbil> LastbilList;
-    ArrayList<Lager> LagerList;
+    HashMap<Integer, Kunde> KundeList;
+    HashMap<Integer, Ordre> OrdreList;
+    HashMap<Integer, Komponent> KompList;
+    HashMap<Integer, Staff> StaffList;
+    HashMap<Integer, Lastbil> LastbilList;
+    HashMap<Integer, Lager> LagerList;
 
     public Control() {
-        KundeList = new ArrayList<>();
-        OrdreList = new ArrayList<>();
-        KompList = new ArrayList<>();
-        StaffList = new ArrayList<>();
-        LastbilList = new ArrayList<>();
-        LagerList = new ArrayList<>();
+        KundeList = new HashMap<>();
+        OrdreList = new HashMap<>();
+        KompList = new HashMap<>();
+        StaffList = new HashMap<>();
+        LastbilList = new HashMap<>();
+        LagerList = new HashMap<>();
                
     }
     
