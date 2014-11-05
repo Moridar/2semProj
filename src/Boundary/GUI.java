@@ -21,7 +21,7 @@ public class GUI extends javax.swing.JFrame {
     
     public GUI() {
         initComponents();
-        Control con = new Control();
+        con = new Control();
         jLayeredPaneOpretOrdre.setVisible(false);
     }
 
