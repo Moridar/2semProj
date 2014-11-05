@@ -97,15 +97,15 @@ public class Ordre {
         return datoSlut;
     }
 
-//    public HashMap<Integer, Komponent> getKompList() {
-//        return KompList;
-//    }
-//
-//    public HashMap<Integer, Staff> getStaffList() {
-//        return StaffList;
-//    }
-//
-//    public HashMap<Integer, Lastbil> getLastbilList() {
-//        return LastbilList;
-//    }
+    public HashMap<Integer, Integer> getKompList() {
+        return KompList;
+    }
+
+    public HashMap<Integer, Date> getStaffList() {
+        return StaffList;
+    }
+
+    public HashMap<Integer, Date> getLastbilList() {
+        return LastbilList;
+    }
 }

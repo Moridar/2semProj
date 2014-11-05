@@ -15,6 +15,10 @@ public class DB {
     private static String ID = "cphba83";
     private static String PW = "cphba83";
 
+    
+//    ----------------------------------------------------------------------------
+//   Methods to get data from DB
+//    ----------------------------------------------------------------------------    
     public static HashMap<Integer, Kunde> getAllKunde() throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
@@ -233,7 +237,7 @@ public class DB {
      * @return HashMap<KomponentID, Antal>
      * @throws SQLException
      */
-    public static HashMap<Integer, Integer> getKompToLager(int lagerID) throws SQLException {
+    private static HashMap<Integer, Integer> getKompToLager(int lagerID) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -273,7 +277,7 @@ public class DB {
      * @return HashMap<KomponentID, Antal>
      * @throws SQLException
      */
-    public static HashMap<Integer, Integer> getKompToOrder(int orderID) throws SQLException {
+    private static HashMap<Integer, Integer> getKompToOrder(int orderID) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -307,7 +311,7 @@ public class DB {
         return list;
     }
 
-    public static HashMap<Date, Integer> getArbejdsSkema(int staffID) throws SQLException {
+    private static HashMap<Date, Integer> getArbejdsSkema(int staffID) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -340,7 +344,7 @@ public class DB {
         }
         return list;
     }
-    public static HashMap<Integer, Date> getStaffListToOrder(int orderID) throws SQLException {
+    private static HashMap<Integer, Date> getStaffListToOrder(int orderID) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -373,7 +377,7 @@ public class DB {
         }
         return list;
     }
-    public static HashMap<Date, Integer> getTransportSkema(int LastbilID) throws SQLException {
+    private static HashMap<Date, Integer> getTransportSkema(int LastbilID) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -406,7 +410,7 @@ public class DB {
         }
         return list;
     }
-    public static HashMap<Integer, Date> getLastbilListToOrder(int OrderID) throws SQLException {
+    private static HashMap<Integer, Date> getLastbilListToOrder(int OrderID) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -439,4 +443,39 @@ public class DB {
         }
         return list;
     }
+//    End of getData methods
+//    ----------------------------------------------------------------------------    
+//    ----------------------------------------------------------------------------
+//    ----------------------------------------------------------------------------
+//    saveData methods
+//    
+//    public static void saveNewKunde(Kunde k) throws SQLException {
+//        Statement statement = null;
+//        Connection connection = null;
+//
+//        try {
+//            Class.forName(driver);
+//            connection = DriverManager.getConnection(URL, ID, PW);
+//            statement = connection.createStatement();
+//
+//            String insertSQL = "INSERT INTO persons VALUES ("
+//                    + +p.getId() + ",'" + p.getName() + "')";
+//           //=== Execute the statement and retrieve 
+//            //	a count of how many rows was inserted      
+//            int rows = statement.executeUpdate(insertSQL);
+//
+//            //=== Validate the result
+//            if (rows == 1) {
+//                System.out.println("One row inserted!");
+//            } else {
+//                System.out.println("No row inserted (fail)");
+//            }
+//        } catch (Exception ee) {
+//            System.out.println("fail");
+//            System.err.println(ee);
+//        } finally {
+//            statement.close();
+//            connection.close();
+//        }
+//    }
 }
