@@ -6,6 +6,8 @@
 
 package pkg2semproj;
 
+import Control.Control;
+
 /**
  *
  * @author Computer
@@ -20,6 +22,9 @@ public class Main {
         for (String string : args) {
             System.out.println(string);
         }
+        Control con = new Control();
+        System.out.println(con.getKundeList().keySet());
+        
     }
     
 }
