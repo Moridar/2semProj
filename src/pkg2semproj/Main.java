@@ -23,8 +23,8 @@ public class Main {
             System.out.println(string);
         }
         Control con = new Control();
-        System.out.println(con.getKundeList().keySet());
-        
+        System.out.println(con.getKundeList().get(0).getName());
+        System.out.println("lel");
     }
     
 }

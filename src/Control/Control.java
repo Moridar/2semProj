@@ -23,7 +23,7 @@ public class Control {
 
     public Control() {
         try {
-            KundeList = DB.getAllKunde();
+            KundeList = DB.getAllKunde();            
             OrdreList = DB.getAllOrder();
             KompList = DB.getAllKomponenter();
             StaffList = DB.getAllStaff();

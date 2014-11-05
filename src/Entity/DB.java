@@ -32,7 +32,7 @@ public class DB {
 
             statement = connection.createStatement();
 
-            String query = "SELECT * FROM kunde";
+            String query = "SELECT * FROM kunder";
 
             rs = statement.executeQuery(query);
 
@@ -45,7 +45,7 @@ public class DB {
             }
 
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("fail-2");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -80,7 +80,7 @@ public class DB {
             }
 
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("fail-1");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -115,7 +115,7 @@ public class DB {
             }
 
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("fail0");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -145,11 +145,12 @@ public class DB {
             //=== Move cursor one step at a time and
             //	 check for the existence of a row  
             while (rs.next()) {
-                list.put(rs.getInt(1), new Lager(rs.getString(2)));
+                list.put(rs.getInt(1), new Lager(rs.getString(2), 
+                        getKompToLager(rs.getInt(1))));
             }
 
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("fail1");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -171,7 +172,7 @@ public class DB {
 
             statement = connection.createStatement();
 
-            String query = "SELECT * FROM Lager";
+            String query = "SELECT * FROM Lastbiler";
 
             rs = statement.executeQuery(query);
 
@@ -184,7 +185,7 @@ public class DB {
             }
 
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("fail2");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -222,7 +223,7 @@ public class DB {
             }
 
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("fail3");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -262,7 +263,7 @@ public class DB {
             }
 
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("fail4");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -277,7 +278,7 @@ public class DB {
      * @return HashMap<KomponentID, Antal>
      * @throws SQLException
      */
-    private static HashMap<Integer, Integer> getKompToOrder(int orderID) throws SQLException {
+    private static HashMap<Integer, Integer> getKompToOrder(int ordreID) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -290,7 +291,7 @@ public class DB {
 
             statement = connection.createStatement();
 
-            String query = "SELECT * FROM UDE WHERE OrderID = " + orderID;
+            String query = "SELECT * FROM UDE WHERE OrdreID = " + ordreID;
 
             rs = statement.executeQuery(query);
 
@@ -302,7 +303,7 @@ public class DB {
             }
 
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("fail5");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -336,7 +337,7 @@ public class DB {
             }
 
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("fail6");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -344,7 +345,7 @@ public class DB {
         }
         return list;
     }
-    private static HashMap<Integer, Date> getStaffListToOrder(int orderID) throws SQLException {
+    private static HashMap<Integer, Date> getStaffListToOrder(int ordreID) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -357,7 +358,7 @@ public class DB {
 
             statement = connection.createStatement();
 
-            String query = "SELECT * FROM arbejde WHERE orderID = " + orderID;
+            String query = "SELECT * FROM arbejde WHERE ordreID = " + ordreID;
 
             rs = statement.executeQuery(query);
 
@@ -369,7 +370,7 @@ public class DB {
             }
 
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("fail7");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -402,7 +403,7 @@ public class DB {
             }
 
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("fail8");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -410,7 +411,7 @@ public class DB {
         }
         return list;
     }
-    private static HashMap<Integer, Date> getLastbilListToOrder(int OrderID) throws SQLException {
+    private static HashMap<Integer, Date> getLastbilListToOrder(int OrdreID) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -423,7 +424,7 @@ public class DB {
 
             statement = connection.createStatement();
 
-            String query = "SELECT * FROM Transport WHERE OrderID = " + OrderID;
+            String query = "SELECT * FROM Transport WHERE OrdreID = " + OrdreID;
 
             rs = statement.executeQuery(query);
 
@@ -435,7 +436,7 @@ public class DB {
             }
 
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("fail9");
             System.err.println(ee);
         } finally {
             statement.close();
