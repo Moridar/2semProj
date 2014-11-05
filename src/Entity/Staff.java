@@ -17,18 +17,19 @@ public class Staff {
     private String navn;
     private int telefon;
     private String stilling;
-    private HashMap<Date, Ordre> arbejdeskema;
+    //arbejdsSkema<Date, OrderID>
+    private HashMap<Date, Integer> arbejdeskema;
 
-    public Staff(String navn, int telefon, String stilling) {
+    public Staff(String navn, int telefon, String stilling, HashMap<Date, Integer> arbejdeskema) {
         this.navn = navn;
         this.telefon = telefon;
         this.stilling = stilling;
-        this.arbejdeskema = new HashMap<>();
+        this.arbejdeskema = arbejdeskema;
     }
 
     //Tilføj opgave i arbejdeskema
-    public void addOpgave(Date d, Ordre o){
-        arbejdeskema.put(d, o);
+    public void addOpgave(Date d, Integer oID){
+        arbejdeskema.put(d, oID);
     }
     
     public String getNavn() {
@@ -43,7 +44,7 @@ public class Staff {
         return stilling;
     }
 
-    public HashMap<Date, Ordre> getArbejdeskema() {
+    public HashMap<Date, Integer> getArbejdeskema() {
         return arbejdeskema;
     }
     

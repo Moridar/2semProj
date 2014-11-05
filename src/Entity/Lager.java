@@ -14,7 +14,8 @@ import java.util.HashMap;
  */
 public class Lager {
     private String navn;
-    private HashMap<Komponent, Integer> KompList;
+    //KompList<KompID, Antal>
+    private HashMap<Integer, Integer> KompList;
 
     public Lager(String navn) {
         this.navn = navn;
