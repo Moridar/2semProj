@@ -14,12 +14,12 @@ import java.util.HashMap;
  * @author Computer
  */
 public class Control {
-    HashMap<Integer, Kunde> KundeList;
-    HashMap<Integer, Ordre> OrdreList;
-    HashMap<Integer, Komponent> KompList;
-    HashMap<Integer, Staff> StaffList;
-    HashMap<Integer, Lastbil> LastbilList;
-    HashMap<Integer, Lager> LagerList;
+    private HashMap<Integer, Kunde> KundeList;
+    private HashMap<Integer, Ordre> OrdreList;
+    private HashMap<Integer, Komponent> KompList;
+    private HashMap<Integer, Staff> StaffList;
+    private HashMap<Integer, Lastbil> LastbilList;
+    private HashMap<Integer, Lager> LagerList;
 
     public Control() {
         KundeList = new HashMap<>();
@@ -28,8 +28,10 @@ public class Control {
         StaffList = new HashMap<>();
         LastbilList = new HashMap<>();
         LagerList = new HashMap<>();
-               
+           
     }
     
-    
+    public Kunde getKunde(int kundeID){
+        return KundeList.get(kundeID);
+    }
 }

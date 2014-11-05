@@ -19,12 +19,12 @@ public class Kunde {
     private int rabat;
     private ArrayList<Ordre> ordreList;
 
-    public Kunde(String name, int telefon, String email, int rabat, ArrayList<Ordre> ordreList) {
+    public Kunde(String name, int telefon, String email, int rabat) {
         this.name = name;
         this.telefon = telefon;
         this.email = email;
         this.rabat = rabat;
-        this.ordreList = ordreList;
+        this.ordreList = new ArrayList<>();
     }
 
     public String getName() {
