@@ -22,6 +22,14 @@ public class Lager {
         this.KompList = KompList;
     }
 
+    public String getNavn() {
+        return navn;
+    }
+
+    public HashMap<Integer, Integer> getKompList() {
+        return KompList;
+    }
+
 
     
 }

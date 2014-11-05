@@ -6,7 +6,12 @@
 package Boundary;
 
 import Control.Control;
+import Entity.Lager;
+import Entity.Ordre;
 import java.awt.Panel;
+import java.util.Date;
+import java.util.Set;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
@@ -18,11 +23,132 @@ public class GUI extends javax.swing.JFrame {
      * Creates new form GUI
      */
     private Control con;
-    
+
     public GUI() {
-        initComponents();
-        con = new Control();
+        con = new Control();        
+        initComponents();        
         jLayeredPaneOpretOrdre.setVisible(false);
+    }
+
+    class StaffStatusModel extends AbstractTableModel {
+
+        String[] columnNames = {"ID", "Navn", "Telefon", "Stilling"};
+
+        @Override
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        @Override
+        public int getRowCount() {
+            return con.getStaffList().keySet().size();
+        }
+
+        @Override
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            int id = (int) con.getStaffList().keySet().toArray()[row];
+            switch(col){
+                case 0: return id; 
+                case 1: return con.getStaffList().get(id).getNavn();
+                case 2: return con.getStaffList().get(id).getTelefon();
+                case 3: return con.getStaffList().get(id).getStilling();
+            }
+            return null;
+        }
+
+        @Override
+        public Class getColumnClass(int c) {
+            return getValueAt(0, c).getClass();
+        }
+
+    }
+    class LastbilStatusModel extends AbstractTableModel {
+
+        String[] columnNames = {"ID", "Navn", "Telefon"};
+
+        @Override
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        @Override
+        public int getRowCount() {
+            return con.getLastbilList().keySet().size();
+        }
+
+        @Override
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            int id = (int) con.getLastbilList().keySet().toArray()[row];
+            switch(col){
+                case 0: return id; 
+                case 1: return con.getLastbilList().get(id).getNavn();
+                case 2: return con.getLastbilList().get(id).getTelefon();
+            }
+            return null;
+        }
+
+        @Override
+        public Class getColumnClass(int c) {
+            return getValueAt(0, c).getClass();
+        }
+
+    }
+        class KomponentStatusModel extends AbstractTableModel {
+
+        String[] columnNames = {"ID", "Navn", "Pris/Dag", "Antal Hjemme", "Antal Ude"};
+
+        @Override
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        @Override
+        public int getRowCount() {
+            return con.getKompList().keySet().size();
+        }
+
+        @Override
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            int id = (int) con.getKompList().keySet().toArray()[row];
+            int i;
+            switch(col){
+                case 0: return id; 
+                case 1: return con.getKompList().get(id).getNavn();
+                case 2: return con.getKompList().get(id).getPrisPerDag();
+                case 3: i = 0;
+                    for (Lager lager : con.getLagerList().values()) {
+                        i += lager.getKompList().get(id);
+                    } return i;
+                case 4: i = 0;
+                    for (Ordre order : con.getOrdreList().values()) {
+                        if(new Date().after(order.getDatoStart()) &&
+                                new Date().before(order.getDatoSlut()))
+                        i += order.getKompList().get(id);
+                    } return i;
+            }
+            return null;
+        }
+
+        @Override
+        public Class getColumnClass(int c) {
+            return getValueAt(0, c).getClass();
+        }
+
     }
 
     /**
@@ -34,12 +160,12 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTabbedPaneMain = new javax.swing.JTabbedPane();
         jPanelStatus = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanel5 = new javax.swing.JPanel();
+        jPanelStaffStatus = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        jTableStaffStatus = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
@@ -63,45 +189,26 @@ public class GUI extends javax.swing.JFrame {
         jPanelResource = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(900, 700));
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable5);
+        jTableStaffStatus.setModel(new StaffStatusModel());
+        jTableStaffStatus.setColumnSelectionAllowed(true);
+        jScrollPane1.setViewportView(jTableStaffStatus);
+        jTableStaffStatus.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanelStaffStatusLayout = new javax.swing.GroupLayout(jPanelStaffStatus);
+        jPanelStaffStatus.setLayout(jPanelStaffStatusLayout);
+        jPanelStaffStatusLayout.setHorizontalGroup(
+            jPanelStaffStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanelStaffStatusLayout.setVerticalGroup(
+            jPanelStaffStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("Medarbejdere", jPanel5);
+        jTabbedPane2.addTab("Medarbejdere", jPanelStaffStatus);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable3.setModel(new LastbilStatusModel());
         jScrollPane4.setViewportView(jTable3);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -117,17 +224,7 @@ public class GUI extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Lastbiler", jPanel6);
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable4.setModel(new KomponentStatusModel());
         jScrollPane5.setViewportView(jTable4);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -160,7 +257,7 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Status", jPanelStatus);
+        jTabbedPaneMain.addTab("Status", jPanelStatus);
 
         jButtonOpretOrdre.setText("Opret en ordre");
         jButtonOpretOrdre.addActionListener(new java.awt.event.ActionListener() {
@@ -299,7 +396,7 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Ordre", jPanelOrdre);
+        jTabbedPaneMain.addTab("Ordre", jPanelOrdre);
 
         javax.swing.GroupLayout jPanelKundeLayout = new javax.swing.GroupLayout(jPanelKunde);
         jPanelKunde.setLayout(jPanelKundeLayout);
@@ -312,7 +409,7 @@ public class GUI extends javax.swing.JFrame {
             .addGap(0, 650, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Kunde", jPanelKunde);
+        jTabbedPaneMain.addTab("Kunde", jPanelKunde);
 
         javax.swing.GroupLayout jPanelResourceLayout = new javax.swing.GroupLayout(jPanelResource);
         jPanelResource.setLayout(jPanelResourceLayout);
@@ -325,7 +422,7 @@ public class GUI extends javax.swing.JFrame {
             .addGap(0, 650, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Resource", jPanelResource);
+        jTabbedPaneMain.addTab("Resource", jPanelResource);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -333,14 +430,14 @@ public class GUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPaneMain)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPaneMain)
                 .addContainerGap())
         );
 
@@ -352,8 +449,8 @@ public class GUI extends javax.swing.JFrame {
         jPanelOverblik.setVisible(false);
         jLayeredPaneOpretOrdre.setVisible(true);
         jButtonOpretOrdre.setVisible(false);
-        
-        
+
+
     }//GEN-LAST:event_jButtonOpretOrdreActionPerformed
 
     /**
@@ -396,7 +493,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane jLayeredPaneOpretOrdre;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanelKunde;
@@ -404,6 +500,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelOrdre;
     private javax.swing.JPanel jPanelOverblik;
     private javax.swing.JPanel jPanelResource;
+    private javax.swing.JPanel jPanelStaffStatus;
     private javax.swing.JPanel jPanelStatus;
     private javax.swing.JPanel jPanelTilOrdre;
     private javax.swing.JScrollPane jScrollPane1;
@@ -411,13 +508,13 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JTabbedPane jTabbedPaneMain;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable5;
+    private javax.swing.JTable jTableStaffStatus;
     // End of variables declaration//GEN-END:variables
 }
