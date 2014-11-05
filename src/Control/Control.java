@@ -35,7 +35,28 @@ public class Control {
         }
     }
 
-    public Kunde getKunde(int kundeID) {
-        return KundeList.get(kundeID);
+    public HashMap<Integer, Kunde> getKundeList() {
+        return KundeList;
     }
+
+    public HashMap<Integer, Ordre> getOrdreList() {
+        return OrdreList;
+    }
+
+    public HashMap<Integer, Komponent> getKompList() {
+        return KompList;
+    }
+
+    public HashMap<Integer, Staff> getStaffList() {
+        return StaffList;
+    }
+
+    public HashMap<Integer, Lastbil> getLastbilList() {
+        return LastbilList;
+    }
+
+    public HashMap<Integer, Lager> getLagerList() {
+        return LagerList;
+    }
+
 }
