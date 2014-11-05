@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Entity;
 
 import java.util.Date;
@@ -14,24 +13,27 @@ import java.util.HashMap;
  * @author Computer
  */
 public class Lastbil {
+
     private String navn;
     private int telefon;
-    private HashMap<Date, Ordre> transportskema;
+    //TransportSkema<Date, OrderID>
+    private HashMap<Date, Integer> transportskema;
 
-    public Lastbil(String navn, int telefon, HashMap<Date, Ordre> transportskema) {
+    public Lastbil(String navn, int telefon, HashMap<Date, Integer> transportskema) {
         this.navn = navn;
         this.telefon = telefon;
         this.transportskema = transportskema;
     }
-    
+ 
     //Tilføjer en opgave til transportskema
-    public void addOpgave(Date d, Ordre o){
-        transportskema.put(d, o);
+    public void addOpgave(Date d, int oID) {
+        transportskema.put(d, oID);
     }
-    
-    public void setTelefon(int t){
+
+    public void setTelefon(int t) {
         telefon = t;
     }
+
     public String getNavn() {
         return navn;
     }
@@ -40,8 +42,8 @@ public class Lastbil {
         return telefon;
     }
 
-    public HashMap<Date, Ordre> getTransportskema() {
+    public HashMap<Date, Integer> getTransportskema() {
         return transportskema;
     }
-    
+
 }

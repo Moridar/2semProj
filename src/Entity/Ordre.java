@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Entity;
 
 import java.util.HashMap;
@@ -14,6 +13,7 @@ import java.util.Date;
  * @author Computer
  */
 public class Ordre {
+
     private int SalgsmedarbsID;
     private int KundeID;
     private String vej;
@@ -22,11 +22,13 @@ public class Ordre {
     private double pris;
     private Date datoStart;
     private Date datoSlut;
+    
+    //KompList<KompID, Antal>
+    private HashMap<Integer, Integer> KompList;
+    private HashMap<Integer, Date> StaffList;
+    private HashMap<Integer, Date> LastbilList;
 
-//    private HashMap<Integer, Komponent> KompList;
-//    private HashMap<Integer, Staff> StaffList;
-//    private HashMap<Integer, Lastbil> LastbilList;
-    public Ordre(int SalgsmedarbsID, int KundeID, String vej, int PostNR, boolean confirmation, double pris, Date datoStart, Date datoSlut) {
+    public Ordre(int SalgsmedarbsID, int KundeID, String vej, int PostNR, boolean confirmation, double pris, Date datoStart, Date datoSlut, HashMap<Integer, Integer> KompList, HashMap<Integer, Date> StaffList, HashMap<Integer, Date> LastbilList) {
         this.SalgsmedarbsID = SalgsmedarbsID;
         this.KundeID = KundeID;
         this.vej = vej;
@@ -35,6 +37,9 @@ public class Ordre {
         this.pris = pris;
         this.datoStart = datoStart;
         this.datoSlut = datoSlut;
+        this.KompList = KompList;
+        this.StaffList = StaffList;
+        this.LastbilList = LastbilList;
     }
     
     public Ordre(int SalgsmedarbsID, int KundeID, String vej, int PostNR, double pris, Date datoStart, Date datoSlut) {
@@ -48,15 +53,18 @@ public class Ordre {
         confirmation = false;
     }
 
-    public void confirmThis(){
+    public void confirmThis() {
         confirmation = true;
     }
-    public void extendOrdre(Date d){
+
+    public void extendOrdre(Date d) {
         datoSlut = d;
     }
-    public void setPrice(int p){
+
+    public void setPrice(int p) {
         pris = p;
     }
+
     public int getSalgsmedarbsID() {
         return SalgsmedarbsID;
     }
@@ -100,10 +108,4 @@ public class Ordre {
 //    public HashMap<Integer, Lastbil> getLastbilList() {
 //        return LastbilList;
 //    }
-
-    
-    
-    
-    
-    
 }

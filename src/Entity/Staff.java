@@ -16,19 +16,20 @@ import java.util.HashMap;
 public class Staff {
     private String navn;
     private int telefon;
-    private int stillingID;
-    private HashMap<Date, Ordre> arbejdeskema;
+    private String stilling;
+    //arbejdsSkema<Date, OrderID>
+    private HashMap<Date, Integer> arbejdeskema;
 
-    public Staff(String navn, int telefon, int stillingID, HashMap<Date, Ordre> arbejdeskema) {
+    public Staff(String navn, int telefon, String stilling, HashMap<Date, Integer> arbejdeskema) {
         this.navn = navn;
         this.telefon = telefon;
-        this.stillingID = stillingID;
+        this.stilling = stilling;
         this.arbejdeskema = arbejdeskema;
     }
 
     //Tilføj opgave i arbejdeskema
-    public void addOpgave(Date d, Ordre o){
-        arbejdeskema.put(d, o);
+    public void addOpgave(Date d, Integer oID){
+        arbejdeskema.put(d, oID);
     }
     
     public String getNavn() {
@@ -39,11 +40,11 @@ public class Staff {
         return telefon;
     }
 
-    public int getStillingID() {
-        return stillingID;
+    public String getStilling() {
+        return stilling;
     }
 
-    public HashMap<Date, Ordre> getArbejdeskema() {
+    public HashMap<Date, Integer> getArbejdeskema() {
         return arbejdeskema;
     }
     
