@@ -5,6 +5,7 @@
  */
 package Boundary;
 
+import Control.Control;
 import java.awt.Panel;
 
 /**
@@ -16,8 +17,11 @@ public class GUI extends javax.swing.JFrame {
     /**
      * Creates new form GUI
      */
+    private Control con;
+    
     public GUI() {
         initComponents();
+        Control con = new Control();
         jLayeredPaneOpretOrdre.setVisible(false);
     }
 
