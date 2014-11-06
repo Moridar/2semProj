@@ -8,9 +8,7 @@ package Boundary;
 import Control.Control;
 import Entity.Lager;
 import Entity.Ordre;
-import java.awt.Panel;
 import java.util.Date;
-import java.util.Set;
 import javax.swing.table.AbstractTableModel;
 
 /**
