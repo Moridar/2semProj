@@ -10,6 +10,7 @@ import Entity.Lager;
 import Entity.Ordre;
 import com.sun.glass.events.KeyEvent;
 import java.util.Date;
+import java.util.Iterator;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -28,6 +29,15 @@ public class GUI extends javax.swing.JFrame {
         initComponents();        
         jLayeredPaneOpretOrdre.setVisible(false);
         jLPanelOpretOPart2.setVisible(false);
+        
+        //JComboBox Kunde - !!!Stadig fejl men kører fint!!!
+        jCBoxKunde.removeAllItems();
+        Iterator iter = con.getKundeList().keySet().iterator();
+        while(iter.hasNext())
+        {
+            this.jCBoxKunde.addItem(con.getKundeList().get(iter.next()).getName());
+        }
+
     }
 
     class StaffStatusModel extends AbstractTableModel {
