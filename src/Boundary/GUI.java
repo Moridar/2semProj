@@ -396,6 +396,11 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jButtonOCancel.setText("Annuller");
+        jButtonOCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOCancelActionPerformed(evt);
+            }
+        });
 
         jLabelOSide1.setText("1 af 2");
 
@@ -475,6 +480,11 @@ public class GUI extends javax.swing.JFrame {
         jLPanelOpretOPart2.setPreferredSize(new java.awt.Dimension(855, 485));
 
         jButtonOCancel2.setText("Annuller");
+        jButtonOCancel2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOCancel2ActionPerformed(evt);
+            }
+        });
 
         jButtonOInsert.setText("Indsæt ordren");
 
@@ -654,6 +664,11 @@ public class GUI extends javax.swing.JFrame {
         jPanelOverblik.setVisible(false);
         jLayeredPaneOpretOrdre.setVisible(true);
         jButtonOpretOrdre.setVisible(false);
+        jPanelOpretOPart1.setVisible(true);
+        jTFPostNR.setText("");
+        jTFVej.setText("");
+        jDcDatoStart.setDate(null);
+        jDcDatoSlut.setDate(null);
 
 
     }//GEN-LAST:event_jButtonOpretOrdreActionPerformed
@@ -675,6 +690,18 @@ public class GUI extends javax.swing.JFrame {
         jPanelOpretOPart1.setVisible(true);
         jLPanelOpretOPart2.setVisible(false);
     }//GEN-LAST:event_jButtonOBackActionPerformed
+
+    private void jButtonOCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOCancelActionPerformed
+        jPanelOpretOPart1.setVisible(false);
+        jPanelOverblik.setVisible(true);
+        jButtonOpretOrdre.setVisible(true);
+    }//GEN-LAST:event_jButtonOCancelActionPerformed
+
+    private void jButtonOCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOCancel2ActionPerformed
+        jLPanelOpretOPart2.setVisible(false);
+        jPanelOverblik.setVisible(true);
+        jButtonOpretOrdre.setVisible(true);
+    }//GEN-LAST:event_jButtonOCancel2ActionPerformed
 
     /**
      * @param args the command line arguments
