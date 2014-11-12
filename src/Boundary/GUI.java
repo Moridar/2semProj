@@ -487,6 +487,11 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jButtonOInsert.setText("Indsæt ordren");
+        jButtonOInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOInsertActionPerformed(evt);
+            }
+        });
 
         jLabelOSide2.setText("2 af 2");
 
@@ -702,6 +707,10 @@ public class GUI extends javax.swing.JFrame {
         jPanelOverblik.setVisible(true);
         jButtonOpretOrdre.setVisible(true);
     }//GEN-LAST:event_jButtonOCancel2ActionPerformed
+
+    private void jButtonOInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOInsertActionPerformed
+        
+    }//GEN-LAST:event_jButtonOInsertActionPerformed
 
     /**
      * @param args the command line arguments

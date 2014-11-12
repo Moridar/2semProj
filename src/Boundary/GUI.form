@@ -709,6 +709,9 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Inds&#xe6;t ordren"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonOInsertActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabelOSide2">
                           <Properties>
