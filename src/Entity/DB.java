@@ -16,7 +16,6 @@ public class DB {
     private static String ID = "cphba83";
     private static String PW = "cphba83";
 
-    
 //    ----------------------------------------------------------------------------
 //   Methods to get data from DB
 //    ----------------------------------------------------------------------------    
@@ -146,8 +145,7 @@ public class DB {
             //=== Move cursor one step at a time and
             //	 check for the existence of a row  
             while (rs.next()) {
-                list.put(rs.getInt(1), new Lager(rs.getString(2), 
-                        getKompToLager(rs.getInt(1))));
+                list.put(rs.getInt(1), new Lager(rs.getString(2)));
             }
 
         } catch (Exception ee) {
@@ -181,7 +179,7 @@ public class DB {
             //=== Move cursor one step at a time and
             //	 check for the existence of a row  
             while (rs.next()) {
-                list.put(rs.getInt(1), new Lastbil(rs.getString(2), 
+                list.put(rs.getInt(1), new Lastbil(rs.getString(2),
                         rs.getInt(3), getTransportSkema(rs.getInt(1))));
             }
 
@@ -218,11 +216,11 @@ public class DB {
             while (rs.next()) {
                 list.put(rs.getInt(1), new Ordre(rs.getInt(2), rs.getInt(3),
                         rs.getString(4), rs.getInt(5), rs.getInt(6) == 1,
-                        rs.getDouble(7), rs.getDate(8), rs.getDate(9),
-                        getKompToOrder(rs.getInt(1)), getStaffListToOrder(rs.getInt(1)),
-                        getLastbilListToOrder(rs.getInt(1))));
+                        rs.getDouble(7), rs.getDate(8), rs.getDate(9)));
             }
-
+            getKompToOrder(list);
+            getStaffListToOrder(list);
+            getLastbilListToOrder(list);
         } catch (Exception ee) {
             System.out.println("fail3");
             System.err.println(ee);
@@ -239,7 +237,7 @@ public class DB {
      * @return HashMap<KomponentID, Antal>
      * @throws SQLException
      */
-    private static HashMap<Integer, Integer> getKompToLager(int lagerID) throws SQLException {
+    public static HashMap<Integer, Integer> getKompToLager(int lagerID) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -279,11 +277,10 @@ public class DB {
      * @return HashMap<KomponentID, Antal>
      * @throws SQLException
      */
-    private static HashMap<Integer, Integer> getKompToOrder(int ordreID) throws SQLException {
+    private static void getKompToOrder(HashMap<Integer, Ordre> list) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
-        HashMap<Integer, Integer> list = new HashMap<>();
 
         try {
             Class.forName(driver);
@@ -292,7 +289,7 @@ public class DB {
 
             statement = connection.createStatement();
 
-            String query = "SELECT * FROM UDE WHERE OrdreID = " + ordreID;
+            String query = "SELECT * FROM UDE";
 
             rs = statement.executeQuery(query);
 
@@ -300,7 +297,7 @@ public class DB {
             //=== Move cursor one step at a time and
             //	 check for the existence of a row  
             while (rs.next()) {
-                list.put(rs.getInt(2), rs.getInt(3));
+                list.get(rs.getInt(1)).getKompList().put(rs.getInt(2), rs.getInt(3));
             }
 
         } catch (Exception ee) {
@@ -310,10 +307,10 @@ public class DB {
             statement.close();
             connection.close();
         }
-        return list;
+
     }
 
-    private static HashMap<Date, Integer> getArbejdsSkema(int staffID) throws SQLException {
+    public static HashMap<Date, Integer> getArbejdsSkema(int staffID) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -346,11 +343,11 @@ public class DB {
         }
         return list;
     }
-    private static HashMap<Integer, Date> getStaffListToOrder(int ordreID) throws SQLException {
+
+    private static void getStaffListToOrder(HashMap<Integer, Ordre> list) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
-        HashMap<Integer, Date> list = new HashMap<>();
 
         try {
             Class.forName(driver);
@@ -359,7 +356,7 @@ public class DB {
 
             statement = connection.createStatement();
 
-            String query = "SELECT * FROM arbejde WHERE ordreID = " + ordreID;
+            String query = "SELECT * FROM arbejde";
 
             rs = statement.executeQuery(query);
 
@@ -367,7 +364,7 @@ public class DB {
             //=== Move cursor one step at a time and
             //	 check for the existence of a row  
             while (rs.next()) {
-                list.put(rs.getInt(2), rs.getDate(3));
+                list.get(rs.getInt(2)).getStaffList().put(rs.getInt(1), rs.getDate(3));
             }
 
         } catch (Exception ee) {
@@ -377,9 +374,9 @@ public class DB {
             statement.close();
             connection.close();
         }
-        return list;
     }
-    private static HashMap<Date, Integer> getTransportSkema(int LastbilID) throws SQLException {
+
+    public static HashMap<Date, Integer> getTransportSkema(int LastbilID) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -412,11 +409,11 @@ public class DB {
         }
         return list;
     }
-    private static HashMap<Integer, Date> getLastbilListToOrder(int OrdreID) throws SQLException {
+
+    private static void getLastbilListToOrder(HashMap<Integer, Ordre> list) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
-        HashMap<Integer, Date> list = new HashMap<>();
 
         try {
             Class.forName(driver);
@@ -425,7 +422,7 @@ public class DB {
 
             statement = connection.createStatement();
 
-            String query = "SELECT * FROM Transport WHERE OrdreID = " + OrdreID;
+            String query = "SELECT * FROM Transport";
 
             rs = statement.executeQuery(query);
 
@@ -433,7 +430,7 @@ public class DB {
             //=== Move cursor one step at a time and
             //	 check for the existence of a row  
             while (rs.next()) {
-                list.put(rs.getInt(2), rs.getDate(3));
+                list.get(rs.getInt(1)).getLastbilList().put(rs.getInt(2), rs.getDate(3));
             }
 
         } catch (Exception ee) {
@@ -443,10 +440,10 @@ public class DB {
             statement.close();
             connection.close();
         }
-        return list;
+
     }
-    
-    private static ArrayList<Integer> getOrderToKunde(int KundeID) throws SQLException {
+
+    public static ArrayList<Integer> getOrderToKunde(int KundeID) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -484,6 +481,7 @@ public class DB {
 //    ----------------------------------------------------------------------------
 //    saveData methods
 //    
+
     public static void createNewKunde(int id, Kunde k) throws SQLException {
         Statement statement = null;
         Connection connection = null;
@@ -493,10 +491,10 @@ public class DB {
             connection = DriverManager.getConnection(URL, ID, PW);
             statement = connection.createStatement();
 
-            String insertSQL = "INSERT INTO kunder VALUES (" + 
-                   id + ",'" + k.getName() +"'," + k.getTelefon() + ",'" + k.getEmail()+ "',"
+            String insertSQL = "INSERT INTO kunder VALUES ("
+                    + id + ",'" + k.getName() + "'," + k.getTelefon() + ",'" + k.getEmail() + "',"
                     + k.getRabat() + ")";
-           //=== Execute the statement and retrieve 
+            //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
             int rows = statement.executeUpdate(insertSQL);
 
@@ -514,7 +512,7 @@ public class DB {
             connection.close();
         }
     }
-    
+
     public static void createNewStaff(int id, Staff s) throws SQLException {
         Statement statement = null;
         Connection connection = null;
@@ -524,9 +522,9 @@ public class DB {
             connection = DriverManager.getConnection(URL, ID, PW);
             statement = connection.createStatement();
 
-            String insertSQL = "INSERT INTO staff VALUES (" + 
-                   id + ",'" + s.getNavn() +"'," + s.getTelefon() + ",'" + s.getStilling() + ")";
-           //=== Execute the statement and retrieve 
+            String insertSQL = "INSERT INTO staff VALUES ("
+                    + id + ",'" + s.getNavn() + "'," + s.getTelefon() + ",'" + s.getStilling() + ")";
+            //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
             int rows = statement.executeUpdate(insertSQL);
 
@@ -544,16 +542,18 @@ public class DB {
             connection.close();
         }
     }
+
     public static void createNewOrdre(int id, Ordre o) throws SQLException {
         try {
-          saveNewOrdre(id, o);
+            saveNewOrdre(id, o);
 //          saveNewKompList(id, o.getKompList());
 //          saveNewStaffList(id, o.getStaffList());
 //          saveNewLastbilList(id, o.getLastbilList());
         } catch (Exception e) {
         }
-   
+
     }
+
     private static void saveNewOrdre(int id, Ordre o) throws SQLException {
         Statement statement = null;
         Connection connection = null;
@@ -563,11 +563,11 @@ public class DB {
             connection = DriverManager.getConnection(URL, ID, PW);
             statement = connection.createStatement();
 
-            String insertSQL = "INSERT INTO ordre VALUES (" + 
-                   id + ",'" + o.getSalgsmedarbsID()+"'," + o.getKundeID()+ ",'" + o.getVej()+ ","
-                    + o.getPostNR() + "," + o.getConfirmation() + "," 
+            String insertSQL = "INSERT INTO ordre VALUES ("
+                    + id + ",'" + o.getSalgsmedarbsID() + "'," + o.getKundeID() + ",'" + o.getVej() + ","
+                    + o.getPostNR() + "," + o.getConfirmation() + ","
                     + o.getPris() + "," + o.getDatoStart() + "," + o.getDatoSlut() + ")";
-           //=== Execute the statement and retrieve 
+            //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
             int rows = statement.executeUpdate(insertSQL);
 

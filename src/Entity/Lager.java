@@ -17,7 +17,7 @@ public class Lager {
     //KompList<KompID, Antal>
     private HashMap<Integer, Integer> KompList;
 
-    public Lager(String navn, HashMap<Integer, Integer> KompList) {
+    public Lager(String navn) {
         this.navn = navn;
         this.KompList = KompList;
     }
@@ -28,6 +28,10 @@ public class Lager {
 
     public HashMap<Integer, Integer> getKompList() {
         return KompList;
+    }
+
+    public void setKompList(HashMap<Integer, Integer> KompList) {
+        this.KompList = KompList;
     }
 
 

@@ -27,22 +27,8 @@ public class Ordre {
     private HashMap<Integer, Integer> KompList;
     private HashMap<Integer, Date> StaffList;
     private HashMap<Integer, Date> LastbilList;
-
-    public Ordre(int SalgsmedarbsID, int KundeID, String vej, int PostNR, boolean confirmation, double pris, Date datoStart, Date datoSlut, HashMap<Integer, Integer> KompList, HashMap<Integer, Date> StaffList, HashMap<Integer, Date> LastbilList) {
-        this.SalgsmedarbsID = SalgsmedarbsID;
-        this.KundeID = KundeID;
-        this.vej = vej;
-        this.PostNR = PostNR;
-        this.confirmation = confirmation;
-        this.pris = pris;
-        this.datoStart = datoStart;
-        this.datoSlut = datoSlut;
-        this.KompList = KompList;
-        this.StaffList = StaffList;
-        this.LastbilList = LastbilList;
-    }
     
-    public Ordre(int SalgsmedarbsID, int KundeID, String vej, int PostNR, double pris, Date datoStart, Date datoSlut) {
+    public Ordre(int SalgsmedarbsID, int KundeID, String vej, int PostNR, boolean confirmation, double pris, Date datoStart, Date datoSlut) {
         this.SalgsmedarbsID = SalgsmedarbsID;
         this.KundeID = KundeID;
         this.vej = vej;
@@ -51,6 +37,9 @@ public class Ordre {
         this.datoStart = datoStart;
         this.datoSlut = datoSlut;
         confirmation = false;
+        KompList = new HashMap<>();
+        StaffList = new HashMap<>();
+        LastbilList = new HashMap<>();
     }
 
     public void confirmThis() {

@@ -136,27 +136,30 @@ public class GUI extends javax.swing.JFrame {
         public Object getValueAt(int row, int col) {
             int id = (int) con.getKompList().keySet().toArray()[row];
             int i;
-            switch(col){
-                case 0: return id; 
-                case 1: return con.getKompList().get(id).getNavn();
-                case 2: return con.getKompList().get(id).getPrisPerDag();
-                case 3: i = 0;
+            switch (col) {
+                case 0:
+                    return id;
+                case 1:
+                    return con.getKompList().get(id).getNavn();
+                case 2:
+                    return con.getKompList().get(id).getPrisPerDag();
+                case 3:
+                    i = 0;
                     for (Lager lager : con.getLagerList().values()) {
                         i += lager.getKompList().get(id);
-                    } return i;
-                case 4: i = 0;
+                    }
+                    return i;
+                case 4:
+                    i = 0;
                     for (Ordre order : con.getOrdreList().values()) {
-                        if(new Date().after(order.getDatoStart()) &&
-                                new Date().before(order.getDatoSlut()))
-                        i += order.getKompList().get(id);
-                    } return i;
+                        if (new Date().after(order.getDatoStart())
+                                && new Date().before(order.getDatoSlut())) {
+                            i += order.getKompList().get(id);
+                        }
+                    }
+                    return i;
             }
             return null;
-        }
-
-        @Override
-        public Class getColumnClass(int c) {
-            return getValueAt(0, c).getClass();
         }
 
     }
