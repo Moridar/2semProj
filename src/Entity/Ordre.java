@@ -84,6 +84,11 @@ public class Ordre {
     public boolean isConfirmation() {
         return confirmation;
     }
+    
+    public int getConfirmation(){
+        if(isConfirmation()) return 1;
+        return 0;
+    }
 
     public double getPris() {
         return pris;

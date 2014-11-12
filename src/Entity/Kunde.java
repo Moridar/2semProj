@@ -17,14 +17,14 @@ public class Kunde {
     private int telefon;
     private String email;
     private int rabat;
-    private ArrayList<Ordre> ordreList;
+    private ArrayList<Integer> ordreList;
 
-    public Kunde(String name, int telefon, String email, int rabat) {
+    public Kunde(String name, int telefon, String email, int rabat, ArrayList<Integer> ordreList) {
         this.name = name;
         this.telefon = telefon;
         this.email = email;
         this.rabat = rabat;
-        this.ordreList = new ArrayList<>();
+        this.ordreList = ordreList;
     }
 
     public String getName() {
@@ -43,7 +43,7 @@ public class Kunde {
         return rabat;
     }
 
-    public ArrayList<Ordre> getOrdreList() {
+    public ArrayList<Integer> getOrdreList() {
         return ordreList;
     }
     

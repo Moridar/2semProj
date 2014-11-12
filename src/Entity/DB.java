@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -41,7 +42,7 @@ public class DB {
             //	 check for the existence of a row  
             while (rs.next()) {
                 list.put(rs.getInt(1), new Kunde(rs.getString(2),
-                        rs.getInt(3), rs.getString(4), rs.getInt(5)));
+                        rs.getInt(3), rs.getString(4), rs.getInt(5), getOrderToKunde(rs.getInt(1))));
             }
 
         } catch (Exception ee) {
@@ -444,39 +445,144 @@ public class DB {
         }
         return list;
     }
+    
+    private static ArrayList<Integer> getOrderToKunde(int KundeID) throws SQLException {
+        ResultSet rs = null;
+        Statement statement = null;
+        Connection connection = null;
+        ArrayList<Integer> list = new ArrayList<>();
+
+        try {
+            Class.forName(driver);
+
+            connection = DriverManager.getConnection(URL, ID, PW);
+
+            statement = connection.createStatement();
+
+            String query = "SELECT * FROM Ordre WHERE KundeID = " + KundeID;
+
+            rs = statement.executeQuery(query);
+
+            //=== read the result
+            //=== Move cursor one step at a time and
+            //	 check for the existence of a row  
+            while (rs.next()) {
+                list.add(rs.getInt(1));
+            }
+        } catch (Exception ee) {
+            System.out.println("fail9");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+        return list;
+    }
 //    End of getData methods
 //    ----------------------------------------------------------------------------    
 //    ----------------------------------------------------------------------------
 //    ----------------------------------------------------------------------------
 //    saveData methods
 //    
-//    public static void saveNewKunde(Kunde k) throws SQLException {
-//        Statement statement = null;
-//        Connection connection = null;
-//
-//        try {
-//            Class.forName(driver);
-//            connection = DriverManager.getConnection(URL, ID, PW);
-//            statement = connection.createStatement();
-//
-//            String insertSQL = "INSERT INTO persons VALUES ("
-//                    + +p.getId() + ",'" + p.getName() + "')";
-//           //=== Execute the statement and retrieve 
-//            //	a count of how many rows was inserted      
-//            int rows = statement.executeUpdate(insertSQL);
-//
-//            //=== Validate the result
-//            if (rows == 1) {
-//                System.out.println("One row inserted!");
-//            } else {
-//                System.out.println("No row inserted (fail)");
-//            }
-//        } catch (Exception ee) {
-//            System.out.println("fail");
-//            System.err.println(ee);
-//        } finally {
-//            statement.close();
-//            connection.close();
-//        }
-//    }
+    public static void createNewKunde(int id, Kunde k) throws SQLException {
+        Statement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+            statement = connection.createStatement();
+
+            String insertSQL = "INSERT INTO kunder VALUES (" + 
+                   id + ",'" + k.getName() +"'," + k.getTelefon() + ",'" + k.getEmail()+ "',"
+                    + k.getRabat() + ")";
+           //=== Execute the statement and retrieve 
+            //	a count of how many rows was inserted      
+            int rows = statement.executeUpdate(insertSQL);
+
+            //=== Validate the result
+            if (rows == 1) {
+                System.out.println("One row inserted!");
+            } else {
+                System.out.println("No row inserted (fail)");
+            }
+        } catch (Exception ee) {
+            System.out.println("fail");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+    
+    public static void createNewStaff(int id, Staff s) throws SQLException {
+        Statement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+            statement = connection.createStatement();
+
+            String insertSQL = "INSERT INTO staff VALUES (" + 
+                   id + ",'" + s.getNavn() +"'," + s.getTelefon() + ",'" + s.getStilling() + ")";
+           //=== Execute the statement and retrieve 
+            //	a count of how many rows was inserted      
+            int rows = statement.executeUpdate(insertSQL);
+
+            //=== Validate the result
+            if (rows == 1) {
+                System.out.println("One row inserted!");
+            } else {
+                System.out.println("No row inserted (fail)");
+            }
+        } catch (Exception ee) {
+            System.out.println("fail");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+    public static void createNewOrdre(int id, Ordre o) throws SQLException {
+        try {
+          saveNewOrdre(id, o);
+//          saveNewKompList(id, o.getKompList());
+//          saveNewStaffList(id, o.getStaffList());
+//          saveNewLastbilList(id, o.getLastbilList());
+        } catch (Exception e) {
+        }
+   
+    }
+    private static void saveNewOrdre(int id, Ordre o) throws SQLException {
+        Statement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+            statement = connection.createStatement();
+
+            String insertSQL = "INSERT INTO ordre VALUES (" + 
+                   id + ",'" + o.getSalgsmedarbsID()+"'," + o.getKundeID()+ ",'" + o.getVej()+ ","
+                    + o.getPostNR() + "," + o.getConfirmation() + "," 
+                    + o.getPris() + "," + o.getDatoStart() + "," + o.getDatoSlut() + ")";
+           //=== Execute the statement and retrieve 
+            //	a count of how many rows was inserted      
+            int rows = statement.executeUpdate(insertSQL);
+
+            //=== Validate the result
+            if (rows == 1) {
+                System.out.println("One row inserted!");
+            } else {
+                System.out.println("No row inserted (fail)");
+            }
+        } catch (Exception ee) {
+            System.out.println("fail");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
 }
