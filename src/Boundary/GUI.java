@@ -23,7 +23,7 @@ public class GUI extends javax.swing.JFrame {
     /**
      * Creates new form GUI
      */
-    private Control con;
+    private final Control con;
 
     public GUI() {
         con = new Control();        
