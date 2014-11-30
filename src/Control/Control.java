@@ -106,5 +106,17 @@ public class Control {
         return KompList;
     }
     
-
+    public void createNewOrdre(Ordre o){
+        int id = 0;
+        for (Integer Ordreid : OrdreList.keySet()) {
+            if(Ordreid >= id) id = Ordreid +1;
+        }        
+        try {
+            DB.createNewOrdre(id, o);
+            OrdreList = DB.getAllOrder();
+        } catch (Exception e) {
+            System.out.println("Control:createNewOrdre failed");
+        }
+        
+    }
 }

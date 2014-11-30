@@ -1,13 +1,11 @@
 package Entity;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.io.File;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class DB {
 
@@ -296,6 +294,7 @@ public class DB {
             //=== read the result
             //=== Move cursor one step at a time and
             //	 check for the existence of a row  
+            // 1 = ordre id, 2 = kompID, 3 = antal)
             while (rs.next()) {
                 list.get(rs.getInt(1)).getKompList().put(rs.getInt(2), rs.getInt(3));
             }
@@ -546,9 +545,9 @@ public class DB {
     public static void createNewOrdre(int id, Ordre o) throws SQLException {
         try {
             saveNewOrdre(id, o);
-//          saveNewKompList(id, o.getKompList());
-//          saveNewStaffList(id, o.getStaffList());
-//          saveNewLastbilList(id, o.getLastbilList());
+            saveNewKompList(id, o.getKompList());
+            saveNewStaffList(id, o.getStaffList());
+            saveNewLastbilList(id, o.getLastbilList());
         } catch (Exception e) {
         }
 
@@ -564,9 +563,9 @@ public class DB {
             statement = connection.createStatement();
 
             String insertSQL = "INSERT INTO ordre VALUES ("
-                    + id + ",'" + o.getSalgsmedarbsID() + "'," + o.getKundeID() + ",'" + o.getVej() + ","
+                    + id + "," + o.getSalgsmedarbsID() + "," + o.getKundeID() + ",'" + o.getVej() + "',"
                     + o.getPostNR() + "," + o.getConfirmation() + ","
-                    + o.getPris() + "," + o.getDatoStart() + "," + o.getDatoSlut() + ")";
+                    + o.getPris() + ",'" + convertJavaDateToSqlDate(o.getDatoStart()) + "','" + convertJavaDateToSqlDate(o.getDatoSlut()) + "')";
             //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
             int rows = statement.executeUpdate(insertSQL);
@@ -578,8 +577,104 @@ public class DB {
                 System.out.println("No row inserted (fail)");
             }
         } catch (Exception ee) {
+            System.out.println("fail lelz");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+
+    private static void saveNewKompList(int id, HashMap<Integer, Integer> KompList) throws SQLException {
+        PreparedStatement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+
+            String query = "Insert into ude VALUES (?,?,?)";
+            statement = connection.prepareStatement(query);
+            // Read data for new parts from file and insert into database 
+            // Format of file: Each line contains values for one part.
+            // pno pname qoh price olevel
+
+            int rows = 0;
+            for (Integer KompID : KompList.keySet()) {
+                statement.setInt(1, id);
+                statement.setInt(2, KompID);
+                statement.setInt(3, KompList.get(KompID));
+
+                statement.executeUpdate();
+            }
+        } catch (Exception ee) {
             System.out.println("fail");
             System.err.println(ee);
+            ee.printStackTrace();
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+
+    private static java.sql.Date convertJavaDateToSqlDate(java.util.Date date) {
+        return new java.sql.Date(date.getTime());
+    }
+
+    private static void saveNewStaffList(int id, HashMap<Integer, Date> StaffList) throws SQLException {
+        PreparedStatement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+
+            String query = "Insert into arbejde VALUES (?,?,?)";
+            statement = connection.prepareStatement(query);
+            // Read data for new parts from file and insert into database 
+            // Format of file: Each line contains values for one part.
+            // pno pname qoh price olevel
+
+            for (Integer StaffID : StaffList.keySet()) {
+                statement.setInt(1, id);
+                statement.setInt(2, StaffID);
+                statement.setDate(3, convertJavaDateToSqlDate(StaffList.get(StaffID)));
+                statement.executeUpdate();
+            }
+        } catch (Exception ee) {
+            System.out.println("fail");
+            System.err.println(ee);
+            ee.printStackTrace();
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+
+    private static void saveNewLastbilList(int id, HashMap<Integer, Date> LastbilList) throws SQLException {
+        PreparedStatement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+
+            String query = "Insert into transport VALUES (?,?,?)";
+            statement = connection.prepareStatement(query);
+            // Read data for new parts from file and insert into database 
+            // Format of file: Each line contains values for one part.
+            // pno pname qoh price olevel
+
+            for (Integer LastbilID : LastbilList.keySet()) {
+                statement.setInt(1, id);
+                statement.setInt(2, LastbilID);
+                statement.setDate(3, convertJavaDateToSqlDate(LastbilList.get(LastbilID)));
+                statement.executeUpdate();
+            }
+        } catch (Exception ee) {
+            System.out.println("fail");
+            System.err.println(ee);
+            ee.printStackTrace();
         } finally {
             statement.close();
             connection.close();

@@ -10,6 +10,7 @@ import Entity.Lager;
 import Entity.Ordre;
 import com.sun.glass.events.KeyEvent;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.AbstractTableModel;
@@ -24,21 +25,23 @@ public class GUI extends javax.swing.JFrame {
      * Creates new form GUI
      */
     private final Control con;
+    //Temperoily list for jCBoxKunde
+    private HashMap<String, Integer> tempList = new HashMap<>();
 
     public GUI() {
-        con = new Control();        
-        initComponents();        
+        con = new Control();
+        initComponents();
         jLayeredPaneOpretOrdre.setVisible(false);
         jLPanelOpretOPart2.setVisible(false);
-        
+
         //JComboBox Kunde - !!!Stadig fejl men kører fint!!!
         jCBoxKunde.setModel(new DefaultComboBoxModel());//.removeAllItems();
-        Iterator iter = con.getKundeList().keySet().iterator();
-        while(iter.hasNext())
-        {
-            this.jCBoxKunde.addItem(con.getKundeList().get(iter.next()).getName());
+        for (int kundeid : con.getKundeList().keySet()) {
+            tempList.put(con.getKundeList().get(kundeid).getName(), kundeid);
         }
-
+        for (String kundeNavn : tempList.keySet()) {
+            this.jCBoxKunde.addItem(kundeNavn);
+        }
     }
 
     class StaffStatusModel extends AbstractTableModel {
@@ -63,11 +66,15 @@ public class GUI extends javax.swing.JFrame {
         @Override
         public Object getValueAt(int row, int col) {
             int id = (int) con.getStaffList().keySet().toArray()[row];
-            switch(col){
-                case 0: return id; 
-                case 1: return con.getStaffList().get(id).getNavn();
-                case 2: return con.getStaffList().get(id).getTelefon();
-                case 3: return con.getStaffList().get(id).getStilling();
+            switch (col) {
+                case 0:
+                    return id;
+                case 1:
+                    return con.getStaffList().get(id).getNavn();
+                case 2:
+                    return con.getStaffList().get(id).getTelefon();
+                case 3:
+                    return con.getStaffList().get(id).getStilling();
             }
             return null;
         }
@@ -78,6 +85,7 @@ public class GUI extends javax.swing.JFrame {
         }
 
     }
+
     class LastbilStatusModel extends AbstractTableModel {
 
         String[] columnNames = {"ID", "Navn", "Telefon"};
@@ -100,10 +108,13 @@ public class GUI extends javax.swing.JFrame {
         @Override
         public Object getValueAt(int row, int col) {
             int id = (int) con.getLastbilList().keySet().toArray()[row];
-            switch(col){
-                case 0: return id; 
-                case 1: return con.getLastbilList().get(id).getNavn();
-                case 2: return con.getLastbilList().get(id).getTelefon();
+            switch (col) {
+                case 0:
+                    return id;
+                case 1:
+                    return con.getLastbilList().get(id).getNavn();
+                case 2:
+                    return con.getLastbilList().get(id).getTelefon();
             }
             return null;
         }
@@ -114,7 +125,8 @@ public class GUI extends javax.swing.JFrame {
         }
 
     }
-        class KomponentStatusModel extends AbstractTableModel {
+
+    class KomponentStatusModel extends AbstractTableModel {
 
         String[] columnNames = {"ID", "Navn", "Pris/Dag", "Antal Hjemme", "Antal Ude"};
 
@@ -159,6 +171,51 @@ public class GUI extends javax.swing.JFrame {
                         }
                     }
                     return i;
+            }
+            return null;
+        }
+
+    }
+
+    class OrdreTableModel extends AbstractTableModel {
+
+        String[] columnNames = {"Salgsmedarbjer", "Kunde", "Vej", "Post", "Pris", "Start", "Slut", "Bekræftet"};
+
+        @Override
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        @Override
+        public int getRowCount() {
+            return con.getOrdreList().keySet().size();
+        }
+
+        @Override
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            int id = (int) con.getOrdreList().keySet().toArray()[row];
+            switch (col) {
+                case 0:
+                    return con.getStaffList().get(con.getOrdreList().get(id).getSalgsmedarbsID());
+                case 1:
+                    return con.getKundeList().get(con.getOrdreList().get(id).getKundeID());
+                case 2:
+                    return con.getOrdreList().get(id).getVej();
+                case 3:
+                    return con.getOrdreList().get(id).getPostNR();
+                case 4:
+                    return con.getOrdreList().get(id).getPris();
+                case 5:
+                    return con.getOrdreList().get(id).getDatoStart();
+                case 6:
+                    return con.getOrdreList().get(id).getDatoSlut();
+                case 7:
+                    return con.getOrdreList().get(id).getConfirmation() == 1;
             }
             return null;
         }
@@ -299,17 +356,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable1.setModel(new OrdreTableModel());
         jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanelNuOrdreLayout = new javax.swing.GroupLayout(jPanelNuOrdre);
@@ -713,7 +760,18 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOCancel2ActionPerformed
 
     private void jButtonOInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOInsertActionPerformed
-        
+        int salgsmedarbejderID = 0000;
+        int kundeID = tempList.get(jCBoxKunde.getSelectedItem());
+        String vej = jTFVej.getText();
+        int Postnr = Integer.parseInt(jTFPostNR.getText());
+        boolean confirm = false;
+        int pris = 0;
+        Date datoStart = jDcDatoStart.getDate();
+        Date datoSlut = jDcDatoSlut.getDate();
+
+        Ordre o = new Ordre(salgsmedarbejderID, kundeID, vej, Postnr, confirm, pris, datoStart, datoSlut);
+
+        con.createNewOrdre(o);
     }//GEN-LAST:event_jButtonOInsertActionPerformed
 
     /**
