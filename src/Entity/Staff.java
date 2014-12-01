@@ -54,6 +54,13 @@ public class Staff {
     public HashMap<Date, Integer> getArbejdeskema() {
         return arbejdeskema;
     }
+
+    @Override
+    public String toString() {
+        return navn ;
+    }
+    
+    
     
     
 }

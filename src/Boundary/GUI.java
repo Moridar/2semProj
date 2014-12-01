@@ -1527,7 +1527,18 @@ public class GUI extends javax.swing.JFrame {
         Date datoSlut = jDcDatoSlut.getDate();
 
         Ordre o = new Ordre(salgsmedarbejderID, kundeID, vej, Postnr, confirm, pris, datoStart, datoSlut);
-        
+        for (int i = 0; i < jListMonUde.getModel().getSize(); i++) {
+            o.getStaffList().put(tempMonList.get(jListMonUde.getModel().getElementAt(i)), datoStart);            
+            o.getStaffList().put(tempMonList.get(jListMonUde.getModel().getElementAt(i)), datoSlut);            
+        }
+        for (int i = 0; i < jListKompUde.getModel().getSize(); i++) {
+            o.getKompList().put(tempKompList.get(jListKompUde.getModel().getElementAt(i)), 1);
+        }
+        for (int i = 0; i < jListLastUde.getModel().getSize(); i++) {
+            o.getLastbilList().put(tempLastList.get(jListLastUde.getModel().getElementAt(i)), datoStart);
+            o.getLastbilList().put(tempLastList.get(jListLastUde.getModel().getElementAt(i)), datoSlut);
+        }
+
         con.createNewOrdre(o);
     }//GEN-LAST:event_jButtonOInsertActionPerformed
 
@@ -1556,6 +1567,7 @@ public class GUI extends javax.swing.JFrame {
         for (String staffNavn : tempMonList.keySet()) {
             ListModelMonHjem.addElement(staffNavn);
         }
+
 
         jListMonHjem.setModel(ListModelMonHjem);
         //Ude
