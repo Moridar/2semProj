@@ -57,6 +57,8 @@ public class GUI extends javax.swing.JFrame {
         }
         
         jListMonHjem.setModel(ListModelMonHjem);
+        
+        //YO
     }
 
     class StaffStatusModel extends AbstractTableModel {
