@@ -44,11 +44,7 @@ public class GUI extends javax.swing.JFrame {
         jLayeredPaneKundeOprettelse.setVisible(false);
         jLayeredPaneKomponentOprettelse.setVisible(false);
         jLayeredPaneStaffOprettelse.setVisible(false);
-        jLayeredPaneLastbilOprettelse.setVisible(false);
-
-    
-
-       
+        jLayeredPaneLastbilOprettelse.setVisible(false);   
     }
 
     class StaffStatusModel extends AbstractTableModel {
