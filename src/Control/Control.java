@@ -34,7 +34,7 @@ public class Control {
         StaffListLastRefresh = new Date(0, 0, 1);
         LastbilListLastRefresh = new Date(0, 0, 1);
         LagerListLastRefresh = new Date(0, 0, 1);
-        KompListLastRefresh = new Date(0,0,1);
+        KompListLastRefresh = new Date(0, 0, 1);
     }
 
     public HashMap<Integer, Kunde> getKundeList() {
@@ -43,6 +43,7 @@ public class Control {
                 KundeList = DB.getAllKunde();
                 KundeListLastRefresh = new Date();
             } catch (Exception e) {
+                KundeList = new HashMap<>();
             }
         }
         return KundeList;
@@ -54,6 +55,7 @@ public class Control {
                 OrdreList = DB.getAllOrder();
                 OrdreListLastRefresh = new Date();
             } catch (Exception e) {
+                OrdreList = new HashMap<>();
             }
         }
         return OrdreList;
@@ -65,6 +67,7 @@ public class Control {
                 StaffList = DB.getAllStaff();
                 StaffListLastRefresh = new Date();
             } catch (Exception e) {
+                StaffList = new HashMap<>();
             }
         }
         return StaffList;
@@ -76,6 +79,7 @@ public class Control {
                 LastbilList = DB.getAllLastbil();
                 LastbilListLastRefresh = new Date();
             } catch (Exception e) {
+                LastbilList = new HashMap<>();
             }
         }
         return LastbilList;
@@ -90,33 +94,100 @@ public class Control {
                 }
                 LagerListLastRefresh = new Date();
             } catch (Exception e) {
+                LagerList = new HashMap<>();
             }
         }
         return LagerList;
     }
-    
-    public HashMap<Integer, Komponent> getKompList(){
+
+    public HashMap<Integer, Komponent> getKompList() {
         if (new Date().getTime() - KompListLastRefresh.getTime() > 300000) {
             try {
                 KompList = DB.getAllKomponenter();
                 KompListLastRefresh = new Date();
             } catch (Exception e) {
+                KompList = new HashMap<>();
             }
         }
         return KompList;
     }
-    
-    public void createNewOrdre(Ordre o){
+
+    public void createNewOrdre(Ordre o) {
         int id = 0;
         for (Integer Ordreid : OrdreList.keySet()) {
-            if(Ordreid >= id) id = Ordreid +1;
-        }        
+            if (Ordreid >= id) {
+                id = Ordreid + 1;
+            }
+        }
         try {
             DB.createNewOrdre(id, o);
             OrdreList = DB.getAllOrder();
         } catch (Exception e) {
             System.out.println("Control:createNewOrdre failed");
         }
-        
+
     }
+
+    public void createNewKunde(Kunde k) {
+        int id = 0;
+        for (Integer Kundeid : KundeList.keySet()) {
+            if (Kundeid >= id) {
+                id = Kundeid + 1;
+            }
+        }
+        try {
+            DB.createNewKunde(id, k);
+            KundeList = DB.getAllKunde();
+        } catch (Exception e) {
+            System.out.println("Control:createNewKunde failed");
+        }
+    }
+
+    public void createNewKomponent(Komponent k) {
+        int id = 0;
+        for (Integer Kompid : KompList.keySet()) {
+            if (Kompid >= id) {
+                id = Kompid + 1;
+            }
+        }
+        try {
+            DB.createNewKomponent(id, k);
+            KompList = DB.getAllKomponenter();
+        } catch (Exception e) {
+            System.out.println("Control:createNewKomponent failed");
+        }
+    }
+    
+     public void createNewLastbil(Lastbil k) {
+        int id = 0;
+        for (Integer Lastbilid : LastbilList.keySet()) {
+            if (Lastbilid >= id) {
+                id = Lastbilid + 1;
+            }
+        }
+        try {
+            DB.createNewLastbil(id, k);
+            LastbilList = DB.getAllLastbil();
+        } catch (Exception e) {
+            System.out.println("Control:createNewLastbil failed");
+        }
+    }
+     
+      public void createNewStaff(Staff k) {
+        int id = 0;
+        for (Integer Staffid : StaffList.keySet()) {
+            if (Staffid >= id) {
+                id = Staffid + 1;
+            }
+        }
+        try {
+            DB.createNewStaff(id, k);
+            StaffList = DB.getAllStaff();
+        } catch (Exception e) {
+            System.out.println("Control:createNewStaff failed");
+        }
+    }
+      
+   
+
 }

@@ -680,4 +680,64 @@ public class DB {
             connection.close();
         }
     }
+    
+    public static void createNewKomponent(int id, Komponent k) throws SQLException {
+        Statement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+            statement = connection.createStatement();
+
+            String insertSQL = "INSERT INTO komponent VALUES ("
+                    + id + ",'" + k.getNavn() + "'," + k.getPrisPerDag() + ")";
+            //=== Execute the statement and retrieve 
+            //	a count of how many rows was inserted      
+            int rows = statement.executeUpdate(insertSQL);
+
+            //=== Validate the result
+            if (rows == 1) {
+                System.out.println("One row inserted!");
+            } else {
+                System.out.println("No row inserted (fail)");
+            }
+        } catch (Exception ee) {
+            System.out.println("Fail: DB createNewKomponent");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+    
+    public static void createNewLastbil(int id, Lastbil l) throws SQLException {
+        Statement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+            statement = connection.createStatement();
+
+            String insertSQL = "INSERT INTO Lastbil VALUES ("
+                    + id + ",'" + l.getNavn() + "'," + l.getTelefon() + ")";
+            //=== Execute the statement and retrieve 
+            //	a count of how many rows was inserted      
+            int rows = statement.executeUpdate(insertSQL);
+
+            //=== Validate the result
+            if (rows == 1) {
+                System.out.println("One row inserted!");
+            } else {
+                System.out.println("No row inserted (fail)");
+            }
+        } catch (Exception ee) {
+            System.out.println("Fail: DB createNewLastbil");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
 }
