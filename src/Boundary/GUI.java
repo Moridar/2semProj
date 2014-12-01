@@ -46,25 +46,9 @@ public class GUI extends javax.swing.JFrame {
         jLayeredPaneStaffOprettelse.setVisible(false);
         jLayeredPaneLastbilOprettelse.setVisible(false);
 
-        //JComboBox Kunde 
-        jCBoxKunde.setModel(new DefaultComboBoxModel());//.removeAllItems();
-        for (int kundeid : con.getKundeList().keySet()) {
-            tempKundeList.put(con.getKundeList().get(kundeid).getName(), kundeid);
-        }
-        for (String kundeNavn : tempKundeList.keySet()) {
-            this.jCBoxKunde.addItem(kundeNavn);
-        }
+    
 
-        //JList i opret ordre
-        DefaultListModel ListModelMonHjem = new DefaultListModel();
-        for (int staffid : con.getStaffList().keySet()) {
-            tempMonHjemList.put(con.getStaffList().get(staffid).getNavn(), staffid);
-        }
-        for (String staffNavn : tempMonHjemList.keySet()) {
-            ListModelMonHjem.addElement(staffNavn);
-        }
-
-        jListMonHjem.setModel(ListModelMonHjem);
+       
     }
 
     class StaffStatusModel extends AbstractTableModel {
@@ -1534,6 +1518,16 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonONextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonONextActionPerformed
         jPanelOpretOPart1.setVisible(false);
         jLPanelOpretOPart2.setVisible(true);
+         //JList i opret ordre
+        DefaultListModel ListModelMonHjem = new DefaultListModel();
+        for (int staffid : con.getStaffList().keySet()) {
+            tempMonHjemList.put(con.getStaffList().get(staffid).getNavn(), staffid);
+        }
+        for (String staffNavn : tempMonHjemList.keySet()) {
+            ListModelMonHjem.addElement(staffNavn);
+        }
+
+        jListMonHjem.setModel(ListModelMonHjem);
     }//GEN-LAST:event_jButtonONextActionPerformed
 
     private void jTFPostNRKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFPostNRKeyTyped
@@ -1554,7 +1548,14 @@ public class GUI extends javax.swing.JFrame {
         jTFVej.setText("");
         jDcDatoStart.setDate(null);
         jDcDatoSlut.setDate(null);
-
+           //JComboBox Kunde 
+        jCBoxKunde.setModel(new DefaultComboBoxModel());//.removeAllItems();
+        for (int kundeid : con.getKundeList().keySet()) {
+            tempKundeList.put(con.getKundeList().get(kundeid).getName(), kundeid);
+        }
+        for (String kundeNavn : tempKundeList.keySet()) {
+            this.jCBoxKunde.addItem(kundeNavn);
+        }
     }//GEN-LAST:event_jButtonOpretOrdreActionPerformed
 
     private void jButtonOpretNyKundeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpretNyKundeActionPerformed
@@ -1621,6 +1622,7 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldStaffNavn.setText("");
         jTextFieldStaffStilling.setText("");
         jTextFieldStaffTelefon.setText("");
+ 
     }//GEN-LAST:event_jButtonOpretNyStaffActionPerformed
 
     private void jButtonOpretStaffAnnullerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpretStaffAnnullerActionPerformed
