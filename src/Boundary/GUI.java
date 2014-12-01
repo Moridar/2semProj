@@ -11,8 +11,9 @@ import Entity.Ordre;
 import com.sun.glass.events.KeyEvent;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
+
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -26,7 +27,10 @@ public class GUI extends javax.swing.JFrame {
      */
     private final Control con;
     //Temperoily list for jCBoxKunde
-    private HashMap<String, Integer> tempList = new HashMap<>();
+    private final HashMap<String, Integer> tempKundeList = new HashMap<>();
+    
+    //Temperoily list for JList i opret ordre
+    private final HashMap<String, Integer> tempMonHjemList = new HashMap<>();
 
     public GUI() {
         con = new Control();
@@ -34,13 +38,22 @@ public class GUI extends javax.swing.JFrame {
         jLayeredPaneOpretOrdre.setVisible(false);
         jLPanelOpretOPart2.setVisible(false);
 
-        //JComboBox Kunde - !!!Stadig fejl men kører fint!!!
+        //JComboBox Kunde 
         jCBoxKunde.setModel(new DefaultComboBoxModel());//.removeAllItems();
         for (int kundeid : con.getKundeList().keySet()) {
-            tempList.put(con.getKundeList().get(kundeid).getName(), kundeid);
+            tempKundeList.put(con.getKundeList().get(kundeid).getName(), kundeid);
         }
-        for (String kundeNavn : tempList.keySet()) {
+        for (String kundeNavn : tempKundeList.keySet()) {
             this.jCBoxKunde.addItem(kundeNavn);
+        }
+        
+        //JList i opret ordre
+        jListMonHjem.setModel(new DefaultListModel());
+        for (int staffid : con.getStaffList().keySet()) {
+            tempMonHjemList.put(con.getStaffList().get(staffid).getNavn(), staffid);
+        }
+        for (String staffNavn : tempMonHjemList.keySet()) {
+            jListMonHjem.addElement(staffNavn);
         }
     }
 
@@ -275,6 +288,27 @@ public class GUI extends javax.swing.JFrame {
         jButtonOInsert = new javax.swing.JButton();
         jLabelOSide2 = new javax.swing.JLabel();
         jButtonOBack = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jListMonHjem = new javax.swing.JList();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jListMonUde = new javax.swing.JList();
+        jButtonMonUde = new javax.swing.JButton();
+        jButtonMonHjem = new javax.swing.JButton();
+        jLabelMon = new javax.swing.JLabel();
+        jLabelLast = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jListLastHjem = new javax.swing.JList();
+        jButtonLastHjem = new javax.swing.JButton();
+        jButtonLastUde = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jListLastUde = new javax.swing.JList();
+        jLabelKomp = new javax.swing.JLabel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jListKompHjem = new javax.swing.JList();
+        jButtonKompHjem = new javax.swing.JButton();
+        jButtonKompUde = new javax.swing.JButton();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        jListKompUde = new javax.swing.JList();
         jPanelKunde = new javax.swing.JPanel();
         jPanelResource = new javax.swing.JPanel();
 
@@ -553,6 +587,69 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        jListMonHjem.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane6.setViewportView(jListMonHjem);
+
+        jListMonUde.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane7.setViewportView(jListMonUde);
+
+        jButtonMonUde.setText(">");
+
+        jButtonMonHjem.setText("<");
+
+        jLabelMon.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabelMon.setText("Montører");
+
+        jLabelLast.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabelLast.setText("Lastbiler");
+
+        jListLastHjem.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane8.setViewportView(jListLastHjem);
+
+        jButtonLastHjem.setText("<");
+
+        jButtonLastUde.setText(">");
+
+        jListLastUde.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane9.setViewportView(jListLastUde);
+
+        jLabelKomp.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabelKomp.setText("Komponenter");
+
+        jListKompHjem.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane10.setViewportView(jListKompHjem);
+
+        jButtonKompHjem.setText("<");
+
+        jButtonKompUde.setText(">");
+
+        jListKompUde.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane11.setViewportView(jListKompUde);
+
         javax.swing.GroupLayout jLPanelOpretOPart2Layout = new javax.swing.GroupLayout(jLPanelOpretOPart2);
         jLPanelOpretOPart2.setLayout(jLPanelOpretOPart2Layout);
         jLPanelOpretOPart2Layout.setHorizontalGroup(
@@ -560,24 +657,94 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLPanelOpretOPart2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelOSide2))
                     .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
-                        .addComponent(jButtonOCancel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonOBack)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonOInsert)
-                        .addGap(0, 558, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLPanelOpretOPart2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabelOSide2))
+                            .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                                .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                                        .addComponent(jButtonOCancel2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButtonOBack)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButtonOInsert))
+                                    .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jButtonMonUde)
+                                            .addComponent(jButtonMonHjem))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabelLast)
+                                    .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jButtonLastUde)
+                                            .addComponent(jButtonLastHjem))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(71, 71, 71)
+                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButtonKompUde)
+                                    .addComponent(jButtonKompHjem))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 98, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                        .addComponent(jLabelMon)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelKomp)
+                        .addGap(335, 335, 335))))
         );
         jLPanelOpretOPart2Layout.setVerticalGroup(
             jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLPanelOpretOPart2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelOSide2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 433, Short.MAX_VALUE)
+                .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelMon)
+                            .addComponent(jLabelKomp))
+                        .addGap(18, 18, 18)
+                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                                    .addGap(8, 8, 8)
+                                    .addComponent(jButtonKompUde)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jButtonKompHjem)))))
+                    .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jButtonMonUde)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonMonHjem)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabelLast)
+                .addGap(18, 18, 18)
+                .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jButtonLastUde)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonLastHjem)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                 .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonOCancel2)
                     .addComponent(jButtonOInsert)
@@ -588,6 +755,21 @@ public class GUI extends javax.swing.JFrame {
         jLPanelOpretOPart2.setLayer(jButtonOInsert, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jLabelOSide2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jButtonOBack, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jScrollPane6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jScrollPane7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jButtonMonUde, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jButtonMonHjem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jLabelMon, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jLabelLast, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jScrollPane8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jButtonLastHjem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jButtonLastUde, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jScrollPane9, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jLabelKomp, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jScrollPane10, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jButtonKompHjem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jButtonKompUde, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jScrollPane11, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPaneOpretOrdreLayout = new javax.swing.GroupLayout(jLayeredPaneOpretOrdre);
         jLayeredPaneOpretOrdre.setLayout(jLayeredPaneOpretOrdreLayout);
@@ -761,7 +943,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonOInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOInsertActionPerformed
         int salgsmedarbejderID = 0000;
-        int kundeID = tempList.get(jCBoxKunde.getSelectedItem());
+        int kundeID = tempKundeList.get(jCBoxKunde.getSelectedItem());
         String vej = jTFVej.getText();
         int Postnr = Integer.parseInt(jTFPostNR.getText());
         boolean confirm = false;
@@ -810,6 +992,12 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonKompHjem;
+    private javax.swing.JButton jButtonKompUde;
+    private javax.swing.JButton jButtonLastHjem;
+    private javax.swing.JButton jButtonLastUde;
+    private javax.swing.JButton jButtonMonHjem;
+    private javax.swing.JButton jButtonMonUde;
     private javax.swing.JButton jButtonOBack;
     private javax.swing.JButton jButtonOCancel;
     private javax.swing.JButton jButtonOCancel2;
@@ -822,13 +1010,22 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLPanelOpretOPart2;
     private javax.swing.JLabel jLabelDatoSlut;
     private javax.swing.JLabel jLabelDatoStart;
+    private javax.swing.JLabel jLabelKomp;
     private javax.swing.JLabel jLabelKunde;
+    private javax.swing.JLabel jLabelLast;
+    private javax.swing.JLabel jLabelMon;
     private javax.swing.JLabel jLabelOSide1;
     private javax.swing.JLabel jLabelOSide2;
     private javax.swing.JLabel jLabelOverskrift;
     private javax.swing.JLabel jLabelPostNR;
     private javax.swing.JLabel jLabelVej;
     private javax.swing.JLayeredPane jLayeredPaneOpretOrdre;
+    private javax.swing.JList jListKompHjem;
+    private javax.swing.JList jListKompUde;
+    private javax.swing.JList jListLastHjem;
+    private javax.swing.JList jListLastUde;
+    private javax.swing.JList jListMonHjem;
+    private javax.swing.JList jListMonUde;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -842,10 +1039,16 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelStatus;
     private javax.swing.JPanel jPanelTilOrdre;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTextField jTFPostNR;
     private javax.swing.JTextField jTFVej;
     private javax.swing.JTabbedPane jTabbedPane2;
