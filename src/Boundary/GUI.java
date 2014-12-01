@@ -34,9 +34,9 @@ public class GUI extends javax.swing.JFrame {
     private final HashMap<String, Integer> tempKundeList = new HashMap<>();
     
     //Temperoily list for JList i opret ordre
-    private final HashMap<String, Integer> tempMonHjemList = new HashMap<>();
-    private final HashMap<String, Integer> tempLastHjemList = new HashMap<>();
-    private final HashMap<String, Integer> tempKompHjemList = new HashMap<>();
+    private final HashMap<String, Integer> tempMonList = new HashMap<>();
+    private final HashMap<String, Integer> tempLastList = new HashMap<>();
+    private final HashMap<String, Integer> tempKompList = new HashMap<>();
 
     public GUI() {
         con = new Control();
@@ -612,6 +612,11 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jButtonMonHjem.setText("<");
+        jButtonMonHjem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMonHjemActionPerformed(evt);
+            }
+        });
 
         jLabelMon.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelMon.setText("Montører");
@@ -627,8 +632,18 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane8.setViewportView(jListLastHjem);
 
         jButtonLastHjem.setText("<");
+        jButtonLastHjem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLastHjemActionPerformed(evt);
+            }
+        });
 
         jButtonLastUde.setText(">");
+        jButtonLastUde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLastUdeActionPerformed(evt);
+            }
+        });
 
         jListLastUde.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -648,8 +663,18 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane10.setViewportView(jListKompHjem);
 
         jButtonKompHjem.setText("<");
+        jButtonKompHjem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonKompHjemActionPerformed(evt);
+            }
+        });
 
         jButtonKompUde.setText(">");
+        jButtonKompUde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonKompUdeActionPerformed(evt);
+            }
+        });
 
         jListKompUde.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -1526,9 +1551,9 @@ public class GUI extends javax.swing.JFrame {
         //Hjem
         DefaultListModel ListModelMonHjem = new DefaultListModel();
         for (int staffid : con.getStaffList().keySet()) {
-            tempMonHjemList.put(con.getStaffList().get(staffid).getNavn(), staffid);
+            tempMonList.put(con.getStaffList().get(staffid).getNavn(), staffid);
         }
-        for (String staffNavn : tempMonHjemList.keySet()) {
+        for (String staffNavn : tempMonList.keySet()) {
             ListModelMonHjem.addElement(staffNavn);
         }
 
@@ -1539,9 +1564,9 @@ public class GUI extends javax.swing.JFrame {
 //Lastbil        
         DefaultListModel ListModelLastHjem = new DefaultListModel();
         for (int lastid : con.getLastbilList().keySet()) {
-            tempLastHjemList.put(con.getLastbilList().get(lastid).getNavn(), lastid);
+            tempLastList.put(con.getLastbilList().get(lastid).getNavn(), lastid);
         }
-        for (String lastNavn : tempLastHjemList.keySet()) {
+        for (String lastNavn : tempLastList.keySet()) {
             ListModelLastHjem.addElement(lastNavn);
         }
 
@@ -1552,9 +1577,9 @@ public class GUI extends javax.swing.JFrame {
 //Komponent
         DefaultListModel ListModelKompHjem = new DefaultListModel();
         for (int kompid : con.getKompList().keySet()) {
-            tempKompHjemList.put(con.getKompList().get(kompid).getNavn(), kompid);
+            tempKompList.put(con.getKompList().get(kompid).getNavn(), kompid);
         }
-        for (String kompNavn : tempKompHjemList.keySet()) {
+        for (String kompNavn : tempKompList.keySet()) {
             ListModelKompHjem.addElement(kompNavn);
         }
 
@@ -1708,29 +1733,113 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOpretLastbilOpretActionPerformed
 
     private void jButtonMonUdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMonUdeActionPerformed
-        // TODO add your handling code here:
-//        int iSelected = jListMonHjem.getSelectedIndex();
-//        if (iSelected == -1) {
-//            return;
-//        }
-//        
-//        String addedItem = (String) jListMonHjem.getSelectedValue();
-//        
-//        //Remove from left list
-//        jListMonHjem.remove(iSelected);
-//        displaySelectedItems();
-//        
-//        DefaultListModel ListModelMonUde = new DefaultListModel();
-//        //Add to right list:
-//        int size = ListModelMonUde.getSize();
-//        if (size == 0)//Empty list 
-//        {
-//            ListModelMonUde.addElement(addedItem);
-//            return;
-//        }
-//        jListMonUde.setModel(ListModelMonUde);
+
+        DefaultListModel ListModelMonHjem = (DefaultListModel) jListMonHjem.getModel();
+        DefaultListModel ListModelMonUde = (DefaultListModel) jListMonUde.getModel();
         
+        if (ListModelMonUde == null) {
+            ListModelMonUde = new DefaultListModel();
+            jListMonUde.setModel(ListModelMonUde);
+        }
+        if (jListMonHjem.getSelectedValue() == null) {
+            
+        }
+        else {
+        ListModelMonUde.addElement(jListMonHjem.getSelectedValue());
+        ListModelMonHjem.removeElement(jListMonHjem.getSelectedValue());
+        }
     }//GEN-LAST:event_jButtonMonUdeActionPerformed
+
+    private void jButtonMonHjemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMonHjemActionPerformed
+        
+        DefaultListModel ListModelMonHjem = (DefaultListModel) jListMonHjem.getModel();
+        DefaultListModel ListModelMonUde = (DefaultListModel) jListMonUde.getModel();
+        
+        if (ListModelMonHjem == null) {
+            ListModelMonHjem = new DefaultListModel();
+            jListMonHjem.setModel(ListModelMonHjem);
+        }
+        if (jListMonUde.getSelectedValue() == null) {
+            
+        }
+        else {
+        ListModelMonHjem.addElement(jListMonUde.getSelectedValue());
+        ListModelMonUde.removeElement(jListMonUde.getSelectedValue());
+        }
+        
+    }//GEN-LAST:event_jButtonMonHjemActionPerformed
+
+    private void jButtonLastUdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLastUdeActionPerformed
+        
+        DefaultListModel ListModelLastHjem = (DefaultListModel) jListLastHjem.getModel();
+        DefaultListModel ListModelLastUde = (DefaultListModel) jListLastUde.getModel();
+        
+        if (ListModelLastUde == null) {
+            ListModelLastUde = new DefaultListModel();
+            jListLastUde.setModel(ListModelLastUde);
+        }
+        if (jListLastHjem.getSelectedValue() == null) {
+            
+        }
+        else {
+        ListModelLastUde.addElement(jListLastHjem.getSelectedValue());
+        ListModelLastHjem.removeElement(jListLastHjem.getSelectedValue());
+        }
+    }//GEN-LAST:event_jButtonLastUdeActionPerformed
+
+    private void jButtonLastHjemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLastHjemActionPerformed
+        
+        DefaultListModel ListModelLastHjem = (DefaultListModel) jListLastHjem.getModel();
+        DefaultListModel ListModelLastUde = (DefaultListModel) jListLastUde.getModel();
+        
+        if (ListModelLastHjem == null) {
+            ListModelLastHjem = new DefaultListModel();
+            jListLastHjem.setModel(ListModelLastHjem);
+        }
+        if (jListLastUde.getSelectedValue() == null) {
+            
+        }
+        else {
+        ListModelLastHjem.addElement(jListLastUde.getSelectedValue());
+        ListModelLastUde.removeElement(jListLastUde.getSelectedValue());
+        }
+    }//GEN-LAST:event_jButtonLastHjemActionPerformed
+
+    private void jButtonKompUdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKompUdeActionPerformed
+        
+        DefaultListModel ListModelKompHjem = (DefaultListModel) jListKompHjem.getModel();
+        DefaultListModel ListModelKompUde = (DefaultListModel) jListKompUde.getModel();
+        
+        if (ListModelKompUde == null) {
+            ListModelKompUde = new DefaultListModel();
+            jListKompUde.setModel(ListModelKompUde);
+        }
+        if (jListKompHjem.getSelectedValue() == null) {
+            
+        }
+        else {
+        ListModelKompUde.addElement(jListKompHjem.getSelectedValue());
+        ListModelKompHjem.removeElement(jListKompHjem.getSelectedValue());
+        }
+    }//GEN-LAST:event_jButtonKompUdeActionPerformed
+
+    private void jButtonKompHjemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKompHjemActionPerformed
+        
+        DefaultListModel ListModelKompHjem = (DefaultListModel) jListKompHjem.getModel();
+        DefaultListModel ListModelKompUde = (DefaultListModel) jListKompUde.getModel();
+        
+        if (ListModelKompHjem == null) {
+            ListModelKompHjem = new DefaultListModel();
+            jListKompHjem.setModel(ListModelKompHjem);
+        }
+        if (jListKompUde.getSelectedValue() == null) {
+            
+        }
+        else {
+        ListModelKompHjem.addElement(jListKompUde.getSelectedValue());
+        ListModelKompUde.removeElement(jListKompUde.getSelectedValue());
+        }
+    }//GEN-LAST:event_jButtonKompHjemActionPerformed
 
     /**
      * @param args the command line arguments
