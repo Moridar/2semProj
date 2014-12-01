@@ -49,10 +49,6 @@ public class GUI extends javax.swing.JFrame {
         jLayeredPaneLastbilOprettelse.setVisible(false);   
     }
 
-    private void displaySelectedItems() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     class StaffStatusModel extends AbstractTableModel {
 
         String[] columnNames = {"Navn", "Telefon", "Stilling"};
@@ -1713,26 +1709,26 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButtonMonUdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMonUdeActionPerformed
         // TODO add your handling code here:
-        int iSelected = jListMonHjem.getSelectedIndex();
-        if (iSelected == -1) {
-            return;
-        }
-        
-        String addedItem = (String) jListMonHjem.getSelectedValue();
-        
-        //Remove from left list
-        jListMonHjem.remove(iSelected);
-        displaySelectedItems();
-        
-        DefaultListModel ListModelMonUde = new DefaultListModel();
-        //Add to right list:
-        int size = ListModelMonUde.getSize();
-        if (size == 0)//Empty list 
-        {
-            ListModelMonUde.addElement(addedItem);
-            return;
-        }
-        jListMonUde.setModel(ListModelMonUde);
+//        int iSelected = jListMonHjem.getSelectedIndex();
+//        if (iSelected == -1) {
+//            return;
+//        }
+//        
+//        String addedItem = (String) jListMonHjem.getSelectedValue();
+//        
+//        //Remove from left list
+//        jListMonHjem.remove(iSelected);
+//        displaySelectedItems();
+//        
+//        DefaultListModel ListModelMonUde = new DefaultListModel();
+//        //Add to right list:
+//        int size = ListModelMonUde.getSize();
+//        if (size == 0)//Empty list 
+//        {
+//            ListModelMonUde.addElement(addedItem);
+//            return;
+//        }
+//        jListMonUde.setModel(ListModelMonUde);
         
     }//GEN-LAST:event_jButtonMonUdeActionPerformed
 
