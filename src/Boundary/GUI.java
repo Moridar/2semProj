@@ -35,6 +35,8 @@ public class GUI extends javax.swing.JFrame {
 
     //Temperoily list for JList i opret ordre
     private final HashMap<String, Integer> tempMonHjemList = new HashMap<>();
+    private final HashMap<String, Integer> tempLastHjemList = new HashMap<>();
+    private final HashMap<String, Integer> tempKompHjemList = new HashMap<>();
 
     public GUI() {
         con = new Control();
@@ -45,6 +47,10 @@ public class GUI extends javax.swing.JFrame {
         jLayeredPaneKomponentOprettelse.setVisible(false);
         jLayeredPaneStaffOprettelse.setVisible(false);
         jLayeredPaneLastbilOprettelse.setVisible(false);   
+    }
+
+    private void displaySelectedItems() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     class StaffStatusModel extends AbstractTableModel {
@@ -603,6 +609,11 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane7.setViewportView(jListMonUde);
 
         jButtonMonUde.setText(">");
+        jButtonMonUde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMonUdeActionPerformed(evt);
+            }
+        });
 
         jButtonMonHjem.setText("<");
 
@@ -696,7 +707,7 @@ public class GUI extends javax.swing.JFrame {
                                     .addComponent(jButtonKompHjem))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 98, Short.MAX_VALUE)))
+                                .addGap(0, 118, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
                         .addComponent(jLabelMon)
@@ -793,7 +804,7 @@ public class GUI extends javax.swing.JFrame {
         jLayeredPaneOpretOrdreLayout.setVerticalGroup(
             jLayeredPaneOpretOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPaneOpretOrdreLayout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
+                .addContainerGap(76, Short.MAX_VALUE)
                 .addComponent(jLPanelOpretOPart2, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jLayeredPaneOpretOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1515,6 +1526,8 @@ public class GUI extends javax.swing.JFrame {
         jPanelOpretOPart1.setVisible(false);
         jLPanelOpretOPart2.setVisible(true);
          //JList i opret ordre
+//Staff        
+        //Hjem
         DefaultListModel ListModelMonHjem = new DefaultListModel();
         for (int staffid : con.getStaffList().keySet()) {
             tempMonHjemList.put(con.getStaffList().get(staffid).getNavn(), staffid);
@@ -1524,6 +1537,35 @@ public class GUI extends javax.swing.JFrame {
         }
 
         jListMonHjem.setModel(ListModelMonHjem);
+        //Ude
+        DefaultListModel ListModelMonUde = new DefaultListModel();
+        jListMonUde.setModel(ListModelMonUde);
+//Lastbil        
+        DefaultListModel ListModelLastHjem = new DefaultListModel();
+        for (int lastid : con.getLastbilList().keySet()) {
+            tempLastHjemList.put(con.getLastbilList().get(lastid).getNavn(), lastid);
+        }
+        for (String lastNavn : tempLastHjemList.keySet()) {
+            ListModelLastHjem.addElement(lastNavn);
+        }
+
+        jListLastHjem.setModel(ListModelLastHjem);
+        //Ude
+        DefaultListModel ListModelLastUde = new DefaultListModel();
+        jListLastUde.setModel(ListModelLastUde);
+//Komponent
+        DefaultListModel ListModelKompHjem = new DefaultListModel();
+        for (int kompid : con.getKompList().keySet()) {
+            tempKompHjemList.put(con.getKompList().get(kompid).getNavn(), kompid);
+        }
+        for (String kompNavn : tempKompHjemList.keySet()) {
+            ListModelKompHjem.addElement(kompNavn);
+        }
+
+        jListKompHjem.setModel(ListModelKompHjem);
+        //Ude
+        DefaultListModel ListModelKompUde = new DefaultListModel();
+        jListKompUde.setModel(ListModelKompUde);
     }//GEN-LAST:event_jButtonONextActionPerformed
 
     private void jTFPostNRKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFPostNRKeyTyped
@@ -1668,6 +1710,31 @@ public class GUI extends javax.swing.JFrame {
             System.out.println("GUI: Opret Lastbil fail");
         }
     }//GEN-LAST:event_jButtonOpretLastbilOpretActionPerformed
+
+    private void jButtonMonUdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMonUdeActionPerformed
+        // TODO add your handling code here:
+        int iSelected = jListMonHjem.getSelectedIndex();
+        if (iSelected == -1) {
+            return;
+        }
+        
+        String addedItem = (String) jListMonHjem.getSelectedValue();
+        
+        //Remove from left list
+        jListMonHjem.remove(iSelected);
+        displaySelectedItems();
+        
+        DefaultListModel ListModelMonUde = new DefaultListModel();
+        //Add to right list:
+        int size = ListModelMonUde.getSize();
+        if (size == 0)//Empty list 
+        {
+            ListModelMonUde.addElement(addedItem);
+            return;
+        }
+        jListMonUde.setModel(ListModelMonUde);
+        
+    }//GEN-LAST:event_jButtonMonUdeActionPerformed
 
     /**
      * @param args the command line arguments
