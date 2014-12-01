@@ -48,13 +48,15 @@ public class GUI extends javax.swing.JFrame {
         }
         
         //JList i opret ordre
-        jListMonHjem.setModel(new DefaultListModel());
+        DefaultListModel ListModelMonHjem = new DefaultListModel();
         for (int staffid : con.getStaffList().keySet()) {
             tempMonHjemList.put(con.getStaffList().get(staffid).getNavn(), staffid);
         }
         for (String staffNavn : tempMonHjemList.keySet()) {
-            jListMonHjem.addElement(staffNavn);
+            ListModelMonHjem.addElement(staffNavn);
         }
+        
+        jListMonHjem.setModel(ListModelMonHjem);
     }
 
     class StaffStatusModel extends AbstractTableModel {
