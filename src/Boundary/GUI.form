@@ -696,6 +696,9 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="&lt;"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonMonHjemActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabelMon">
                           <Properties>
@@ -739,11 +742,17 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="&lt;"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLastHjemActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="jButtonLastUde">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="&gt;"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLastUdeActionPerformed"/>
+                          </Events>
                         </Component>
                         <Container class="javax.swing.JScrollPane" name="jScrollPane9">
                           <AuxValues>
@@ -801,11 +810,17 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="&lt;"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonKompHjemActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="jButtonKompUde">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="&gt;"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonKompUdeActionPerformed"/>
+                          </Events>
                         </Component>
                         <Container class="javax.swing.JScrollPane" name="jScrollPane11">
                           <AuxValues>
