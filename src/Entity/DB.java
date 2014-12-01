@@ -636,8 +636,8 @@ public class DB {
             // pno pname qoh price olevel
 
             for (Integer StaffID : StaffList.keySet()) {
-                statement.setInt(1, id);
-                statement.setInt(2, StaffID);
+                statement.setInt(1, StaffID);
+                statement.setInt(2, id);
                 statement.setDate(3, convertJavaDateToSqlDate(StaffList.get(StaffID)));
                 statement.executeUpdate();
             }
@@ -661,13 +661,10 @@ public class DB {
 
             String query = "Insert into transport VALUES (?,?,?)";
             statement = connection.prepareStatement(query);
-            // Read data for new parts from file and insert into database 
-            // Format of file: Each line contains values for one part.
-            // pno pname qoh price olevel
 
             for (Integer LastbilID : LastbilList.keySet()) {
-                statement.setInt(1, id);
-                statement.setInt(2, LastbilID);
+                statement.setInt(1, LastbilID);
+                statement.setInt(2, id);
                 statement.setDate(3, convertJavaDateToSqlDate(LastbilList.get(LastbilID)));
                 statement.executeUpdate();
             }
@@ -680,7 +677,7 @@ public class DB {
             connection.close();
         }
     }
-    
+
     public static void createNewKomponent(int id, Komponent k) throws SQLException {
         Statement statement = null;
         Connection connection = null;
@@ -710,7 +707,7 @@ public class DB {
             connection.close();
         }
     }
-    
+
     public static void createNewLastbil(int id, Lastbil l) throws SQLException {
         Statement statement = null;
         Connection connection = null;
@@ -734,6 +731,264 @@ public class DB {
             }
         } catch (Exception ee) {
             System.out.println("Fail: DB createNewLastbil");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+//------------------------------------------------------------------------------------
+    /*------SAVE SLUT ---------------------------------
+     -------UPDATE START-----------------------------------------------
+     */
+
+    public static void updateKunde(int id, Kunde k) throws SQLException {
+        Statement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+            statement = connection.createStatement();
+
+            String insertSQL = "Update kunder SET Navn = '"
+                    + k.getName() + "', Telefon=" + k.getTelefon() + ", Email='" + k.getEmail() + "', Rabatordn="
+                    + k.getRabat() + "WHERE id = " + id;
+            //=== Execute the statement and retrieve 
+            //	a count of how many rows was inserted      
+            int rows = statement.executeUpdate(insertSQL);
+
+            //=== Validate the result
+            if (rows == 1) {
+                System.out.println("One row updated!");
+            } else {
+                System.out.println("No row updated (fail)");
+            }
+        } catch (Exception ee) {
+            System.out.println("DB:updateKunde fail");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+
+    public static void updateStaff(int id, Staff s) throws SQLException {
+        Statement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+            statement = connection.createStatement();
+
+            String insertSQL = "UPDATE staff SET Navn='"
+                    + s.getNavn() + "', Telefon=" + s.getTelefon() + ",Stilling='" + s.getStilling()
+                    + "' where id=" + id;
+            //=== Execute the statement and retrieve 
+            //	a count of how many rows was inserted      
+            int rows = statement.executeUpdate(insertSQL);
+
+            //=== Validate the result
+            if (rows == 1) {
+                System.out.println("One row updated!");
+            } else {
+                System.out.println("No row updated (fail)");
+            }
+        } catch (Exception ee) {
+            System.out.println("DB: updateNewStaff fail");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+
+    public static void updateOrdre(int id, Ordre o) throws SQLException {
+        try {
+            updateOrdreDB(id, o);
+            updateOrdreKompList(id, o.getKompList());
+            updateOrdreStaffList(id, o.getStaffList());
+            updateOrdreLastbilList(id, o.getLastbilList());
+        } catch (Exception e) {
+        }
+
+    }
+
+    private static void updateOrdreDB(int id, Ordre o) throws SQLException {
+        Statement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+            statement = connection.createStatement();
+
+            String insertSQL = "UPDATE ordre SET SalgsmedarbID="
+                    + o.getSalgsmedarbsID() + ",KundeID=" + o.getKundeID() + ",Vej='" + o.getVej() + "',PostNR="
+                    + o.getPostNR() + ",Bekræftelse=" + o.getConfirmation() + ",Pris="
+                    + o.getPris() + ",datoStart='" + convertJavaDateToSqlDate(o.getDatoStart())
+                    + "',datoSlut'" + convertJavaDateToSqlDate(o.getDatoSlut()) + "' where id=" + id;
+            //=== Execute the statement and retrieve 
+            //	a count of how many rows was inserted      
+            int rows = statement.executeUpdate(insertSQL);
+
+            //=== Validate the result
+            if (rows == 1) {
+                System.out.println("One row updated!");
+            } else {
+                System.out.println("No row updated (fail)");
+            }
+        } catch (Exception ee) {
+            System.out.println("fail lelz");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+
+    private static void updateOrdreKompList(int id, HashMap<Integer, Integer> KompList) throws SQLException {
+        PreparedStatement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+
+            String query = "UPDATE ude SET KomponenterID = ?, antal = ? where OrdreID = ?";
+            statement = connection.prepareStatement(query);
+            // Read data for new parts from file and insert into database 
+            // Format of file: Each line contains values for one part.
+            // pno pname qoh price olevel
+
+            for (Integer KompID : KompList.keySet()) {
+                statement.setInt(1, KompID);
+                statement.setInt(2, KompList.get(KompID));
+                statement.setInt(3, id);
+
+                statement.executeUpdate();
+            }
+        } catch (Exception ee) {
+            System.out.println("DB:updateOrdreKompList fail");
+            System.err.println(ee);
+            ee.printStackTrace();
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+
+    private static void updateOrdreStaffList(int id, HashMap<Integer, Date> StaffList) throws SQLException {
+        PreparedStatement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+
+            String query = "UPDATE arbejde SET StaffID = ?, dato = ? WHERE OrdreID = ?";
+            statement = connection.prepareStatement(query);
+            // Read data for new parts from file and insert into database 
+            // Format of file: Each line contains values for one part.
+            // pno pname qoh price olevel
+
+            for (Integer StaffID : StaffList.keySet()) {
+                statement.setInt(1, StaffID);
+                statement.setDate(2, convertJavaDateToSqlDate(StaffList.get(StaffID)));
+                statement.setInt(3, id);
+                statement.executeUpdate();
+            }
+        } catch (Exception ee) {
+            System.out.println("DB:updateOrdreStaffList fail");
+            System.err.println(ee);
+            ee.printStackTrace();
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+    
+    private static void updateOrdreLastbilList(int id, HashMap<Integer, Date> LastbilList) throws SQLException {
+        PreparedStatement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+
+            String query = "UPDATE transport SET LastbilID = ?, dato = ? where OrdreID = ?";
+            statement = connection.prepareStatement(query);
+
+            for (Integer LastbilID : LastbilList.keySet()) {
+                statement.setInt(1, LastbilID);
+                statement.setDate(2, convertJavaDateToSqlDate(LastbilList.get(LastbilID)));
+                statement.setInt(3, id);
+                statement.executeUpdate();
+            }
+        } catch (Exception ee) {
+            System.out.println("DB:updateOrdreLsatbilList fail");
+            System.err.println(ee);
+            ee.printStackTrace();
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+    
+    public static void updateKomponent(int id, Komponent k) throws SQLException {
+        Statement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+            statement = connection.createStatement();
+
+            String insertSQL = "UPDATE komponent SET navn='"
+                    + k.getNavn() + "',PrisPrDag=" + k.getPrisPerDag() + "WHERE ID = " + id;
+            //=== Execute the statement and retrieve 
+            //	a count of how many rows was inserted      
+            int rows = statement.executeUpdate(insertSQL);
+
+            //=== Validate the result
+            if (rows == 1) {
+                System.out.println("One row updated!");
+            } else {
+                System.out.println("No row updated (fail)");
+            }
+        } catch (Exception ee) {
+            System.out.println("Fail: DB updteKomponent");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+    
+    public static void updateLastbil(int id, Lastbil l) throws SQLException {
+        Statement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+            statement = connection.createStatement();
+
+            String insertSQL = "update Lastbiler SET navn = '"
+                     + l.getNavn() + "',Telefon=" + l.getTelefon() + "WHERE ID =" + id;
+            //=== Execute the statement and retrieve 
+            //	a count of how many rows was inserted      
+            int rows = statement.executeUpdate(insertSQL);
+
+            //=== Validate the result
+            if (rows == 1) {
+                System.out.println("One row updated!");
+            } else {
+                System.out.println("No row updated (fail)");
+            }
+        } catch (Exception ee) {
+            System.out.println("Fail: DB updateNewLastbil");
             System.err.println(ee);
         } finally {
             statement.close();

@@ -32,7 +32,7 @@ public class GUI extends javax.swing.JFrame {
     private final Control con;
     //Temperoily list for jCBoxKunde
     private final HashMap<String, Integer> tempKundeList = new HashMap<>();
-
+    
     //Temperoily list for JList i opret ordre
     private final HashMap<String, Integer> tempMonHjemList = new HashMap<>();
 
