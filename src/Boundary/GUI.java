@@ -1502,7 +1502,7 @@ public class GUI extends javax.swing.JFrame {
         Date datoSlut = jDcDatoSlut.getDate();
 
         Ordre o = new Ordre(salgsmedarbejderID, kundeID, vej, Postnr, confirm, pris, datoStart, datoSlut);
-
+        
         con.createNewOrdre(o);
     }//GEN-LAST:event_jButtonOInsertActionPerformed
 

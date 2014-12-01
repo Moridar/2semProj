@@ -109,7 +109,7 @@ public class DB {
             //	 check for the existence of a row  
             while (rs.next()) {
                 list.put(rs.getInt(1), new Komponent(rs.getString(2),
-                        rs.getInt(3)));
+                        rs.getInt(3), rs.getInt(4)));
             }
 
         } catch (Exception ee) {
@@ -688,7 +688,8 @@ public class DB {
             statement = connection.createStatement();
 
             String insertSQL = "INSERT INTO komponent VALUES ("
-                    + id + ",'" + k.getNavn() + "'," + k.getPrisPerDag() + ")";
+                    + id + ",'" + k.getNavn() + "'," + k.getPrisPerDag() + "," + 
+                    k.getOpbygningtid() +")";
             //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
             int rows = statement.executeUpdate(insertSQL);
@@ -753,7 +754,7 @@ public class DB {
 
             String insertSQL = "Update kunder SET Navn = '"
                     + k.getName() + "', Telefon=" + k.getTelefon() + ", Email='" + k.getEmail() + "', Rabatordn="
-                    + k.getRabat() + "WHERE id = " + id;
+                    + k.getRabat() + " WHERE id = " + id;
             //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
             int rows = statement.executeUpdate(insertSQL);
@@ -946,7 +947,8 @@ public class DB {
             statement = connection.createStatement();
 
             String insertSQL = "UPDATE komponent SET navn='"
-                    + k.getNavn() + "',PrisPrDag=" + k.getPrisPerDag() + "WHERE ID = " + id;
+                    + k.getNavn() + "',PrisPrDag=" + k.getPrisPerDag() + ",Opbygningtid="
+                    + k.getOpbygningtid() + " WHERE ID=" + id;
             //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
             int rows = statement.executeUpdate(insertSQL);
@@ -976,7 +978,7 @@ public class DB {
             statement = connection.createStatement();
 
             String insertSQL = "update Lastbiler SET navn = '"
-                     + l.getNavn() + "',Telefon=" + l.getTelefon() + "WHERE ID =" + id;
+                     + l.getNavn() + "',Telefon=" + l.getTelefon() + " WHERE ID =" + id;
             //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
             int rows = statement.executeUpdate(insertSQL);
