@@ -24,6 +24,12 @@ public class Lastbil {
         this.telefon = telefon;
         this.transportskema = transportskema;
     }
+
+    public Lastbil(String navn, int telefon) {
+        this.navn = navn;
+        this.telefon = telefon;
+        transportskema = new HashMap<Date, Integer>();
+    }
  
     //Tilføjer en opgave til transportskema
     public void addOpgave(Date d, int oID) {

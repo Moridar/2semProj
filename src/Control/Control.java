@@ -173,7 +173,7 @@ public class Control {
         }
     }
      
-      public void createNewStaff(Staff k) {
+      public void createNewStaff(Staff s) {
         int id = 0;
         for (Integer Staffid : StaffList.keySet()) {
             if (Staffid >= id) {
@@ -181,7 +181,7 @@ public class Control {
             }
         }
         try {
-            DB.createNewStaff(id, k);
+            DB.createNewStaff(id, s);
             StaffList = DB.getAllStaff();
         } catch (Exception e) {
             System.out.println("Control:createNewStaff failed");

@@ -27,6 +27,13 @@ public class Staff {
         this.arbejdeskema = arbejdeskema;
     }
 
+    public Staff(String navn, int telefon, String stilling) {
+        this.navn = navn;
+        this.telefon = telefon;
+        this.stilling = stilling;
+        arbejdeskema = new HashMap<Date, Integer>();
+    }
+
     //Tilføj opgave i arbejdeskema
     public void addOpgave(Date d, Integer oID){
         arbejdeskema.put(d, oID);

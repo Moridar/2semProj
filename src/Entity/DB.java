@@ -522,7 +522,7 @@ public class DB {
             statement = connection.createStatement();
 
             String insertSQL = "INSERT INTO staff VALUES ("
-                    + id + ",'" + s.getNavn() + "'," + s.getTelefon() + ",'" + s.getStilling() + ")";
+                    + id + ",'" + s.getNavn() + "'," + s.getTelefon() + ",'" + s.getStilling() + "')";
             //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
             int rows = statement.executeUpdate(insertSQL);
@@ -534,7 +534,7 @@ public class DB {
                 System.out.println("No row inserted (fail)");
             }
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("DB: createNewStaff fail");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -720,7 +720,7 @@ public class DB {
             connection = DriverManager.getConnection(URL, ID, PW);
             statement = connection.createStatement();
 
-            String insertSQL = "INSERT INTO Lastbil VALUES ("
+            String insertSQL = "INSERT INTO Lastbiler VALUES ("
                     + id + ",'" + l.getNavn() + "'," + l.getTelefon() + ")";
             //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
