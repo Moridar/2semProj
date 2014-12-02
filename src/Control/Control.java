@@ -73,7 +73,7 @@ public class Control {
                 OldOrdreList = new HashMap<>();
             }
         }
-        return OrdreList;
+        return OldOrdreList;
     }
 
     public HashMap<Integer, Staff> getStaffList() {
@@ -128,14 +128,8 @@ public class Control {
     }
 
     public void createNewOrdre(Ordre o) {
-        int id = 0;
-        for (Integer Ordreid : OrdreList.keySet()) {
-            if (Ordreid >= id) {
-                id = Ordreid + 1;
-            }
-        }
         try {
-            DB.createNewOrdre(id, o);
+            DB.createNewOrdre(DB.getHighestOrderID()+1, o);
             OrdreList = DB.getAllOrder();
         } catch (Exception e) {
             System.out.println("Control:createNewOrdre failed");

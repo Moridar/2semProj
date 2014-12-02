@@ -270,6 +270,38 @@ public class DB {
         return list;
     }
 
+    public static int getHighestOrderID() throws SQLException {
+        ResultSet rs = null;
+        Statement statement = null;
+        Connection connection = null;
+        int oID = -1;
+        try {
+            Class.forName(driver);
+
+            connection = DriverManager.getConnection(URL, ID, PW);
+
+            statement = connection.createStatement();
+
+            String query = "SELECT MAX(ID) FROM ordre";
+
+            rs = statement.executeQuery(query);
+
+            //=== read the result
+            //=== Move cursor one step at a time and
+            //	 check for the existence of a row  
+            while (rs.next()) {
+                oID = rs.getInt(1);
+            }
+
+        } catch (Exception ee) {
+            System.out.println("fail-2");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+        return oID;
+    }
     /**
      *
      * @param lagerID
@@ -1058,4 +1090,6 @@ public class DB {
             connection.close();
         }
     }
+    
+   
 }
