@@ -2,10 +2,13 @@ package Entity;
 
 import java.io.File;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
+
 
 public class DB {
 
@@ -157,6 +160,7 @@ public class DB {
     }
 
     public static HashMap<Integer, Lastbil> getAllLastbil() throws SQLException {
+       
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -203,8 +207,8 @@ public class DB {
             connection = DriverManager.getConnection(URL, ID, PW);
 
             statement = connection.createStatement();
-
-            String query = "SELECT * FROM Ordre";
+            
+            String query = "SELECT * FROM Ordre WHERE datoSlut > '" + new java.sql.Date(new Date().getTime()) + "'";
 
             rs = statement.executeQuery(query);
 
