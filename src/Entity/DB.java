@@ -565,7 +565,7 @@ public class DB {
                 System.out.println("No row inserted (fail)");
             }
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("DB:CreateNewKunde fail");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -638,7 +638,7 @@ public class DB {
                 System.out.println("No row inserted (fail)");
             }
         } catch (Exception ee) {
-            System.out.println("fail lelz");
+            System.out.println("DB: saveNewOrdre fail lelz");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -669,7 +669,7 @@ public class DB {
                 statement.executeUpdate();
             }
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("DB:saveNewKompList fail");
             System.err.println(ee);
             ee.printStackTrace();
         } finally {
@@ -703,7 +703,7 @@ public class DB {
                 statement.executeUpdate();
             }
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("DB:saveNewStaffList: fail");
             System.err.println(ee);
             ee.printStackTrace();
         } finally {
@@ -730,7 +730,7 @@ public class DB {
                 statement.executeUpdate();
             }
         } catch (Exception ee) {
-            System.out.println("fail");
+            System.out.println("DB:saveNewLastbilList fail");
             System.err.println(ee);
             ee.printStackTrace();
         } finally {
@@ -902,7 +902,7 @@ public class DB {
                 System.out.println("No row updated (fail)");
             }
         } catch (Exception ee) {
-            System.out.println("fail lelz");
+            System.out.println("DB: UpdateOrder fail lelz");
             System.err.println(ee);
         } finally {
             statement.close();
