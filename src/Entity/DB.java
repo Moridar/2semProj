@@ -328,8 +328,14 @@ public class DB {
             connection = DriverManager.getConnection(URL, ID, PW);
 
             statement = connection.createStatement();
-
-            String query = "SELECT * FROM UDE";
+            
+            String listMedOrdreID = "";
+            for (int OrdreID : list.keySet()) {
+                listMedOrdreID += OrdreID + ",";
+            }
+            if(listMedOrdreID.endsWith(",")) listMedOrdreID = listMedOrdreID.substring(0, listMedOrdreID.length()-1);
+            
+            String query = "SELECT * FROM UDE WHERE OrdreID IN (" + listMedOrdreID + ")";
 
             rs = statement.executeQuery(query);
 
