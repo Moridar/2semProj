@@ -13,9 +13,12 @@ import Entity.Lastbil;
 import Entity.Ordre;
 import Entity.Staff;
 import com.sun.glass.events.KeyEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.table.AbstractTableModel;
@@ -371,7 +374,7 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane11 = new javax.swing.JScrollPane();
         jListKompUde = new javax.swing.JList();
         jTextFieldOrdreKompAntal = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jButtonUpdateOrdre = new javax.swing.JButton();
         jPanelKunde = new javax.swing.JPanel();
         jLayeredPaneKundeOverview = new javax.swing.JLayeredPane();
         jButtonOpretNyKunde = new javax.swing.JButton();
@@ -816,7 +819,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jButtonLastUde)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonLastHjem)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonOCancel2)
                     .addComponent(jButtonOInsert)
@@ -899,7 +902,12 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(jLayeredPaneOpretOrdre))
         );
 
-        jButton1.setText("jButton1");
+        jButtonUpdateOrdre.setText("Ændre den ordre");
+        jButtonUpdateOrdre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateOrdreActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelOrdreLayout = new javax.swing.GroupLayout(jPanelOrdre);
         jPanelOrdre.setLayout(jPanelOrdreLayout);
@@ -913,7 +921,7 @@ public class GUI extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonOpretOrdre)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonUpdateOrdre)
                         .addGap(18, 18, 18)))
                 .addContainerGap())
         );
@@ -923,7 +931,7 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanelOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonOpretOrdre)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonUpdateOrdre))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1608,12 +1616,14 @@ public class GUI extends javax.swing.JFrame {
         jLPanelOpretOPart2.setVisible(false);
         jPanelOverblik.setVisible(true);
         jButtonOpretOrdre.setVisible(true);
+        jButtonUpdateOrdre.setVisible(true);
     }//GEN-LAST:event_jButtonOCancel2ActionPerformed
 
     private void jButtonOCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOCancelActionPerformed
         jPanelOpretOPart1.setVisible(false);
         jPanelOverblik.setVisible(true);
         jButtonOpretOrdre.setVisible(true);
+        jButtonUpdateOrdre.setVisible(true);
     }//GEN-LAST:event_jButtonOCancelActionPerformed
 
     private void jButtonONextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonONextActionPerformed
@@ -1688,6 +1698,7 @@ public class GUI extends javax.swing.JFrame {
         jPanelOverblik.setVisible(false);
         jLayeredPaneOpretOrdre.setVisible(true);
         jButtonOpretOrdre.setVisible(false);
+        jButtonUpdateOrdre.setVisible(false);
         jPanelOpretOPart1.setVisible(true);
         jTFPostNR.setText("");
         jTFVej.setText("");
@@ -1936,6 +1947,54 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonKompHjemActionPerformed
 
+    private void jButtonUpdateOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateOrdreActionPerformed
+        jPanelOverblik.setVisible(false);
+        jLayeredPaneOpretOrdre.setVisible(true);
+        jButtonOpretOrdre.setVisible(false);
+        jButtonUpdateOrdre.setVisible(false);
+        jPanelOpretOPart1.setVisible(true);
+        
+            int selectedRow = jTable1.getSelectedRow();
+            
+            //JComboBox Kunde 
+            jCBoxKunde.setModel(new DefaultComboBoxModel());//.removeAllItems();
+            jCBoxKunde.addItem(jTable1.getValueAt(selectedRow, 1));
+            jCBoxKunde.setEnabled(false);
+            
+            // Vej
+            String setTojTFVej = new String();
+            setTojTFVej += jTable1.getValueAt(selectedRow, 2);  
+            jTFVej.setText(setTojTFVej);
+            
+            //Postnr
+            String setTojTFPostNR = new String();
+            setTojTFPostNR += jTable1.getValueAt(selectedRow, 3);  
+            jTFPostNR.setText(setTojTFPostNR);
+            
+            //DatoStart
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String setTojDcDatoStart = new String();
+            setTojDcDatoStart += jTable1.getValueAt(selectedRow, 5);  
+            try { 
+                Date datoStartTxt = formatter.parse(setTojDcDatoStart);
+                jDcDatoStart.setDate(datoStartTxt);
+            }catch (ParseException e) {
+                e.printStackTrace();
+            }
+            
+            //DatoSlut
+            SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+            String setTojDcDatoSlut = new String();
+            setTojDcDatoSlut += jTable1.getValueAt(selectedRow, 6);  
+            try { 
+                Date datoSlutTxt = formatter2.parse(setTojDcDatoSlut);
+                jDcDatoSlut.setDate(datoSlutTxt);
+            }catch (ParseException e) {
+                e.printStackTrace();
+            }
+       
+    }//GEN-LAST:event_jButtonUpdateOrdreActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1972,7 +2031,6 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonKompHjem;
     private javax.swing.JButton jButtonKompUde;
     private javax.swing.JButton jButtonLastHjem;
@@ -1997,6 +2055,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOpretOrdre;
     private javax.swing.JButton jButtonOpretStaffAnnuller;
     private javax.swing.JButton jButtonOpretStaffOpret;
+    private javax.swing.JButton jButtonUpdateOrdre;
     private javax.swing.JComboBox jCBoxKunde;
     private com.toedter.calendar.JDateChooser jDcDatoSlut;
     private com.toedter.calendar.JDateChooser jDcDatoStart;
