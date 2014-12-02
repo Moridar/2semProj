@@ -32,7 +32,7 @@ public class GUI extends javax.swing.JFrame {
     private final Control con;
     //Temperoily list for jCBoxKunde
     private final HashMap<String, Integer> tempKundeList = new HashMap<>();
-    
+
     //Temperoily list for JList i opret ordre
     private final HashMap<String, Integer> tempMonList = new HashMap<>();
     private final HashMap<String, Integer> tempLastList = new HashMap<>();
@@ -46,7 +46,7 @@ public class GUI extends javax.swing.JFrame {
         jLayeredPaneKundeOprettelse.setVisible(false);
         jLayeredPaneKomponentOprettelse.setVisible(false);
         jLayeredPaneStaffOprettelse.setVisible(false);
-        jLayeredPaneLastbilOprettelse.setVisible(false);   
+        jLayeredPaneLastbilOprettelse.setVisible(false);
     }
 
     class StaffStatusModel extends AbstractTableModel {
@@ -325,6 +325,7 @@ public class GUI extends javax.swing.JFrame {
         jButtonKompUde = new javax.swing.JButton();
         jScrollPane11 = new javax.swing.JScrollPane();
         jListKompUde = new javax.swing.JList();
+        jTextFieldOrdreKompAntal = new javax.swing.JTextField();
         jPanelKunde = new javax.swing.JPanel();
         jLayeredPaneKundeOverview = new javax.swing.JLayeredPane();
         jButtonOpretNyKunde = new javax.swing.JButton();
@@ -723,12 +724,13 @@ public class GUI extends javax.swing.JFrame {
                                 .addGap(71, 71, 71)
                                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButtonKompUde)
-                                    .addComponent(jButtonKompHjem))
+                                .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButtonKompUde, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButtonKompHjem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldOrdreKompAntal))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 118, Short.MAX_VALUE)))
+                                .addGap(0, 98, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
                         .addComponent(jLabelMon)
@@ -748,18 +750,20 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(jLabelMon)
                             .addComponent(jLabelKomp))
                         .addGap(18, 18, 18)
-                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
-                                    .addGap(8, 8, 8)
-                                    .addComponent(jButtonKompUde)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jButtonKompHjem)))))
+                                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                                .addComponent(jButtonKompUde)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldOrdreKompAntal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonKompHjem)
+                                .addGap(10, 10, 10))))
                     .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
                         .addGap(83, 83, 83)
                         .addComponent(jButtonMonUde)
@@ -776,7 +780,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jButtonLastUde)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonLastHjem)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonOCancel2)
                     .addComponent(jButtonOInsert)
@@ -802,6 +806,7 @@ public class GUI extends javax.swing.JFrame {
         jLPanelOpretOPart2.setLayer(jButtonKompHjem, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jButtonKompUde, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jScrollPane11, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jTextFieldOrdreKompAntal, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPaneOpretOrdreLayout = new javax.swing.GroupLayout(jLayeredPaneOpretOrdre);
         jLayeredPaneOpretOrdre.setLayout(jLayeredPaneOpretOrdreLayout);
@@ -1528,8 +1533,8 @@ public class GUI extends javax.swing.JFrame {
 
         Ordre o = new Ordre(salgsmedarbejderID, kundeID, vej, Postnr, confirm, pris, datoStart, datoSlut);
         for (int i = 0; i < jListMonUde.getModel().getSize(); i++) {
-            o.getStaffList().put(tempMonList.get(jListMonUde.getModel().getElementAt(i)), datoStart);            
-            o.getStaffList().put(tempMonList.get(jListMonUde.getModel().getElementAt(i)), datoSlut);            
+            o.getStaffList().put(tempMonList.get(jListMonUde.getModel().getElementAt(i)), datoStart);
+            o.getStaffList().put(tempMonList.get(jListMonUde.getModel().getElementAt(i)), datoSlut);
         }
         for (int i = 0; i < jListKompUde.getModel().getSize(); i++) {
             o.getKompList().put(tempKompList.get(jListKompUde.getModel().getElementAt(i)), 1);
@@ -1557,7 +1562,7 @@ public class GUI extends javax.swing.JFrame {
     private void jButtonONextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonONextActionPerformed
         jPanelOpretOPart1.setVisible(false);
         jLPanelOpretOPart2.setVisible(true);
-         //JList i opret ordre
+        //JList i opret ordre
 //Staff        
         //Hjem
         DefaultListModel ListModelMonHjem = new DefaultListModel();
@@ -1567,7 +1572,6 @@ public class GUI extends javax.swing.JFrame {
         for (String staffNavn : tempMonList.keySet()) {
             ListModelMonHjem.addElement(staffNavn);
         }
-
 
         jListMonHjem.setModel(ListModelMonHjem);
         //Ude
@@ -1591,8 +1595,21 @@ public class GUI extends javax.swing.JFrame {
         for (int kompid : con.getKompList().keySet()) {
             tempKompList.put(con.getKompList().get(kompid).getNavn(), kompid);
         }
+
         for (String kompNavn : tempKompList.keySet()) {
-            ListModelKompHjem.addElement(kompNavn);
+            int antal = 0;
+
+            for (Lager l : con.getLagerList().values()) {
+                antal += l.getKompList().get(tempKompList.get(kompNavn));
+            }
+            for (Ordre o : con.getOrdreList().values()) {
+                if (o.getDatoStart().after(jDcDatoSlut.getDate()) || o.getDatoSlut().before(jDcDatoSlut.getDate())) {
+                } //Denne pågældende order starter efter den nye ordres slut eller slutter inden den nyes start.
+                else {
+                    antal -= o.getKompList().get(tempKompList.get(kompNavn));
+                }
+            }
+            ListModelKompHjem.addElement(antal + " " + kompNavn);
         }
 
         jListKompHjem.setModel(ListModelKompHjem);
@@ -1619,7 +1636,7 @@ public class GUI extends javax.swing.JFrame {
         jTFVej.setText("");
         jDcDatoStart.setDate(null);
         jDcDatoSlut.setDate(null);
-           //JComboBox Kunde 
+        //JComboBox Kunde 
         jCBoxKunde.setModel(new DefaultComboBoxModel());//.removeAllItems();
         for (int kundeid : con.getKundeList().keySet()) {
             tempKundeList.put(con.getKundeList().get(kundeid).getName(), kundeid);
@@ -1633,9 +1650,9 @@ public class GUI extends javax.swing.JFrame {
         jLayeredPaneKundeOverview.setVisible(false);
         jLayeredPaneKundeOprettelse.setVisible(true);
         jTextFieldKundeNavn.setText("");
-                jTextFieldKundeEmail.setText("");
-                jTextFieldKundeTelefon.setText("");
-                jTextFieldRabat.setText("");
+        jTextFieldKundeEmail.setText("");
+        jTextFieldKundeTelefon.setText("");
+        jTextFieldRabat.setText("");
     }//GEN-LAST:event_jButtonOpretNyKundeActionPerformed
 
     private void jButtonOpretKundeOpretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpretKundeOpretActionPerformed
@@ -1693,7 +1710,7 @@ public class GUI extends javax.swing.JFrame {
         jTextFieldStaffNavn.setText("");
         jTextFieldStaffStilling.setText("");
         jTextFieldStaffTelefon.setText("");
- 
+
     }//GEN-LAST:event_jButtonOpretNyStaffActionPerformed
 
     private void jButtonOpretStaffAnnullerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpretStaffAnnullerActionPerformed
@@ -1748,108 +1765,116 @@ public class GUI extends javax.swing.JFrame {
 
         DefaultListModel ListModelMonHjem = (DefaultListModel) jListMonHjem.getModel();
         DefaultListModel ListModelMonUde = (DefaultListModel) jListMonUde.getModel();
-        
+
         if (ListModelMonUde == null) {
             ListModelMonUde = new DefaultListModel();
             jListMonUde.setModel(ListModelMonUde);
         }
         if (jListMonHjem.getSelectedValue() == null) {
-            
-        }
-        else {
-        ListModelMonUde.addElement(jListMonHjem.getSelectedValue());
-        ListModelMonHjem.removeElement(jListMonHjem.getSelectedValue());
+
+        } else {
+            ListModelMonUde.addElement(jListMonHjem.getSelectedValue());
+            ListModelMonHjem.removeElement(jListMonHjem.getSelectedValue());
         }
     }//GEN-LAST:event_jButtonMonUdeActionPerformed
 
     private void jButtonMonHjemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMonHjemActionPerformed
-        
+
         DefaultListModel ListModelMonHjem = (DefaultListModel) jListMonHjem.getModel();
         DefaultListModel ListModelMonUde = (DefaultListModel) jListMonUde.getModel();
-        
+
         if (ListModelMonHjem == null) {
             ListModelMonHjem = new DefaultListModel();
             jListMonHjem.setModel(ListModelMonHjem);
         }
         if (jListMonUde.getSelectedValue() == null) {
-            
+
+        } else {
+            ListModelMonHjem.addElement(jListMonUde.getSelectedValue());
+            ListModelMonUde.removeElement(jListMonUde.getSelectedValue());
         }
-        else {
-        ListModelMonHjem.addElement(jListMonUde.getSelectedValue());
-        ListModelMonUde.removeElement(jListMonUde.getSelectedValue());
-        }
-        
+
     }//GEN-LAST:event_jButtonMonHjemActionPerformed
 
     private void jButtonLastUdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLastUdeActionPerformed
-        
+
         DefaultListModel ListModelLastHjem = (DefaultListModel) jListLastHjem.getModel();
         DefaultListModel ListModelLastUde = (DefaultListModel) jListLastUde.getModel();
-        
+
         if (ListModelLastUde == null) {
             ListModelLastUde = new DefaultListModel();
             jListLastUde.setModel(ListModelLastUde);
         }
         if (jListLastHjem.getSelectedValue() == null) {
-            
-        }
-        else {
-        ListModelLastUde.addElement(jListLastHjem.getSelectedValue());
-        ListModelLastHjem.removeElement(jListLastHjem.getSelectedValue());
+
+        } else {
+            ListModelLastUde.addElement(jListLastHjem.getSelectedValue());
+            ListModelLastHjem.removeElement(jListLastHjem.getSelectedValue());
         }
     }//GEN-LAST:event_jButtonLastUdeActionPerformed
 
     private void jButtonLastHjemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLastHjemActionPerformed
-        
+
         DefaultListModel ListModelLastHjem = (DefaultListModel) jListLastHjem.getModel();
         DefaultListModel ListModelLastUde = (DefaultListModel) jListLastUde.getModel();
-        
+
         if (ListModelLastHjem == null) {
             ListModelLastHjem = new DefaultListModel();
             jListLastHjem.setModel(ListModelLastHjem);
         }
         if (jListLastUde.getSelectedValue() == null) {
-            
-        }
-        else {
-        ListModelLastHjem.addElement(jListLastUde.getSelectedValue());
-        ListModelLastUde.removeElement(jListLastUde.getSelectedValue());
+
+        } else {
+            ListModelLastHjem.addElement(jListLastUde.getSelectedValue());
+            ListModelLastUde.removeElement(jListLastUde.getSelectedValue());
         }
     }//GEN-LAST:event_jButtonLastHjemActionPerformed
 
     private void jButtonKompUdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKompUdeActionPerformed
-        
+
         DefaultListModel ListModelKompHjem = (DefaultListModel) jListKompHjem.getModel();
         DefaultListModel ListModelKompUde = (DefaultListModel) jListKompUde.getModel();
-        
+
         if (ListModelKompUde == null) {
             ListModelKompUde = new DefaultListModel();
             jListKompUde.setModel(ListModelKompUde);
         }
         if (jListKompHjem.getSelectedValue() == null) {
-            
-        }
-        else {
-        ListModelKompUde.addElement(jListKompHjem.getSelectedValue());
-        ListModelKompHjem.removeElement(jListKompHjem.getSelectedValue());
+
+        } else {
+            String komp = (String) ListModelKompHjem.getElementAt(jListKompHjem.getSelectedIndex());
+            String[] tokens = komp.split(" ");
+            int antal = 0;
+            int behov = 0;
+            try {
+                antal = Integer.parseInt(tokens[0]);
+                behov = Integer.parseInt(jTextFieldOrdreKompAntal.getText());
+            } catch (Exception e) {
+                System.out.println("jButtonKompUdeActionPerformed Antal fail");
+            }
+
+            if (antal >= behov) {
+                ListModelKompUde.addElement(behov + " " + tokens[1]);
+                ListModelKompHjem.removeElement(jListKompHjem.getSelectedValue());
+                if(behov != antal) ListModelKompHjem.addElement((antal-behov) + " " + tokens[1]);
+            }
         }
     }//GEN-LAST:event_jButtonKompUdeActionPerformed
 
     private void jButtonKompHjemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKompHjemActionPerformed
-        
+
         DefaultListModel ListModelKompHjem = (DefaultListModel) jListKompHjem.getModel();
         DefaultListModel ListModelKompUde = (DefaultListModel) jListKompUde.getModel();
-        
+
         if (ListModelKompHjem == null) {
             ListModelKompHjem = new DefaultListModel();
             jListKompHjem.setModel(ListModelKompHjem);
         }
         if (jListKompUde.getSelectedValue() == null) {
-            
-        }
-        else {
-        ListModelKompHjem.addElement(jListKompUde.getSelectedValue());
-        ListModelKompUde.removeElement(jListKompUde.getSelectedValue());
+
+        } else {
+            ListModelKompHjem.addElement(jListKompUde.getSelectedValue());
+            ListModelKompUde.removeElement(jListKompUde.getSelectedValue());
         }
     }//GEN-LAST:event_jButtonKompHjemActionPerformed
 
@@ -1997,6 +2022,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldKundeTelefon;
     private javax.swing.JTextField jTextFieldLastbilNavn;
     private javax.swing.JTextField jTextFieldLastbilTelefon;
+    private javax.swing.JTextField jTextFieldOrdreKompAntal;
     private javax.swing.JTextField jTextFieldRabat;
     private javax.swing.JTextField jTextFieldStaffNavn;
     private javax.swing.JTextField jTextFieldStaffStilling;

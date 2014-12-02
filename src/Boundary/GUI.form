@@ -527,13 +527,14 @@
                                                   <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                                                   <Component id="jScrollPane10" min="-2" pref="140" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jButtonKompUde" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jButtonKompHjem" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="jButtonKompUde" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="jButtonKompHjem" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="jTextFieldOrdreKompAntal" alignment="0" max="32767" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jScrollPane11" min="-2" pref="140" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="118" max="32767" attributes="0"/>
+                                                  <EmptySpace min="0" pref="98" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -561,20 +562,22 @@
                                               <Component id="jLabelKomp" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="jScrollPane6" min="-2" pref="90" max="-2" attributes="0"/>
-                                              <Component id="jScrollPane7" min="-2" pref="90" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Component id="jScrollPane6" min="-2" pref="90" max="-2" attributes="0"/>
+                                                  <Component id="jScrollPane7" min="-2" pref="90" max="-2" attributes="0"/>
                                                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                                       <Component id="jScrollPane10" alignment="1" min="-2" pref="90" max="-2" attributes="0"/>
                                                       <Component id="jScrollPane11" alignment="1" min="-2" pref="90" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                                      <Component id="jButtonKompUde" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="jButtonKompHjem" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jButtonKompUde" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jTextFieldOrdreKompAntal" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Component id="jButtonKompHjem" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -599,7 +602,7 @@
                                           <Component id="jButtonLastHjem" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="138" max="32767" attributes="0"/>
+                                  <EmptySpace pref="90" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jButtonOCancel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jButtonOInsert" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -844,6 +847,8 @@
                             </Component>
                           </SubComponents>
                         </Container>
+                        <Component class="javax.swing.JTextField" name="jTextFieldOrdreKompAntal">
+                        </Component>
                       </SubComponents>
                     </Container>
                   </SubComponents>
