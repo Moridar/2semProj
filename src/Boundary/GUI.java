@@ -1532,13 +1532,27 @@ public class GUI extends javax.swing.JFrame {
         Date datoSlut = jDcDatoSlut.getDate();
 
         Ordre o = new Ordre(salgsmedarbejderID, kundeID, vej, Postnr, confirm, pris, datoStart, datoSlut);
+        //Staff
         for (int i = 0; i < jListMonUde.getModel().getSize(); i++) {
             o.getStaffList().put(tempMonList.get(jListMonUde.getModel().getElementAt(i)), datoStart);
             o.getStaffList().put(tempMonList.get(jListMonUde.getModel().getElementAt(i)), datoSlut);
         }
+        //Komp
         for (int i = 0; i < jListKompUde.getModel().getSize(); i++) {
-            o.getKompList().put(tempKompList.get(jListKompUde.getModel().getElementAt(i)), 1);
+            String s = (String) jListKompUde.getModel().getElementAt(i);
+            String[] tokens = s.split(" ");
+            int kompID = tempKompList.get(tokens[1]);
+            int antal = 0;
+            try {
+                antal = Integer.parseInt(tokens[0]);
+            } catch (Exception e) {
+            }
+            
+            if(o.getKompList().containsKey(kompID)) antal += o.getKompList().get(kompID);
+            o.getKompList().put(kompID, antal);
         }
+        
+        //Last
         for (int i = 0; i < jListLastUde.getModel().getSize(); i++) {
             o.getLastbilList().put(tempLastList.get(jListLastUde.getModel().getElementAt(i)), datoStart);
             o.getLastbilList().put(tempLastList.get(jListLastUde.getModel().getElementAt(i)), datoSlut);
@@ -1850,6 +1864,7 @@ public class GUI extends javax.swing.JFrame {
                 antal = Integer.parseInt(tokens[0]);
                 behov = Integer.parseInt(jTextFieldOrdreKompAntal.getText());
             } catch (Exception e) {
+                antal = behov;
                 System.out.println("jButtonKompUdeActionPerformed Antal fail");
             }
 
