@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 
-
 public class DB {
 
     private static String driver = "oracle.jdbc.driver.OracleDriver";
@@ -160,7 +159,7 @@ public class DB {
     }
 
     public static HashMap<Integer, Lastbil> getAllLastbil() throws SQLException {
-       
+
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -207,7 +206,7 @@ public class DB {
             connection = DriverManager.getConnection(URL, ID, PW);
 
             statement = connection.createStatement();
-            
+
             String query = "SELECT * FROM Ordre WHERE datoSlut >= '" + new java.sql.Date(new Date().getTime()) + "'";
 
             rs = statement.executeQuery(query);
@@ -232,8 +231,8 @@ public class DB {
         }
         return list;
     }
-    
-        public static HashMap<Integer, Ordre> getAllOldOrder() throws SQLException {
+
+    public static HashMap<Integer, Ordre> getAllOldOrder() throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
@@ -245,7 +244,7 @@ public class DB {
             connection = DriverManager.getConnection(URL, ID, PW);
 
             statement = connection.createStatement();
-            
+
             String query = "SELECT * FROM Ordre WHERE datoSlut < '" + new java.sql.Date(new Date().getTime()) + "'";
 
             rs = statement.executeQuery(query);
@@ -328,14 +327,16 @@ public class DB {
             connection = DriverManager.getConnection(URL, ID, PW);
 
             statement = connection.createStatement();
-            
-            String listMedOrdreID = "";
+
+            String listMedID = "";
             for (int OrdreID : list.keySet()) {
-                listMedOrdreID += OrdreID + ",";
+                listMedID += OrdreID + ",";
             }
-            if(listMedOrdreID.endsWith(",")) listMedOrdreID = listMedOrdreID.substring(0, listMedOrdreID.length()-1);
-            
-            String query = "SELECT * FROM UDE WHERE OrdreID IN (" + listMedOrdreID + ")";
+            if (listMedID.endsWith(",")) {
+                listMedID = listMedID.substring(0, listMedID.length() - 1);
+            }
+
+            String query = "SELECT * FROM UDE WHERE OrdreID IN (" + listMedID + ")";
 
             rs = statement.executeQuery(query);
 
@@ -402,8 +403,14 @@ public class DB {
             connection = DriverManager.getConnection(URL, ID, PW);
 
             statement = connection.createStatement();
-
-            String query = "SELECT * FROM arbejde";
+            String listMedID = "";
+            for (int OrdreID : list.keySet()) {
+                listMedID += OrdreID + ",";
+            }
+            if (listMedID.endsWith(",")) {
+                listMedID = listMedID.substring(0, listMedID.length() - 1);
+            }
+            String query = "SELECT * FROM arbejde WHERE OrdreID IN (" + listMedID + ")";
 
             rs = statement.executeQuery(query);
 
@@ -468,8 +475,14 @@ public class DB {
             connection = DriverManager.getConnection(URL, ID, PW);
 
             statement = connection.createStatement();
-
-            String query = "SELECT * FROM Transport";
+            String listMedID = "";
+            for (int OrdreID : list.keySet()) {
+                listMedID += OrdreID + ",";
+            }
+            if (listMedID.endsWith(",")) {
+                listMedID = listMedID.substring(0, listMedID.length() - 1);
+            }
+            String query = "SELECT * FROM Transport WHERE OrdreID IN (" + listMedID + ")";
 
             rs = statement.executeQuery(query);
 
@@ -736,8 +749,8 @@ public class DB {
             statement = connection.createStatement();
 
             String insertSQL = "INSERT INTO komponent VALUES ("
-                    + id + ",'" + k.getNavn() + "'," + k.getPrisPerDag() + "," + 
-                    k.getOpbygningtid() +")";
+                    + id + ",'" + k.getNavn() + "'," + k.getPrisPerDag() + ","
+                    + k.getOpbygningtid() + ")";
             //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
             int rows = statement.executeUpdate(insertSQL);
@@ -957,7 +970,7 @@ public class DB {
             connection.close();
         }
     }
-    
+
     private static void updateOrdreLastbilList(int id, HashMap<Integer, Date> LastbilList) throws SQLException {
         PreparedStatement statement = null;
         Connection connection = null;
@@ -984,7 +997,7 @@ public class DB {
             connection.close();
         }
     }
-    
+
     public static void updateKomponent(int id, Komponent k) throws SQLException {
         Statement statement = null;
         Connection connection = null;
@@ -1015,7 +1028,7 @@ public class DB {
             connection.close();
         }
     }
-    
+
     public static void updateLastbil(int id, Lastbil l) throws SQLException {
         Statement statement = null;
         Connection connection = null;
@@ -1026,7 +1039,7 @@ public class DB {
             statement = connection.createStatement();
 
             String insertSQL = "update Lastbiler SET navn = '"
-                     + l.getNavn() + "',Telefon=" + l.getTelefon() + " WHERE ID =" + id;
+                    + l.getNavn() + "',Telefon=" + l.getTelefon() + " WHERE ID =" + id;
             //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
             int rows = statement.executeUpdate(insertSQL);
