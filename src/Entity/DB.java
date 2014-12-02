@@ -294,7 +294,7 @@ public class DB {
             }
 
         } catch (Exception ee) {
-            System.out.println("fail-2");
+            System.out.println("DB:GetHighestOrderID fail");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -302,6 +302,7 @@ public class DB {
         }
         return oID;
     }
+
     /**
      *
      * @param lagerID
@@ -333,7 +334,7 @@ public class DB {
             }
 
         } catch (Exception ee) {
-            System.out.println("fail4");
+            System.out.println("DB: getKompToLager fail");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -381,7 +382,7 @@ public class DB {
             }
 
         } catch (Exception ee) {
-            System.out.println("fail5");
+            System.out.println("DB: getKompToOrder fail");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -507,6 +508,7 @@ public class DB {
             connection = DriverManager.getConnection(URL, ID, PW);
 
             statement = connection.createStatement();
+
             String listMedID = "";
             for (int OrdreID : list.keySet()) {
                 listMedID += OrdreID + ",";
@@ -522,11 +524,11 @@ public class DB {
             //=== Move cursor one step at a time and
             //	 check for the existence of a row  
             while (rs.next()) {
-                list.get(rs.getInt(1)).getLastbilList().put(rs.getInt(2), rs.getDate(3));
+                list.get(rs.getInt(2)).getLastbilList().put(rs.getInt(1), rs.getDate(3));
             }
 
         } catch (Exception ee) {
-            System.out.println("fail9");
+            System.out.println("DB:getLastbilListToOrder fail");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -559,7 +561,7 @@ public class DB {
                 list.add(rs.getInt(1));
             }
         } catch (Exception ee) {
-            System.out.println("fail9");
+            System.out.println("DB:getOrderToKunde fail");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -1090,6 +1092,5 @@ public class DB {
             connection.close();
         }
     }
-    
-   
+
 }
