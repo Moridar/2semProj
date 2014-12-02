@@ -371,6 +371,7 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane11 = new javax.swing.JScrollPane();
         jListKompUde = new javax.swing.JList();
         jTextFieldOrdreKompAntal = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jPanelKunde = new javax.swing.JPanel();
         jLayeredPaneKundeOverview = new javax.swing.JLayeredPane();
         jButtonOpretNyKunde = new javax.swing.JButton();
@@ -815,7 +816,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jButtonLastUde)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonLastHjem)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                 .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonOCancel2)
                     .addComponent(jButtonOInsert)
@@ -898,6 +899,8 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(jLayeredPaneOpretOrdre))
         );
 
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout jPanelOrdreLayout = new javax.swing.GroupLayout(jPanelOrdre);
         jPanelOrdre.setLayout(jPanelOrdreLayout);
         jPanelOrdreLayout.setHorizontalGroup(
@@ -905,17 +908,22 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanelOrdreLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelOrdreLayout.createSequentialGroup()
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOrdreLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonOpretOrdre))
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonOpretOrdre)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)))
                 .addContainerGap())
         );
         jPanelOrdreLayout.setVerticalGroup(
             jPanelOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOrdreLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jButtonOpretOrdre)
+                .addGroup(jPanelOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonOpretOrdre)
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1899,7 +1907,7 @@ public class GUI extends javax.swing.JFrame {
                 antal = Integer.parseInt(tokens[0]);
                 behov = Integer.parseInt(jTextFieldOrdreKompAntal.getText());
             } catch (Exception e) {
-                antal = behov;
+                behov = antal;
                 System.out.println("jButtonKompUdeActionPerformed Antal fail");
             }
 
@@ -1964,6 +1972,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonKompHjem;
     private javax.swing.JButton jButtonKompUde;
     private javax.swing.JButton jButtonLastHjem;
