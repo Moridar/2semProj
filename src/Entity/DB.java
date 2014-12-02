@@ -208,7 +208,7 @@ public class DB {
 
             statement = connection.createStatement();
             
-            String query = "SELECT * FROM Ordre WHERE datoSlut > '" + new java.sql.Date(new Date().getTime()) + "'";
+            String query = "SELECT * FROM Ordre WHERE datoSlut >= '" + new java.sql.Date(new Date().getTime()) + "'";
 
             rs = statement.executeQuery(query);
 
@@ -225,6 +225,44 @@ public class DB {
             getLastbilListToOrder(list);
         } catch (Exception ee) {
             System.out.println("fail3");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+        return list;
+    }
+    
+        public static HashMap<Integer, Ordre> getAllOldOrder() throws SQLException {
+        ResultSet rs = null;
+        Statement statement = null;
+        Connection connection = null;
+        HashMap<Integer, Ordre> list = new HashMap<>();
+
+        try {
+            Class.forName(driver);
+
+            connection = DriverManager.getConnection(URL, ID, PW);
+
+            statement = connection.createStatement();
+            
+            String query = "SELECT * FROM Ordre WHERE datoSlut < '" + new java.sql.Date(new Date().getTime()) + "'";
+
+            rs = statement.executeQuery(query);
+
+            //=== read the result
+            //=== Move cursor one step at a time and
+            //	 check for the existence of a row  
+            while (rs.next()) {
+                list.put(rs.getInt(1), new Ordre(rs.getInt(2), rs.getInt(3),
+                        rs.getString(4), rs.getInt(5), rs.getInt(6) == 1,
+                        rs.getDouble(7), rs.getDate(8), rs.getDate(9)));
+            }
+            getKompToOrder(list);
+            getStaffListToOrder(list);
+            getLastbilListToOrder(list);
+        } catch (Exception ee) {
+            System.out.println("fail3.1");
             System.err.println(ee);
         } finally {
             statement.close();

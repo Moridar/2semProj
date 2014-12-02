@@ -19,6 +19,8 @@ public class Control {
     private Date KundeListLastRefresh;
     private HashMap<Integer, Ordre> OrdreList;
     private Date OrdreListLastRefresh;
+    private HashMap<Integer, Ordre> OldOrdreList;
+    private Date OldOrdreListLastRefresh;
     private HashMap<Integer, Staff> StaffList;
     private Date StaffListLastRefresh;
     private HashMap<Integer, Lastbil> LastbilList;
@@ -31,6 +33,7 @@ public class Control {
     public Control() {
         KundeListLastRefresh = new Date(0, 0, 1);
         OrdreListLastRefresh = new Date(0, 0, 1);
+        OldOrdreListLastRefresh = new Date(0, 0, 1);
         StaffListLastRefresh = new Date(0, 0, 1);
         LastbilListLastRefresh = new Date(0, 0, 1);
         LagerListLastRefresh = new Date(0, 0, 1);
@@ -56,6 +59,18 @@ public class Control {
                 OrdreListLastRefresh = new Date();
             } catch (Exception e) {
                 OrdreList = new HashMap<>();
+            }
+        }
+        return OrdreList;
+    }
+    
+    public HashMap<Integer, Ordre> getOldOrdreList() {
+        if (new Date().getTime() - OldOrdreListLastRefresh.getTime() > 300000) {
+            try {
+                OldOrdreList = DB.getAllOldOrder();
+                OldOrdreListLastRefresh = new Date();
+            } catch (Exception e) {
+                OldOrdreList = new HashMap<>();
             }
         }
         return OrdreList;
