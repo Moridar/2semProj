@@ -224,6 +224,51 @@ public class GUI extends javax.swing.JFrame {
         }
 
     }
+    
+    class OldOrdreTableModel extends AbstractTableModel {
+
+        String[] columnNames = {"Salgsmedarbjer", "Kunde", "Vej", "Post", "Pris", "Start", "Slut", "Bekræftet"};
+
+        @Override
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        @Override
+        public int getRowCount() {
+            return con.getOldOrdreList().keySet().size();
+        }
+
+        @Override
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            int id = (int) con.getOldOrdreList().keySet().toArray()[row];
+            switch (col) {
+                case 0:
+                    return con.getStaffList().get(con.getOldOrdreList().get(id).getSalgsmedarbsID()).getNavn();
+                case 1:
+                    return con.getKundeList().get(con.getOldOrdreList().get(id).getKundeID()).getName();
+                case 2:
+                    return con.getOldOrdreList().get(id).getVej();
+                case 3:
+                    return con.getOldOrdreList().get(id).getPostNR();
+                case 4:
+                    return con.getOldOrdreList().get(id).getPris();
+                case 5:
+                    return con.getOldOrdreList().get(id).getDatoStart();
+                case 6:
+                    return con.getOldOrdreList().get(id).getDatoSlut();
+                case 7:
+                    return con.getOldOrdreList().get(id).getConfirmation() == 1;
+            }
+            return null;
+        }
+
+    }
 
     class KundeTableModel extends AbstractTableModel {
 
@@ -410,17 +455,7 @@ public class GUI extends javax.swing.JFrame {
 
         jTabbedPane3.addTab("Nuværende ordrer", jPanelNuOrdre);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable2.setModel(new OldOrdreTableModel());
         jScrollPane3.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanelTilOrdreLayout = new javax.swing.GroupLayout(jPanelTilOrdre);
