@@ -104,9 +104,6 @@ public class Control {
         if (new Date().getTime() - LagerListLastRefresh.getTime() > 300000) {
             try {
                 LagerList = DB.getAllLager();
-                for (int id : LagerList.keySet()) {
-                    LagerList.get(id).setKompList(DB.getKompToLager(id));
-                }
                 LagerListLastRefresh = new Date();
             } catch (Exception e) {
                 LagerList = new HashMap<>();

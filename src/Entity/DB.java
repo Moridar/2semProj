@@ -41,11 +41,12 @@ public class DB {
             //	 check for the existence of a row  
             while (rs.next()) {
                 list.put(rs.getInt(1), new Kunde(rs.getString(2),
-                        rs.getInt(3), rs.getString(4), rs.getInt(5), getOrderToKunde(rs.getInt(1))));
+                        rs.getInt(3), rs.getString(4), rs.getInt(5)));
             }
+            getOrderToKunde(list);
 
         } catch (Exception ee) {
-            System.out.println("fail-2");
+            System.out.println("DB: getAllKunde fail");
             System.err.println(ee);
         } finally {
             statement.close();
@@ -76,9 +77,9 @@ public class DB {
             //	 check for the existence of a row  
             while (rs.next()) {
                 list.put(rs.getInt(1), new Staff(rs.getString(2),
-                        rs.getInt(3), rs.getString(4), getArbejdsSkema(rs.getInt(1))));
+                        rs.getInt(3), rs.getString(4)));
             }
-
+            getAllArbejdsSkema(list);
         } catch (Exception ee) {
             System.out.println("fail-1");
             System.err.println(ee);
@@ -147,6 +148,7 @@ public class DB {
             while (rs.next()) {
                 list.put(rs.getInt(1), new Lager(rs.getString(2)));
             }
+            getKompToLager(list);
 
         } catch (Exception ee) {
             System.out.println("fail1");
@@ -181,8 +183,9 @@ public class DB {
             //	 check for the existence of a row  
             while (rs.next()) {
                 list.put(rs.getInt(1), new Lastbil(rs.getString(2),
-                        rs.getInt(3), getTransportSkema(rs.getInt(1))));
+                        rs.getInt(3)));
             }
+            getTransportSkema(list);
 
         } catch (Exception ee) {
             System.out.println("fail2");
@@ -309,11 +312,10 @@ public class DB {
      * @return HashMap<KomponentID, Antal>
      * @throws SQLException
      */
-    public static HashMap<Integer, Integer> getKompToLager(int lagerID) throws SQLException {
+    public static void getKompToLager(HashMap<Integer, Lager> list) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
-        HashMap<Integer, Integer> list = new HashMap<>();
 
         try {
             Class.forName(driver);
@@ -322,7 +324,7 @@ public class DB {
 
             statement = connection.createStatement();
 
-            String query = "SELECT * FROM Hjemme WHERE LagerID = " + lagerID;
+            String query = "SELECT * FROM Hjemme";
 
             rs = statement.executeQuery(query);
 
@@ -330,7 +332,9 @@ public class DB {
             //=== Move cursor one step at a time and
             //	 check for the existence of a row  
             while (rs.next()) {
-                list.put(rs.getInt(2), rs.getInt(3));
+                Lager l = list.get(rs.getInt(1));
+                l.getKompList().put(rs.getInt(2), rs.getInt(3));
+                l.getDefekteList().put(rs.getInt(2), rs.getInt(4));
             }
 
         } catch (Exception ee) {
@@ -340,7 +344,6 @@ public class DB {
             statement.close();
             connection.close();
         }
-        return list;
     }
 
     /**
@@ -391,11 +394,10 @@ public class DB {
 
     }
 
-    public static HashMap<Date, Integer> getArbejdsSkema(int staffID) throws SQLException {
+    public static void getAllArbejdsSkema(HashMap<Integer, Staff> list) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
-        HashMap<Date, Integer> list = new HashMap<>();
 
         try {
             Class.forName(driver);
@@ -404,7 +406,7 @@ public class DB {
 
             statement = connection.createStatement();
 
-            String query = "SELECT * FROM arbejde WHERE staffID = " + staffID;
+            String query = "SELECT * FROM arbejde";
 
             rs = statement.executeQuery(query);
 
@@ -412,7 +414,7 @@ public class DB {
             //=== Move cursor one step at a time and
             //	 check for the existence of a row  
             while (rs.next()) {
-                list.put(rs.getDate(3), rs.getInt(2));
+                list.get(rs.getInt(1)).getArbejdeskema().put(rs.getDate(3), rs.getInt(2));
             }
 
         } catch (Exception ee) {
@@ -422,7 +424,6 @@ public class DB {
             statement.close();
             connection.close();
         }
-        return list;
     }
 
     private static void getStaffListToOrder(HashMap<Integer, Ordre> list) throws SQLException {
@@ -463,11 +464,10 @@ public class DB {
         }
     }
 
-    public static HashMap<Date, Integer> getTransportSkema(int LastbilID) throws SQLException {
+    public static void getTransportSkema(HashMap<Integer, Lastbil> list) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
-        HashMap<Date, Integer> list = new HashMap<>();
 
         try {
             Class.forName(driver);
@@ -476,7 +476,7 @@ public class DB {
 
             statement = connection.createStatement();
 
-            String query = "SELECT * FROM Transport WHERE LastbilID = " + LastbilID;
+            String query = "SELECT * FROM Transport";
 
             rs = statement.executeQuery(query);
 
@@ -484,7 +484,7 @@ public class DB {
             //=== Move cursor one step at a time and
             //	 check for the existence of a row  
             while (rs.next()) {
-                list.put(rs.getDate(3), rs.getInt(2));
+                list.get(rs.getInt(1)).getTransportskema().put(rs.getDate(3), rs.getInt(2));
             }
 
         } catch (Exception ee) {
@@ -494,7 +494,6 @@ public class DB {
             statement.close();
             connection.close();
         }
-        return list;
     }
 
     private static void getLastbilListToOrder(HashMap<Integer, Ordre> list) throws SQLException {
@@ -537,12 +536,11 @@ public class DB {
 
     }
 
-    public static ArrayList<Integer> getOrderToKunde(int KundeID) throws SQLException {
+    public static void getOrderToKunde(HashMap<Integer, Kunde> list) throws SQLException {
         ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
-        ArrayList<Integer> list = new ArrayList<>();
-
+        
         try {
             Class.forName(driver);
 
@@ -550,7 +548,7 @@ public class DB {
 
             statement = connection.createStatement();
 
-            String query = "SELECT * FROM Ordre WHERE KundeID = " + KundeID;
+            String query = "SELECT * FROM Ordre";
 
             rs = statement.executeQuery(query);
 
@@ -558,7 +556,7 @@ public class DB {
             //=== Move cursor one step at a time and
             //	 check for the existence of a row  
             while (rs.next()) {
-                list.add(rs.getInt(1));
+                list.get(rs.getInt(3)).getOrdreList().add(rs.getInt(1));
             }
         } catch (Exception ee) {
             System.out.println("DB:getOrderToKunde fail");
@@ -567,7 +565,6 @@ public class DB {
             statement.close();
             connection.close();
         }
-        return list;
     }
 //    End of getData methods
 //    ----------------------------------------------------------------------------    

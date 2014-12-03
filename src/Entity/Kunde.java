@@ -19,6 +19,14 @@ public class Kunde {
     private int rabat;
     private ArrayList<Integer> ordreList;
 
+    public Kunde(String name, int telefon, String email, int rabat) {
+        this.name = name;
+        this.telefon = telefon;
+        this.email = email;
+        this.rabat = rabat;
+        this.ordreList = new ArrayList<>();
+    }
+
     public Kunde(String name, int telefon, String email, int rabat, ArrayList<Integer> ordreList) {
         this.name = name;
         this.telefon = telefon;
