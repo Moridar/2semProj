@@ -374,6 +374,17 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane11 = new javax.swing.JScrollPane();
         jListKompUde = new javax.swing.JList();
         jTextFieldOrdreKompAntal = new javax.swing.JTextField();
+        jLabelCreateOrdrePris = new javax.swing.JLabel();
+        jLabelCreateOrdreKompPrDag = new javax.swing.JLabel();
+        jLabelCreateOrdreRabat = new javax.swing.JLabel();
+        jLabelCreateOrdreSum = new javax.swing.JLabel();
+        jLabelCreateOrdreManuel = new javax.swing.JLabel();
+        jTextFieldCreateOrdreManuel = new javax.swing.JTextField();
+        jLabelCreateOrdreTotalPris = new javax.swing.JLabel();
+        jLabelCreateOrdreTotalPrisEdit = new javax.swing.JLabel();
+        jLabelCreateOrdreRabatEdit = new javax.swing.JLabel();
+        jLabelCreateOrdreSumEdit = new javax.swing.JLabel();
+        jLabelCreateOrdrePrisEdit = new javax.swing.JLabel();
         jButtonUpdateOrdre = new javax.swing.JButton();
         jPanelKunde = new javax.swing.JPanel();
         jLayeredPaneKundeOverview = new javax.swing.JLayeredPane();
@@ -723,6 +734,29 @@ public class GUI extends javax.swing.JFrame {
         });
         jScrollPane11.setViewportView(jListKompUde);
 
+        jLabelCreateOrdrePris.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabelCreateOrdrePris.setText("Pris:");
+
+        jLabelCreateOrdreKompPrDag.setText("Komponenter pr dag:");
+
+        jLabelCreateOrdreRabat.setText("Rabat:");
+
+        jLabelCreateOrdreSum.setText("Sum:");
+
+        jLabelCreateOrdreManuel.setText("Manuel:");
+
+        jTextFieldCreateOrdreManuel.setText("jTextField5");
+
+        jLabelCreateOrdreTotalPris.setText("Total Pris:");
+
+        jLabelCreateOrdreTotalPrisEdit.setText("jLabel1");
+
+        jLabelCreateOrdreRabatEdit.setText("jLabel2");
+
+        jLabelCreateOrdreSumEdit.setText("jLabel3");
+
+        jLabelCreateOrdrePrisEdit.setText("jLabel4");
+
         javax.swing.GroupLayout jLPanelOpretOPart2Layout = new javax.swing.GroupLayout(jLPanelOpretOPart2);
         jLPanelOpretOPart2.setLayout(jLPanelOpretOPart2Layout);
         jLPanelOpretOPart2Layout.setHorizontalGroup(
@@ -761,15 +795,32 @@ public class GUI extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(71, 71, 71)
-                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButtonKompUde, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButtonKompHjem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldOrdreKompAntal))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 98, Short.MAX_VALUE)))
+                                .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jButtonKompUde, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jButtonKompHjem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jTextFieldOrdreKompAntal))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabelCreateOrdrePris)
+                                    .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabelCreateOrdreKompPrDag)
+                                            .addComponent(jLabelCreateOrdreRabat)
+                                            .addComponent(jLabelCreateOrdreSum)
+                                            .addComponent(jLabelCreateOrdreManuel)
+                                            .addComponent(jLabelCreateOrdreTotalPris, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jTextFieldCreateOrdreManuel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabelCreateOrdreTotalPrisEdit)
+                                            .addComponent(jLabelCreateOrdreRabatEdit)
+                                            .addComponent(jLabelCreateOrdreSumEdit)
+                                            .addComponent(jLabelCreateOrdrePrisEdit))))
+                                .addGap(0, 118, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
                         .addComponent(jLabelMon)
@@ -809,22 +860,48 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonMonHjem)))
                 .addGap(18, 18, 18)
-                .addComponent(jLabelLast)
                 .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelLast)
+                    .addComponent(jLabelCreateOrdrePris))
+                .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jButtonLastUde)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonLastHjem)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonOCancel2)
-                    .addComponent(jButtonOInsert)
-                    .addComponent(jButtonOBack))
-                .addGap(52, 52, 52))
+                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jButtonLastUde)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonLastHjem)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonOCancel2)
+                            .addComponent(jButtonOInsert)
+                            .addComponent(jButtonOBack))
+                        .addGap(52, 52, 52))
+                    .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelCreateOrdreKompPrDag)
+                            .addComponent(jLabelCreateOrdrePrisEdit))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelCreateOrdreRabat)
+                            .addComponent(jLabelCreateOrdreRabatEdit))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelCreateOrdreSum)
+                            .addComponent(jLabelCreateOrdreSumEdit))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelCreateOrdreManuel)
+                            .addComponent(jTextFieldCreateOrdreManuel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelCreateOrdreTotalPris)
+                            .addComponent(jLabelCreateOrdreTotalPrisEdit))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jLPanelOpretOPart2.setLayer(jButtonOCancel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jButtonOInsert, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -846,6 +923,17 @@ public class GUI extends javax.swing.JFrame {
         jLPanelOpretOPart2.setLayer(jButtonKompUde, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jScrollPane11, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jTextFieldOrdreKompAntal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jLabelCreateOrdrePris, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jLabelCreateOrdreKompPrDag, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jLabelCreateOrdreRabat, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jLabelCreateOrdreSum, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jLabelCreateOrdreManuel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jTextFieldCreateOrdreManuel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jLabelCreateOrdreTotalPris, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jLabelCreateOrdreTotalPrisEdit, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jLabelCreateOrdreRabatEdit, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jLabelCreateOrdreSumEdit, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jLabelCreateOrdrePrisEdit, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPaneOpretOrdreLayout = new javax.swing.GroupLayout(jLayeredPaneOpretOrdre);
         jLayeredPaneOpretOrdre.setLayout(jLayeredPaneOpretOrdreLayout);
@@ -1610,6 +1698,10 @@ public class GUI extends javax.swing.JFrame {
         }
 
         con.createNewOrdre(o);
+        jLPanelOpretOPart2.setVisible(false);
+        jPanelOverblik.setVisible(true);
+        jButtonOpretOrdre.setVisible(true);
+        jButtonUpdateOrdre.setVisible(true);
     }//GEN-LAST:event_jButtonOInsertActionPerformed
 
     private void jButtonOCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOCancel2ActionPerformed
@@ -1667,13 +1759,14 @@ public class GUI extends javax.swing.JFrame {
             int antal = 0;
 
             for (Lager l : con.getLagerList().values()) {
-                antal += l.getKompList().get(tempKompList.get(kompNavn));
+                if(l.getKompList().containsKey(tempKompList.get(kompNavn))) antal += l.getKompList().get(tempKompList.get(kompNavn));
             }
             for (Ordre o : con.getOrdreList().values()) {
                 if (o.getDatoStart().after(jDcDatoSlut.getDate()) || o.getDatoSlut().before(jDcDatoSlut.getDate())) {
+                    //No Action!
                 } //Denne pågældende order starter efter den nye ordres slut eller slutter inden den nyes start.
                 else {
-                    antal -= o.getKompList().get(tempKompList.get(kompNavn));
+                    if(o.getKompList().containsKey(tempKompList.get(kompNavn))) antal -= o.getKompList().get(tempKompList.get(kompNavn));
                 }
             }
             ListModelKompHjem.addElement(antal + " " + kompNavn);
@@ -2060,6 +2153,16 @@ public class GUI extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDcDatoSlut;
     private com.toedter.calendar.JDateChooser jDcDatoStart;
     private javax.swing.JLayeredPane jLPanelOpretOPart2;
+    private javax.swing.JLabel jLabelCreateOrdreKompPrDag;
+    private javax.swing.JLabel jLabelCreateOrdreManuel;
+    private javax.swing.JLabel jLabelCreateOrdrePris;
+    private javax.swing.JLabel jLabelCreateOrdrePrisEdit;
+    private javax.swing.JLabel jLabelCreateOrdreRabat;
+    private javax.swing.JLabel jLabelCreateOrdreRabatEdit;
+    private javax.swing.JLabel jLabelCreateOrdreSum;
+    private javax.swing.JLabel jLabelCreateOrdreSumEdit;
+    private javax.swing.JLabel jLabelCreateOrdreTotalPris;
+    private javax.swing.JLabel jLabelCreateOrdreTotalPrisEdit;
     private javax.swing.JLabel jLabelDatoSlut;
     private javax.swing.JLabel jLabelDatoStart;
     private javax.swing.JLabel jLabelKomp;
@@ -2133,6 +2236,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTable jTableKunde;
     private javax.swing.JTable jTableLastbil;
     private javax.swing.JTable jTableStaff;
+    private javax.swing.JTextField jTextFieldCreateOrdreManuel;
     private javax.swing.JTextField jTextFieldKomponentNavn;
     private javax.swing.JTextField jTextFieldKomponentPPD;
     private javax.swing.JTextField jTextFieldKundeEmail;
