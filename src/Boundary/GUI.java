@@ -50,6 +50,8 @@ public class GUI extends javax.swing.JFrame {
         jLayeredPaneKomponentOprettelse.setVisible(false);
         jLayeredPaneStaffOprettelse.setVisible(false);
         jLayeredPaneLastbilOprettelse.setVisible(false);
+        jLabelUpdateFejl.setVisible(false);
+        jLayeredPaneVisOrdre.setVisible(false);
     }
 
     class StaffStatusModel extends AbstractTableModel {
@@ -375,17 +377,32 @@ public class GUI extends javax.swing.JFrame {
         jListKompUde = new javax.swing.JList();
         jTextFieldOrdreKompAntal = new javax.swing.JTextField();
         jLabelCreateOrdrePris = new javax.swing.JLabel();
-        jLabelCreateOrdreKompPrDag = new javax.swing.JLabel();
         jLabelCreateOrdreRabat = new javax.swing.JLabel();
-        jLabelCreateOrdreSum = new javax.swing.JLabel();
         jLabelCreateOrdreManuel = new javax.swing.JLabel();
         jTextFieldCreateOrdreManuel = new javax.swing.JTextField();
         jLabelCreateOrdreTotalPris = new javax.swing.JLabel();
         jLabelCreateOrdreTotalPrisEdit = new javax.swing.JLabel();
         jLabelCreateOrdreRabatEdit = new javax.swing.JLabel();
-        jLabelCreateOrdreSumEdit = new javax.swing.JLabel();
-        jLabelCreateOrdrePrisEdit = new javax.swing.JLabel();
+        jLayeredPaneVisOrdre = new javax.swing.JLayeredPane();
+        jLabelKunde2 = new javax.swing.JLabel();
+        jLabelVej2 = new javax.swing.JLabel();
+        jLabelPostNR2 = new javax.swing.JLabel();
+        jLabelDatoStart2 = new javax.swing.JLabel();
+        jLabelDatoSlut2 = new javax.swing.JLabel();
+        jLabelPris2 = new javax.swing.JLabel();
+        jLabelBekreaftelse = new javax.swing.JLabel();
+        jLabelSalgsMedArb = new javax.swing.JLabel();
+        jLabelSetKunde = new javax.swing.JLabel();
+        jLabelSetVej = new javax.swing.JLabel();
+        jLabelSetPostNR = new javax.swing.JLabel();
+        jLabelSetDatoStart = new javax.swing.JLabel();
+        jLabelSetDatoSlut = new javax.swing.JLabel();
+        jLabelSetPris = new javax.swing.JLabel();
+        jLabelSetBekreaftelse = new javax.swing.JLabel();
+        jLabelSetSalgsMedArb = new javax.swing.JLabel();
+        jButtonTilbage = new javax.swing.JButton();
         jButtonUpdateOrdre = new javax.swing.JButton();
+        jLabelUpdateFejl = new javax.swing.JLabel();
         jPanelKunde = new javax.swing.JPanel();
         jLayeredPaneKundeOverview = new javax.swing.JLayeredPane();
         jButtonOpretNyKunde = new javax.swing.JButton();
@@ -454,7 +471,21 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        jTabbedPane3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane3MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTabbedPane3MousePressed(evt);
+            }
+        });
+
         jTable1.setModel(new OrdreTableModel());
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanelNuOrdreLayout = new javax.swing.GroupLayout(jPanelNuOrdre);
@@ -465,7 +496,7 @@ public class GUI extends javax.swing.JFrame {
         );
         jPanelNuOrdreLayout.setVerticalGroup(
             jPanelNuOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("Nuværende ordrer", jPanelNuOrdre);
@@ -481,7 +512,7 @@ public class GUI extends javax.swing.JFrame {
         );
         jPanelTilOrdreLayout.setVerticalGroup(
             jPanelTilOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("Tidligere ordrer", jPanelTilOrdre);
@@ -548,14 +579,16 @@ public class GUI extends javax.swing.JFrame {
         jPanelOpretOPart1Layout.setHorizontalGroup(
             jPanelOpretOPart1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOpretOPart1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonOCancel)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonONext)
-                .addContainerGap(691, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOpretOPart1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelOSide1)
+                .addGroup(jPanelOpretOPart1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOpretOPart1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelOSide1))
+                    .addGroup(jPanelOpretOPart1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonOCancel)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonONext)
+                        .addGap(0, 701, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanelOpretOPart1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelOpretOPart1Layout.createSequentialGroup()
@@ -737,25 +770,21 @@ public class GUI extends javax.swing.JFrame {
         jLabelCreateOrdrePris.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelCreateOrdrePris.setText("Pris:");
 
-        jLabelCreateOrdreKompPrDag.setText("Komponenter pr dag:");
-
         jLabelCreateOrdreRabat.setText("Rabat:");
 
-        jLabelCreateOrdreSum.setText("Sum:");
+        jLabelCreateOrdreManuel.setText("Pris:");
 
-        jLabelCreateOrdreManuel.setText("Manuel:");
-
-        jTextFieldCreateOrdreManuel.setText("jTextField5");
+        jTextFieldCreateOrdreManuel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldCreateOrdreManuelKeyTyped(evt);
+            }
+        });
 
         jLabelCreateOrdreTotalPris.setText("Total Pris:");
 
         jLabelCreateOrdreTotalPrisEdit.setText("jLabel1");
 
         jLabelCreateOrdreRabatEdit.setText("jLabel2");
-
-        jLabelCreateOrdreSumEdit.setText("jLabel3");
-
-        jLabelCreateOrdrePrisEdit.setText("jLabel4");
 
         javax.swing.GroupLayout jLPanelOpretOPart2Layout = new javax.swing.GroupLayout(jLPanelOpretOPart2);
         jLPanelOpretOPart2.setLayout(jLPanelOpretOPart2Layout);
@@ -806,21 +835,20 @@ public class GUI extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabelCreateOrdrePris)
-                                    .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
-                                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabelCreateOrdreKompPrDag)
-                                            .addComponent(jLabelCreateOrdreRabat)
-                                            .addComponent(jLabelCreateOrdreSum)
+                                    .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLPanelOpretOPart2Layout.createSequentialGroup()
                                             .addComponent(jLabelCreateOrdreManuel)
-                                            .addComponent(jLabelCreateOrdreTotalPris, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jTextFieldCreateOrdreManuel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabelCreateOrdreTotalPrisEdit)
-                                            .addComponent(jLabelCreateOrdreRabatEdit)
-                                            .addComponent(jLabelCreateOrdreSumEdit)
-                                            .addComponent(jLabelCreateOrdrePrisEdit))))
-                                .addGap(0, 118, Short.MAX_VALUE)))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jTextFieldCreateOrdreManuel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                                            .addComponent(jLabelCreateOrdreRabat)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabelCreateOrdreRabatEdit))
+                                        .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                                            .addComponent(jLabelCreateOrdreTotalPris)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                                            .addComponent(jLabelCreateOrdreTotalPrisEdit))))
+                                .addGap(0, 98, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
                         .addComponent(jLabelMon)
@@ -859,12 +887,10 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jButtonMonUde)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonMonHjem)))
-                .addGap(18, 18, 18)
-                .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelLast)
-                    .addComponent(jLabelCreateOrdrePris))
                 .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelLast)
                         .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -874,30 +900,24 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(jButtonLastUde)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButtonLastHjem)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                         .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonOCancel2)
                             .addComponent(jButtonOInsert)
                             .addComponent(jButtonOBack))
                         .addGap(52, 52, 52))
                     .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelCreateOrdreKompPrDag)
-                            .addComponent(jLabelCreateOrdrePrisEdit))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelCreateOrdreRabat)
-                            .addComponent(jLabelCreateOrdreRabatEdit))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelCreateOrdreSum)
-                            .addComponent(jLabelCreateOrdreSumEdit))
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabelCreateOrdrePris)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelCreateOrdreManuel)
                             .addComponent(jTextFieldCreateOrdreManuel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelCreateOrdreRabat)
+                            .addComponent(jLabelCreateOrdreRabatEdit))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelCreateOrdreTotalPris)
                             .addComponent(jLabelCreateOrdreTotalPrisEdit))
@@ -924,16 +944,12 @@ public class GUI extends javax.swing.JFrame {
         jLPanelOpretOPart2.setLayer(jScrollPane11, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jTextFieldOrdreKompAntal, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jLabelCreateOrdrePris, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLPanelOpretOPart2.setLayer(jLabelCreateOrdreKompPrDag, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jLabelCreateOrdreRabat, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLPanelOpretOPart2.setLayer(jLabelCreateOrdreSum, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jLabelCreateOrdreManuel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jTextFieldCreateOrdreManuel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jLabelCreateOrdreTotalPris, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jLabelCreateOrdreTotalPrisEdit, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jLabelCreateOrdreRabatEdit, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLPanelOpretOPart2.setLayer(jLabelCreateOrdreSumEdit, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLPanelOpretOPart2.setLayer(jLabelCreateOrdrePrisEdit, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPaneOpretOrdreLayout = new javax.swing.GroupLayout(jLayeredPaneOpretOrdre);
         jLayeredPaneOpretOrdre.setLayout(jLayeredPaneOpretOrdreLayout);
@@ -964,16 +980,171 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(jLayeredPaneOpretOrdreLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jLabelOverskrift)
-                    .addContainerGap(558, Short.MAX_VALUE)))
+                    .addContainerGap(580, Short.MAX_VALUE)))
             .addGroup(jLayeredPaneOpretOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPaneOpretOrdreLayout.createSequentialGroup()
-                    .addContainerGap(87, Short.MAX_VALUE)
+                    .addContainerGap(109, Short.MAX_VALUE)
                     .addComponent(jPanelOpretOPart1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
         jLayeredPaneOpretOrdre.setLayer(jLabelOverskrift, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneOpretOrdre.setLayer(jPanelOpretOPart1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneOpretOrdre.setLayer(jLPanelOpretOPart2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLabelKunde2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelKunde2.setText("Kunde:");
+
+        jLabelVej2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelVej2.setText("Vej:");
+
+        jLabelPostNR2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelPostNR2.setText("Post nr.:");
+
+        jLabelDatoStart2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelDatoStart2.setText("Dato opbygning:");
+
+        jLabelDatoSlut2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelDatoSlut2.setText("Dato nedrivning:");
+
+        jLabelPris2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelPris2.setText("Pris:");
+
+        jLabelBekreaftelse.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelBekreaftelse.setText("Bekræftelse:");
+
+        jLabelSalgsMedArb.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelSalgsMedArb.setText("Behandlet af:");
+
+        jLabelSetKunde.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelSetKunde.setText("jLabelSetKunde");
+
+        jLabelSetVej.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelSetVej.setText("jLabelSetVej");
+
+        jLabelSetPostNR.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelSetPostNR.setText("jLabelSetPostNR");
+
+        jLabelSetDatoStart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelSetDatoStart.setText("jLabelSetDatoStart");
+
+        jLabelSetDatoSlut.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelSetDatoSlut.setText("jLabelSetDatoSlut");
+
+        jLabelSetPris.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelSetPris.setText("jLabelSetPris");
+
+        jLabelSetBekreaftelse.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelSetBekreaftelse.setText("jLabelSetBekreaftelse");
+
+        jLabelSetSalgsMedArb.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelSetSalgsMedArb.setText("jLabelSetSalgsMedArb");
+
+        jButtonTilbage.setText("Tilbage");
+        jButtonTilbage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTilbageActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jLayeredPaneVisOrdreLayout = new javax.swing.GroupLayout(jLayeredPaneVisOrdre);
+        jLayeredPaneVisOrdre.setLayout(jLayeredPaneVisOrdreLayout);
+        jLayeredPaneVisOrdreLayout.setHorizontalGroup(
+            jLayeredPaneVisOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPaneVisOrdreLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jLayeredPaneVisOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLayeredPaneVisOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jLayeredPaneVisOrdreLayout.createSequentialGroup()
+                            .addComponent(jLabelSalgsMedArb)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelSetSalgsMedArb))
+                        .addGroup(jLayeredPaneVisOrdreLayout.createSequentialGroup()
+                            .addComponent(jLabelBekreaftelse)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelSetBekreaftelse))
+                        .addGroup(jLayeredPaneVisOrdreLayout.createSequentialGroup()
+                            .addComponent(jLabelPris2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelSetPris))
+                        .addGroup(jLayeredPaneVisOrdreLayout.createSequentialGroup()
+                            .addComponent(jLabelDatoSlut2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelSetDatoSlut))
+                        .addGroup(jLayeredPaneVisOrdreLayout.createSequentialGroup()
+                            .addComponent(jLabelDatoStart2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelSetDatoStart))
+                        .addGroup(jLayeredPaneVisOrdreLayout.createSequentialGroup()
+                            .addComponent(jLabelPostNR2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelSetPostNR))
+                        .addGroup(jLayeredPaneVisOrdreLayout.createSequentialGroup()
+                            .addComponent(jLabelVej2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelSetVej))
+                        .addGroup(jLayeredPaneVisOrdreLayout.createSequentialGroup()
+                            .addComponent(jLabelKunde2)
+                            .addGap(223, 223, 223)
+                            .addComponent(jLabelSetKunde)))
+                    .addComponent(jButtonTilbage))
+                .addContainerGap(503, Short.MAX_VALUE))
+        );
+        jLayeredPaneVisOrdreLayout.setVerticalGroup(
+            jLayeredPaneVisOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPaneVisOrdreLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jLayeredPaneVisOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelKunde2)
+                    .addComponent(jLabelSetKunde))
+                .addGap(18, 18, 18)
+                .addGroup(jLayeredPaneVisOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelVej2)
+                    .addComponent(jLabelSetVej))
+                .addGap(18, 18, 18)
+                .addGroup(jLayeredPaneVisOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelPostNR2)
+                    .addComponent(jLabelSetPostNR))
+                .addGap(18, 18, 18)
+                .addGroup(jLayeredPaneVisOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelDatoStart2)
+                    .addComponent(jLabelSetDatoStart))
+                .addGap(18, 18, 18)
+                .addGroup(jLayeredPaneVisOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelDatoSlut2)
+                    .addComponent(jLabelSetDatoSlut))
+                .addGap(18, 18, 18)
+                .addGroup(jLayeredPaneVisOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelPris2)
+                    .addComponent(jLabelSetPris))
+                .addGap(18, 18, 18)
+                .addGroup(jLayeredPaneVisOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelBekreaftelse)
+                    .addComponent(jLabelSetBekreaftelse))
+                .addGap(18, 18, 18)
+                .addGroup(jLayeredPaneVisOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelSalgsMedArb)
+                    .addComponent(jLabelSetSalgsMedArb))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
+                .addComponent(jButtonTilbage)
+                .addGap(30, 30, 30))
+        );
+        jLayeredPaneVisOrdre.setLayer(jLabelKunde2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelVej2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelPostNR2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelDatoStart2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelDatoSlut2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelPris2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelBekreaftelse, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelSalgsMedArb, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelSetKunde, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelSetVej, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelSetPostNR, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelSetDatoStart, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelSetDatoSlut, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelSetPris, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelSetBekreaftelse, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jLabelSetSalgsMedArb, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneVisOrdre.setLayer(jButtonTilbage, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -982,12 +1153,19 @@ public class GUI extends javax.swing.JFrame {
             .addComponent(jPanelOverblik, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLayeredPaneOpretOrdre))
+            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLayeredPaneVisOrdre))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelOverblik, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLayeredPaneOpretOrdre))
+            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                    .addGap(23, 23, 23)
+                    .addComponent(jLayeredPaneVisOrdre)
+                    .addContainerGap()))
         );
 
         jButtonUpdateOrdre.setText("Ændre den ordre");
@@ -996,6 +1174,10 @@ public class GUI extends javax.swing.JFrame {
                 jButtonUpdateOrdreActionPerformed(evt);
             }
         });
+
+        jLabelUpdateFejl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelUpdateFejl.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelUpdateFejl.setText("Du skal vælge en ordre");
 
         javax.swing.GroupLayout jPanelOrdreLayout = new javax.swing.GroupLayout(jPanelOrdre);
         jPanelOrdre.setLayout(jPanelOrdreLayout);
@@ -1009,7 +1191,9 @@ public class GUI extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonOpretOrdre)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonUpdateOrdre)
+                        .addGroup(jPanelOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelUpdateFejl)
+                            .addComponent(jButtonUpdateOrdre))
                         .addGap(18, 18, 18)))
                 .addContainerGap())
         );
@@ -1020,7 +1204,9 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(jPanelOrdreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonOpretOrdre)
                     .addComponent(jButtonUpdateOrdre))
-                .addGap(18, 18, 18)
+                .addGap(8, 8, 8)
+                .addComponent(jLabelUpdateFejl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -1709,6 +1895,7 @@ public class GUI extends javax.swing.JFrame {
         jPanelOverblik.setVisible(true);
         jButtonOpretOrdre.setVisible(true);
         jButtonUpdateOrdre.setVisible(true);
+        jTable1.clearSelection();
     }//GEN-LAST:event_jButtonOCancel2ActionPerformed
 
     private void jButtonOCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOCancelActionPerformed
@@ -1716,6 +1903,7 @@ public class GUI extends javax.swing.JFrame {
         jPanelOverblik.setVisible(true);
         jButtonOpretOrdre.setVisible(true);
         jButtonUpdateOrdre.setVisible(true);
+        jTable1.clearSelection();
     }//GEN-LAST:event_jButtonOCancelActionPerformed
 
     private void jButtonONextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonONextActionPerformed
@@ -1776,6 +1964,11 @@ public class GUI extends javax.swing.JFrame {
         //Ude
         DefaultListModel ListModelKompUde = new DefaultListModel();
         jListKompUde.setModel(ListModelKompUde);
+
+//Pris
+        jTextFieldCreateOrdreManuel.setText("0");
+        int rabat = con.getKundeList().get(tempKundeList.get(jCBoxKunde.getSelectedItem())).getRabat();
+        jLabelCreateOrdreRabatEdit.setText(""+rabat);
     }//GEN-LAST:event_jButtonONextActionPerformed
 
     private void jTFPostNRKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFPostNRKeyTyped
@@ -1787,18 +1980,20 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFPostNRKeyTyped
 
     private void jButtonOpretOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpretOrdreActionPerformed
-        // TODO add your handling code here:
+        
         jPanelOverblik.setVisible(false);
         jLayeredPaneOpretOrdre.setVisible(true);
         jButtonOpretOrdre.setVisible(false);
         jButtonUpdateOrdre.setVisible(false);
         jPanelOpretOPart1.setVisible(true);
+        jLabelOverskrift.setText("Opret en ordre");
         jTFPostNR.setText("");
         jTFVej.setText("");
         jDcDatoStart.setDate(null);
         jDcDatoSlut.setDate(null);
         //JComboBox Kunde 
         jCBoxKunde.setModel(new DefaultComboBoxModel());//.removeAllItems();
+        jCBoxKunde.setEnabled(true);
         for (int kundeid : con.getKundeList().keySet()) {
             tempKundeList.put(con.getKundeList().get(kundeid).getName(), kundeid);
         }
@@ -2041,52 +2236,166 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonKompHjemActionPerformed
 
     private void jButtonUpdateOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateOrdreActionPerformed
-        jPanelOverblik.setVisible(false);
-        jLayeredPaneOpretOrdre.setVisible(true);
-        jButtonOpretOrdre.setVisible(false);
-        jButtonUpdateOrdre.setVisible(false);
-        jPanelOpretOPart1.setVisible(true);
+        if (jTable1.getSelectedRow() == -1 && jTable2.getSelectedRow() == -1 ) {
+            jLabelUpdateFejl.setVisible(true);
+        }
+        else {        
+            jLabelUpdateFejl.setVisible(false);
+            jPanelOverblik.setVisible(false);
+            jButtonOpretOrdre.setVisible(false);
+            jButtonUpdateOrdre.setVisible(false);
+            
+            if (jTable1.getSelectedRow() != -1) {
+                
+                jLayeredPaneOpretOrdre.setVisible(true);
+                jPanelOpretOPart1.setVisible(true);
+                jLabelOverskrift.setText("Ændring af ordren");
+                
+                int selectedRow = jTable1.getSelectedRow();
+
+                //JComboBox Kunde 
+                jCBoxKunde.setModel(new DefaultComboBoxModel());//.removeAllItems();
+                jCBoxKunde.addItem(jTable1.getValueAt(selectedRow, 1));
+                jCBoxKunde.setEnabled(false);
+
+                // Vej
+                String setTojTFVej = new String();
+                setTojTFVej += jTable1.getValueAt(selectedRow, 2);  
+                jTFVej.setText(setTojTFVej);
+
+                //Postnr
+                String setTojTFPostNR = new String();
+                setTojTFPostNR += jTable1.getValueAt(selectedRow, 3);  
+                jTFPostNR.setText(setTojTFPostNR);
+
+                //DatoStart
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                String setTojDcDatoStart = new String();
+                setTojDcDatoStart += jTable1.getValueAt(selectedRow, 5);  
+                try { 
+                    Date datoStartTxt = formatter.parse(setTojDcDatoStart);
+                    jDcDatoStart.setDate(datoStartTxt);
+                }catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                //DatoSlut
+                SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+                String setTojDcDatoSlut = new String();
+                setTojDcDatoSlut += jTable1.getValueAt(selectedRow, 6);  
+                try { 
+                    Date datoSlutTxt = formatter2.parse(setTojDcDatoSlut);
+                    jDcDatoSlut.setDate(datoSlutTxt);
+                }catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                jLayeredPaneOpretOrdre.setVisible(false);
+                jLayeredPaneVisOrdre.setVisible(true);
+                
+                
+                int selectedRow2 = jTable2.getSelectedRow();
+                
+                //Kunde
+                String setTojLKunde = new String();
+                setTojLKunde += jTable2.getValueAt(selectedRow2, 1);
+                jLabelSetKunde.setText(setTojLKunde);
+                
+                //Vej
+                String setTojLVej = new String();
+                setTojLVej += jTable2.getValueAt(selectedRow2, 2);
+                jLabelSetVej.setText(setTojLVej);
+                
+                //Post nr.
+                String setTojLPostNR = new String();
+                setTojLPostNR += jTable2.getValueAt(selectedRow2, 3);
+                jLabelSetPostNR.setText(setTojLPostNR);
+                
+                //Dato Start
+                String setTojLDatoStart = new String();
+                setTojLDatoStart += jTable2.getValueAt(selectedRow2, 5);
+                jLabelSetDatoStart.setText(setTojLDatoStart);
+                
+                //Dato Slut
+                String setTojLDatoSlut = new String();
+                setTojLDatoSlut += jTable2.getValueAt(selectedRow2, 6);
+                jLabelSetDatoSlut.setText(setTojLDatoSlut);
+                
+                //Pris
+                String setTojLPris = new String();
+                setTojLPris += jTable2.getValueAt(selectedRow2, 4);
+                jLabelSetPris.setText(setTojLPris);
+                
+                //Bekræftelse
+                String setTojLBekreaftelse = new String();
+                setTojLBekreaftelse += jTable2.getValueAt(selectedRow2, 7);
+                if (setTojLBekreaftelse == "true") {
+                    jLabelSetBekreaftelse.setText("Ja");
+                }
+                else { 
+                    jLabelSetBekreaftelse.setText("Nej");
+                }
+                
+                //Salgsmedarbejder
+                String setTojLSalgsMedArb = new String();
+                setTojLSalgsMedArb += jTable2.getValueAt(selectedRow2, 0);
+                jLabelSetSalgsMedArb.setText(setTojLSalgsMedArb);
+            }
         
-            int selectedRow = jTable1.getSelectedRow();
-            
-            //JComboBox Kunde 
-            jCBoxKunde.setModel(new DefaultComboBoxModel());//.removeAllItems();
-            jCBoxKunde.addItem(jTable1.getValueAt(selectedRow, 1));
-            jCBoxKunde.setEnabled(false);
-            
-            // Vej
-            String setTojTFVej = new String();
-            setTojTFVej += jTable1.getValueAt(selectedRow, 2);  
-            jTFVej.setText(setTojTFVej);
-            
-            //Postnr
-            String setTojTFPostNR = new String();
-            setTojTFPostNR += jTable1.getValueAt(selectedRow, 3);  
-            jTFPostNR.setText(setTojTFPostNR);
-            
-            //DatoStart
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String setTojDcDatoStart = new String();
-            setTojDcDatoStart += jTable1.getValueAt(selectedRow, 5);  
-            try { 
-                Date datoStartTxt = formatter.parse(setTojDcDatoStart);
-                jDcDatoStart.setDate(datoStartTxt);
-            }catch (ParseException e) {
-                e.printStackTrace();
-            }
-            
-            //DatoSlut
-            SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
-            String setTojDcDatoSlut = new String();
-            setTojDcDatoSlut += jTable1.getValueAt(selectedRow, 6);  
-            try { 
-                Date datoSlutTxt = formatter2.parse(setTojDcDatoSlut);
-                jDcDatoSlut.setDate(datoSlutTxt);
-            }catch (ParseException e) {
-                e.printStackTrace();
-            }
+
+        }
        
     }//GEN-LAST:event_jButtonUpdateOrdreActionPerformed
+
+    private void jTabbedPane3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane3MouseClicked
+
+    }//GEN-LAST:event_jTabbedPane3MouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTabbedPane3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane3MousePressed
+
+        if (jTabbedPane3.getSelectedIndex() == 1) {
+            jButtonUpdateOrdre.setText("Vis den valgte ordre");
+            jTable1.clearSelection();
+        }
+        else {
+            jButtonUpdateOrdre.setText("Ændre den valgte ordre");
+            jTable2.clearSelection();
+        }
+    }//GEN-LAST:event_jTabbedPane3MousePressed
+
+    private void jButtonTilbageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTilbageActionPerformed
+        jPanelOverblik.setVisible(true);
+        jLayeredPaneVisOrdre.setVisible(false);
+        jButtonOpretOrdre.setVisible(true);
+        jButtonUpdateOrdre.setVisible(true);
+        jTable2.clearSelection();
+    }//GEN-LAST:event_jButtonTilbageActionPerformed
+
+    private void jTextFieldCreateOrdreManuelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCreateOrdreManuelKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACKSPACE) || c == KeyEvent.VK_DELETE) {
+            getToolkit().beep();
+            evt.consume();
+        }
+        
+        double rabat = 0;
+        double pris = 0;
+        try {
+            rabat = Double.parseDouble(jLabelCreateOrdreRabatEdit.getText()) / 100;
+            pris = Double.parseDouble(jTextFieldCreateOrdreManuel.getText());
+        } catch (Exception e) {
+            rabat = 0;
+        }
+
+        double sum = pris * (1-rabat);
+        String total = Double.toString(sum);
+        jLabelCreateOrdreTotalPrisEdit.setText(total);
+    }//GEN-LAST:event_jTextFieldCreateOrdreManuelKeyTyped
 
     /**
      * @param args the command line arguments
@@ -2148,27 +2457,28 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOpretOrdre;
     private javax.swing.JButton jButtonOpretStaffAnnuller;
     private javax.swing.JButton jButtonOpretStaffOpret;
+    private javax.swing.JButton jButtonTilbage;
     private javax.swing.JButton jButtonUpdateOrdre;
     private javax.swing.JComboBox jCBoxKunde;
     private com.toedter.calendar.JDateChooser jDcDatoSlut;
     private com.toedter.calendar.JDateChooser jDcDatoStart;
     private javax.swing.JLayeredPane jLPanelOpretOPart2;
-    private javax.swing.JLabel jLabelCreateOrdreKompPrDag;
+    private javax.swing.JLabel jLabelBekreaftelse;
     private javax.swing.JLabel jLabelCreateOrdreManuel;
     private javax.swing.JLabel jLabelCreateOrdrePris;
-    private javax.swing.JLabel jLabelCreateOrdrePrisEdit;
     private javax.swing.JLabel jLabelCreateOrdreRabat;
     private javax.swing.JLabel jLabelCreateOrdreRabatEdit;
-    private javax.swing.JLabel jLabelCreateOrdreSum;
-    private javax.swing.JLabel jLabelCreateOrdreSumEdit;
     private javax.swing.JLabel jLabelCreateOrdreTotalPris;
     private javax.swing.JLabel jLabelCreateOrdreTotalPrisEdit;
     private javax.swing.JLabel jLabelDatoSlut;
+    private javax.swing.JLabel jLabelDatoSlut2;
     private javax.swing.JLabel jLabelDatoStart;
+    private javax.swing.JLabel jLabelDatoStart2;
     private javax.swing.JLabel jLabelKomp;
     private javax.swing.JLabel jLabelKomponentNavn;
     private javax.swing.JLabel jLabelKomponentPPD;
     private javax.swing.JLabel jLabelKunde;
+    private javax.swing.JLabel jLabelKunde2;
     private javax.swing.JLabel jLabelKundeEmail;
     private javax.swing.JLabel jLabelKundeNavn;
     private javax.swing.JLabel jLabelKundeRabat;
@@ -2185,10 +2495,23 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelOverskriftLastbil;
     private javax.swing.JLabel jLabelOverskriftStaff;
     private javax.swing.JLabel jLabelPostNR;
+    private javax.swing.JLabel jLabelPostNR2;
+    private javax.swing.JLabel jLabelPris2;
+    private javax.swing.JLabel jLabelSalgsMedArb;
+    private javax.swing.JLabel jLabelSetBekreaftelse;
+    private javax.swing.JLabel jLabelSetDatoSlut;
+    private javax.swing.JLabel jLabelSetDatoStart;
+    private javax.swing.JLabel jLabelSetKunde;
+    private javax.swing.JLabel jLabelSetPostNR;
+    private javax.swing.JLabel jLabelSetPris;
+    private javax.swing.JLabel jLabelSetSalgsMedArb;
+    private javax.swing.JLabel jLabelSetVej;
     private javax.swing.JLabel jLabelStaffNavn;
     private javax.swing.JLabel jLabelStaffStilling;
     private javax.swing.JLabel jLabelStaffTelefon;
+    private javax.swing.JLabel jLabelUpdateFejl;
     private javax.swing.JLabel jLabelVej;
+    private javax.swing.JLabel jLabelVej2;
     private javax.swing.JLayeredPane jLayeredPaneKomponentOprettelse;
     private javax.swing.JLayeredPane jLayeredPaneKomponentOverview;
     private javax.swing.JLayeredPane jLayeredPaneKundeOprettelse;
@@ -2198,6 +2521,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPaneOpretOrdre;
     private javax.swing.JLayeredPane jLayeredPaneStaffOprettelse;
     private javax.swing.JLayeredPane jLayeredPaneStaffOverview;
+    private javax.swing.JLayeredPane jLayeredPaneVisOrdre;
     private javax.swing.JList jListKompHjem;
     private javax.swing.JList jListKompUde;
     private javax.swing.JList jListLastHjem;
