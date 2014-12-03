@@ -52,6 +52,14 @@ public class GUI extends javax.swing.JFrame {
         jLayeredPaneLastbilOprettelse.setVisible(false);
         jLabelUpdateFejl.setVisible(false);
         jLayeredPaneVisOrdre.setVisible(false);
+        jLayeredPaneKomponentDetails.setVisible(false);
+        createTempList();
+    }
+
+    private void createTempList() {
+        for (int kundeid : con.getKundeList().keySet()) {
+            tempKundeList.put(con.getKundeList().get(kundeid).getName(), kundeid);
+        }
     }
 
     class StaffStatusModel extends AbstractTableModel {
@@ -134,7 +142,7 @@ public class GUI extends javax.swing.JFrame {
 
     class KomponentStatusModel extends AbstractTableModel {
 
-        String[] columnNames = {"Navn", "Pris/Dag", "Antal Hjemme", "Antal Ude"};
+        String[] columnNames = {"ID", "Navn", "Opbygningstid", "Antal Hjemme", "Antal Ude"};
 
         @Override
         public int getColumnCount() {
@@ -157,10 +165,12 @@ public class GUI extends javax.swing.JFrame {
             int i;
             switch (col) {
                 case 0:
-                    return con.getKompList().get(id).getNavn();
+                    return id;
                 case 1:
-                    return con.getKompList().get(id).getPrisPerDag();
+                    return con.getKompList().get(id).getNavn();
                 case 2:
+                    return con.getKompList().get(id).getOpbygningtid();
+                case 3:
                     i = 0;
                     for (Lager lager : con.getLagerList().values()) {
                         if (lager.getKompList().containsKey(id)) {
@@ -168,7 +178,7 @@ public class GUI extends javax.swing.JFrame {
                         }
                     }
                     return i;
-                case 3:
+                case 4:
                     i = 0;
                     for (Ordre order : con.getOrdreList().values()) {
                         if (new Date().after(order.getDatoStart())
@@ -187,7 +197,7 @@ public class GUI extends javax.swing.JFrame {
 
     class OrdreTableModel extends AbstractTableModel {
 
-        String[] columnNames = {"Salgsmedarbjer", "Kunde", "Vej", "Post", "Pris", "Start", "Slut", "Bekræftet"};
+        String[] columnNames = {"ID", "Salgsmedarbjer", "Kunde", "Vej", "Post", "Pris", "Start", "Slut", "Bekræftet"};
 
         @Override
         public int getColumnCount() {
@@ -209,27 +219,29 @@ public class GUI extends javax.swing.JFrame {
             int id = (int) con.getOrdreList().keySet().toArray()[row];
             switch (col) {
                 case 0:
-                    return con.getStaffList().get(con.getOrdreList().get(id).getSalgsmedarbsID()).getNavn();
+                    return id;
                 case 1:
-                    return con.getKundeList().get(con.getOrdreList().get(id).getKundeID()).getName();
+                    return con.getStaffList().get(con.getOrdreList().get(id).getSalgsmedarbsID()).getNavn();
                 case 2:
-                    return con.getOrdreList().get(id).getVej();
+                    return con.getKundeList().get(con.getOrdreList().get(id).getKundeID()).getName();
                 case 3:
-                    return con.getOrdreList().get(id).getPostNR();
+                    return con.getOrdreList().get(id).getVej();
                 case 4:
-                    return con.getOrdreList().get(id).getPris();
+                    return con.getOrdreList().get(id).getPostNR();
                 case 5:
-                    return con.getOrdreList().get(id).getDatoStart();
+                    return con.getOrdreList().get(id).getPris();
                 case 6:
-                    return con.getOrdreList().get(id).getDatoSlut();
+                    return con.getOrdreList().get(id).getDatoStart();
                 case 7:
+                    return con.getOrdreList().get(id).getDatoSlut();
+                case 8:
                     return con.getOrdreList().get(id).getConfirmation() == 1;
             }
             return null;
         }
 
     }
-    
+
     class OldOrdreTableModel extends AbstractTableModel {
 
         String[] columnNames = {"Salgsmedarbjer", "Kunde", "Vej", "Post", "Pris", "Start", "Slut", "Bekræftet"};
@@ -383,6 +395,7 @@ public class GUI extends javax.swing.JFrame {
         jLabelCreateOrdreTotalPris = new javax.swing.JLabel();
         jLabelCreateOrdreTotalPrisEdit = new javax.swing.JLabel();
         jLabelCreateOrdreRabatEdit = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLayeredPaneVisOrdre = new javax.swing.JLayeredPane();
         jLabelKunde2 = new javax.swing.JLabel();
         jLabelVej2 = new javax.swing.JLabel();
@@ -421,10 +434,32 @@ public class GUI extends javax.swing.JFrame {
         jButtonOpretKundeAnnuller = new javax.swing.JButton();
         jButtonOpretKundeOpret = new javax.swing.JButton();
         jPanelKomponent = new javax.swing.JPanel();
+        jLayeredPaneKomponentDetails = new javax.swing.JLayeredPane();
+        jLabelOverskriftKomponentDetail = new javax.swing.JLabel();
+        jLabelKomponentDetailsNavn = new javax.swing.JLabel();
+        jButtonKomponentDetailsAnnuller = new javax.swing.JButton();
+        jButtonOpretDetailKomponentGem = new javax.swing.JButton();
+        jTextFieldKomponentDetailsNavn = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldlKomponentDetailsOpbygningstid = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabelKomponentDetailsLagerAantal = new javax.swing.JLabel();
+        jLabelKomponentDetailsLagerBantal = new javax.swing.JLabel();
+        jTextFieldlKomponentDetailsLagerAantal = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jButtonlKomponentDetailsLagerATilføj = new javax.swing.JButton();
+        jButtonlKomponentDetailsLagerAFjern = new javax.swing.JButton();
+        jTextFieldlKomponentDetailsLagerBantal = new javax.swing.JTextField();
+        jButtonlKomponentDetailsLagerBTilføj = new javax.swing.JButton();
+        jButtonLagerBFjern = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabellKomponentDetailsUdePåOrdreAntal = new javax.swing.JLabel();
         jLayeredPaneKomponentOverview = new javax.swing.JLayeredPane();
         jButtonOpretNyKomponent = new javax.swing.JButton();
         jScrollPaneKomponentTable = new javax.swing.JScrollPane();
         jTableKomponent = new javax.swing.JTable();
+        jButtonVisKomponent = new javax.swing.JButton();
         jLayeredPaneKomponentOprettelse = new javax.swing.JLayeredPane();
         jLabelOverskriftKomponent = new javax.swing.JLabel();
         jLabelKomponentNavn = new javax.swing.JLabel();
@@ -579,12 +614,12 @@ public class GUI extends javax.swing.JFrame {
         jPanelOpretOPart1Layout.setHorizontalGroup(
             jPanelOpretOPart1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOpretOPart1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanelOpretOPart1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOpretOPart1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabelOSide1))
                     .addGroup(jPanelOpretOPart1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jButtonOCancel)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonONext)
@@ -658,7 +693,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jButtonOInsert.setText("Indsæt ordren");
+        jButtonOInsert.setText("Gem ordre");
         jButtonOInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOInsertActionPerformed(evt);
@@ -782,9 +817,12 @@ public class GUI extends javax.swing.JFrame {
 
         jLabelCreateOrdreTotalPris.setText("Total Pris:");
 
-        jLabelCreateOrdreTotalPrisEdit.setText("jLabel1");
+        jLabelCreateOrdreTotalPrisEdit.setText("0.0");
 
-        jLabelCreateOrdreRabatEdit.setText("jLabel2");
+        jLabelCreateOrdreRabatEdit.setText("50.0");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 2, 10)); // NOI18N
+        jLabel1.setText("Tryk mellemrum ved afslutning");
 
         javax.swing.GroupLayout jLPanelOpretOPart2Layout = new javax.swing.GroupLayout(jLPanelOpretOPart2);
         jLPanelOpretOPart2.setLayout(jLPanelOpretOPart2Layout);
@@ -835,20 +873,23 @@ public class GUI extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabelCreateOrdrePris)
-                                    .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLPanelOpretOPart2Layout.createSequentialGroup()
-                                            .addComponent(jLabelCreateOrdreManuel)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jTextFieldCreateOrdreManuel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
-                                            .addComponent(jLabelCreateOrdreRabat)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabelCreateOrdreRabatEdit))
-                                        .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
-                                            .addComponent(jLabelCreateOrdreTotalPris)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
-                                            .addComponent(jLabelCreateOrdreTotalPrisEdit))))
-                                .addGap(0, 98, Short.MAX_VALUE)))
+                                    .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                                        .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLPanelOpretOPart2Layout.createSequentialGroup()
+                                                .addComponent(jLabelCreateOrdreManuel)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jTextFieldCreateOrdreManuel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                                                .addComponent(jLabelCreateOrdreRabat)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabelCreateOrdreRabatEdit))
+                                            .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
+                                                .addComponent(jLabelCreateOrdreTotalPris)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                                                .addComponent(jLabelCreateOrdreTotalPrisEdit)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel1)))
+                                .addGap(0, 118, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jLPanelOpretOPart2Layout.createSequentialGroup()
                         .addComponent(jLabelMon)
@@ -900,7 +941,7 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(jButtonLastUde)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButtonLastHjem)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                         .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonOCancel2)
                             .addComponent(jButtonOInsert)
@@ -912,7 +953,8 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelCreateOrdreManuel)
-                            .addComponent(jTextFieldCreateOrdreManuel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldCreateOrdreManuel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jLPanelOpretOPart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelCreateOrdreRabat)
@@ -950,6 +992,7 @@ public class GUI extends javax.swing.JFrame {
         jLPanelOpretOPart2.setLayer(jLabelCreateOrdreTotalPris, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jLabelCreateOrdreTotalPrisEdit, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLPanelOpretOPart2.setLayer(jLabelCreateOrdreRabatEdit, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLPanelOpretOPart2.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPaneOpretOrdreLayout = new javax.swing.GroupLayout(jLayeredPaneOpretOrdre);
         jLayeredPaneOpretOrdre.setLayout(jLayeredPaneOpretOrdreLayout);
@@ -1372,6 +1415,192 @@ public class GUI extends javax.swing.JFrame {
 
         jTabbedPaneMain.addTab("Kunde", jPanelKunde);
 
+        jLabelOverskriftKomponentDetail.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabelOverskriftKomponentDetail.setText("Komponent Detail");
+
+        jLabelKomponentDetailsNavn.setText("Navn:");
+
+        jButtonKomponentDetailsAnnuller.setText("Tilbage");
+        jButtonKomponentDetailsAnnuller.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonKomponentDetailsAnnullerActionPerformed(evt);
+            }
+        });
+
+        jButtonOpretDetailKomponentGem.setText("Gem");
+        jButtonOpretDetailKomponentGem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOpretDetailKomponentGemActionPerformed(evt);
+            }
+        });
+
+        jTextFieldKomponentDetailsNavn.setText("jTextField1");
+
+        jLabel2.setText("Opbygningstid:");
+
+        jTextFieldlKomponentDetailsOpbygningstid.setText("jTextField1");
+
+        jLabel3.setText("Lager A:");
+
+        jLabel4.setText("Lager B:");
+
+        jLabelKomponentDetailsLagerAantal.setText("Antal");
+
+        jLabelKomponentDetailsLagerBantal.setText("Antal");
+
+        jTextFieldlKomponentDetailsLagerAantal.setText("jTextField2");
+
+        jLabel7.setText("Antal:");
+
+        jButtonlKomponentDetailsLagerATilføj.setText("Tilføj");
+        jButtonlKomponentDetailsLagerATilføj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonlKomponentDetailsLagerATilføjActionPerformed(evt);
+            }
+        });
+
+        jButtonlKomponentDetailsLagerAFjern.setText("Fjern");
+        jButtonlKomponentDetailsLagerAFjern.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonlKomponentDetailsLagerAFjernActionPerformed(evt);
+            }
+        });
+
+        jTextFieldlKomponentDetailsLagerBantal.setText("jTextField2");
+
+        jButtonlKomponentDetailsLagerBTilføj.setText("Tilføj");
+        jButtonlKomponentDetailsLagerBTilføj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonlKomponentDetailsLagerBTilføjActionPerformed(evt);
+            }
+        });
+
+        jButtonLagerBFjern.setText("Fjern");
+        jButtonLagerBFjern.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLagerBFjernActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Ude på ordre");
+
+        jLabellKomponentDetailsUdePåOrdreAntal.setText("Antal");
+
+        javax.swing.GroupLayout jLayeredPaneKomponentDetailsLayout = new javax.swing.GroupLayout(jLayeredPaneKomponentDetails);
+        jLayeredPaneKomponentDetails.setLayout(jLayeredPaneKomponentDetailsLayout);
+        jLayeredPaneKomponentDetailsLayout.setHorizontalGroup(
+            jLayeredPaneKomponentDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPaneKomponentDetailsLayout.createSequentialGroup()
+                .addGroup(jLayeredPaneKomponentDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jLayeredPaneKomponentDetailsLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(jLayeredPaneKomponentDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jLayeredPaneKomponentDetailsLayout.createSequentialGroup()
+                                .addGroup(jLayeredPaneKomponentDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabelKomponentDetailsNavn)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jButtonKomponentDetailsAnnuller))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jLayeredPaneKomponentDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldlKomponentDetailsOpbygningstid)
+                                    .addComponent(jTextFieldKomponentDetailsNavn))
+                                .addGap(163, 163, 163)
+                                .addGroup(jLayeredPaneKomponentDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jLayeredPaneKomponentDetailsLayout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jLayeredPaneKomponentDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7)
+                                            .addGroup(jLayeredPaneKomponentDetailsLayout.createSequentialGroup()
+                                                .addComponent(jLabelKomponentDetailsLagerAantal)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jTextFieldlKomponentDetailsLagerAantal, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jButtonlKomponentDetailsLagerATilføj)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButtonlKomponentDetailsLagerAFjern))))
+                                    .addGroup(jLayeredPaneKomponentDetailsLayout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addComponent(jLabel4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabelKomponentDetailsLagerBantal)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTextFieldlKomponentDetailsLagerBantal, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButtonlKomponentDetailsLagerBTilføj)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonLagerBFjern))))
+                            .addComponent(jLabelOverskriftKomponentDetail)))
+                    .addGroup(jLayeredPaneKomponentDetailsLayout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(jButtonOpretDetailKomponentGem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabellKomponentDetailsUdePåOrdreAntal)
+                        .addGap(205, 205, 205)))
+                .addContainerGap(247, Short.MAX_VALUE))
+        );
+        jLayeredPaneKomponentDetailsLayout.setVerticalGroup(
+            jLayeredPaneKomponentDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPaneKomponentDetailsLayout.createSequentialGroup()
+                .addGroup(jLayeredPaneKomponentDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLayeredPaneKomponentDetailsLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabelOverskriftKomponentDetail)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPaneKomponentDetailsLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7)
+                        .addGap(10, 10, 10)))
+                .addGroup(jLayeredPaneKomponentDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelKomponentDetailsNavn)
+                    .addComponent(jTextFieldKomponentDetailsNavn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabelKomponentDetailsLagerAantal)
+                    .addComponent(jTextFieldlKomponentDetailsLagerAantal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonlKomponentDetailsLagerATilføj)
+                    .addComponent(jButtonlKomponentDetailsLagerAFjern))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPaneKomponentDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldlKomponentDetailsOpbygningstid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldlKomponentDetailsLagerBantal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonlKomponentDetailsLagerBTilføj)
+                    .addComponent(jButtonLagerBFjern)
+                    .addComponent(jLabelKomponentDetailsLagerBantal)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPaneKomponentDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLayeredPaneKomponentDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabellKomponentDetailsUdePåOrdreAntal))
+                    .addComponent(jButtonOpretDetailKomponentGem))
+                .addGap(92, 92, 92)
+                .addComponent(jButtonKomponentDetailsAnnuller)
+                .addContainerGap(368, Short.MAX_VALUE))
+        );
+        jLayeredPaneKomponentDetails.setLayer(jLabelOverskriftKomponentDetail, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jLabelKomponentDetailsNavn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jButtonKomponentDetailsAnnuller, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jButtonOpretDetailKomponentGem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jTextFieldKomponentDetailsNavn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jTextFieldlKomponentDetailsOpbygningstid, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jLabelKomponentDetailsLagerAantal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jLabelKomponentDetailsLagerBantal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jTextFieldlKomponentDetailsLagerAantal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jButtonlKomponentDetailsLagerATilføj, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jButtonlKomponentDetailsLagerAFjern, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jTextFieldlKomponentDetailsLagerBantal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jButtonlKomponentDetailsLagerBTilføj, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jButtonLagerBFjern, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentDetails.setLayer(jLabellKomponentDetailsUdePåOrdreAntal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         jButtonOpretNyKomponent.setText("Opret Ny Komponent");
         jButtonOpretNyKomponent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1382,28 +1611,38 @@ public class GUI extends javax.swing.JFrame {
         jTableKomponent.setModel(new KomponentStatusModel());
         jScrollPaneKomponentTable.setViewportView(jTableKomponent);
 
+        jButtonVisKomponent.setText("Vis den valgte Komponent");
+        jButtonVisKomponent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVisKomponentActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jLayeredPaneKomponentOverviewLayout = new javax.swing.GroupLayout(jLayeredPaneKomponentOverview);
         jLayeredPaneKomponentOverview.setLayout(jLayeredPaneKomponentOverviewLayout);
         jLayeredPaneKomponentOverviewLayout.setHorizontalGroup(
             jLayeredPaneKomponentOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPaneKomponentOverviewLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPaneKomponentTable, javax.swing.GroupLayout.DEFAULT_SIZE, 885, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPaneKomponentOverviewLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonVisKomponent)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonOpretNyKomponent)
                 .addGap(62, 62, 62))
+            .addComponent(jScrollPaneKomponentTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 895, Short.MAX_VALUE)
         );
         jLayeredPaneKomponentOverviewLayout.setVerticalGroup(
             jLayeredPaneKomponentOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPaneKomponentOverviewLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jButtonOpretNyKomponent)
+                .addGroup(jLayeredPaneKomponentOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonOpretNyKomponent)
+                    .addComponent(jButtonVisKomponent))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPaneKomponentTable, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE))
         );
         jLayeredPaneKomponentOverview.setLayer(jButtonOpretNyKomponent, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneKomponentOverview.setLayer(jScrollPaneKomponentTable, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPaneKomponentOverview.setLayer(jButtonVisKomponent, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabelOverskriftKomponent.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabelOverskriftKomponent.setText("Opret en komponent");
@@ -1473,7 +1712,7 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(jLayeredPaneKomponentOprettelseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonOpretKomponentAnnuller)
                     .addComponent(jButtonOpretKomponentOpret))
-                .addContainerGap(429, Short.MAX_VALUE))
+                .addContainerGap(442, Short.MAX_VALUE))
         );
         jLayeredPaneKomponentOprettelse.setLayer(jLabelOverskriftKomponent, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPaneKomponentOprettelse.setLayer(jLabelKomponentNavn, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -1498,10 +1737,15 @@ public class GUI extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(jLayeredPaneKomponentOprettelse)
                     .addContainerGap()))
+            .addGroup(jPanelKomponentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelKomponentLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLayeredPaneKomponentDetails)
+                    .addContainerGap()))
         );
         jPanelKomponentLayout.setVerticalGroup(
             jPanelKomponentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 694, Short.MAX_VALUE)
+            .addGap(0, 707, Short.MAX_VALUE)
             .addGroup(jPanelKomponentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelKomponentLayout.createSequentialGroup()
                     .addContainerGap()
@@ -1512,6 +1756,11 @@ public class GUI extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(jLayeredPaneKomponentOprettelse)
                     .addContainerGap()))
+            .addGroup(jPanelKomponentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelKomponentLayout.createSequentialGroup()
+                    .addGap(11, 11, 11)
+                    .addComponent(jLayeredPaneKomponentDetails)
+                    .addGap(11, 11, 11)))
         );
 
         jTabbedPaneMain.addTab("Komponenter", jPanelKomponent);
@@ -1847,12 +2096,17 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOBackActionPerformed
 
     private void jButtonOInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOInsertActionPerformed
+        boolean newOrdre = false;
+        if (jLabelOverskrift.getText().equals("Opret en ordre")) {
+            newOrdre = true;
+        }
+
         int salgsmedarbejderID = 0000;
         int kundeID = tempKundeList.get(jCBoxKunde.getSelectedItem());
         String vej = jTFVej.getText();
         int Postnr = Integer.parseInt(jTFPostNR.getText());
         boolean confirm = false;
-        int pris = 0;
+        int pris = (int) Double.parseDouble(jLabelCreateOrdreTotalPrisEdit.getText());
         Date datoStart = jDcDatoStart.getDate();
         Date datoSlut = jDcDatoSlut.getDate();
 
@@ -1872,18 +2126,24 @@ public class GUI extends javax.swing.JFrame {
                 antal = Integer.parseInt(tokens[0]);
             } catch (Exception e) {
             }
-            
-            if(o.getKompList().containsKey(kompID)) antal += o.getKompList().get(kompID);
+
+            if (o.getKompList().containsKey(kompID)) {
+                antal += o.getKompList().get(kompID);
+            }
             o.getKompList().put(kompID, antal);
         }
-        
+
         //Last
         for (int i = 0; i < jListLastUde.getModel().getSize(); i++) {
             o.getLastbilList().put(tempLastList.get(jListLastUde.getModel().getElementAt(i)), datoStart);
             o.getLastbilList().put(tempLastList.get(jListLastUde.getModel().getElementAt(i)), datoSlut);
         }
-
-        con.createNewOrdre(o);
+        if (newOrdre) {
+            con.createNewOrdre(o);
+        } else {
+            con.updateOrdre((int) jTable1.getValueAt(jTable1.getSelectedRow(), 0), o);
+        }
+//        con.up 
         jLPanelOpretOPart2.setVisible(false);
         jPanelOverblik.setVisible(true);
         jButtonOpretOrdre.setVisible(true);
@@ -1947,14 +2207,18 @@ public class GUI extends javax.swing.JFrame {
             int antal = 0;
 
             for (Lager l : con.getLagerList().values()) {
-                if(l.getKompList().containsKey(tempKompList.get(kompNavn))) antal += l.getKompList().get(tempKompList.get(kompNavn));
+                if (l.getKompList().containsKey(tempKompList.get(kompNavn))) {
+                    antal += l.getKompList().get(tempKompList.get(kompNavn));
+                }
             }
             for (Ordre o : con.getOrdreList().values()) {
                 if (o.getDatoStart().after(jDcDatoSlut.getDate()) || o.getDatoSlut().before(jDcDatoSlut.getDate())) {
                     //No Action!
                 } //Denne pågældende order starter efter den nye ordres slut eller slutter inden den nyes start.
                 else {
-                    if(o.getKompList().containsKey(tempKompList.get(kompNavn))) antal -= o.getKompList().get(tempKompList.get(kompNavn));
+                    if (o.getKompList().containsKey(tempKompList.get(kompNavn))) {
+                        antal -= o.getKompList().get(tempKompList.get(kompNavn));
+                    }
                 }
             }
             ListModelKompHjem.addElement(antal + " " + kompNavn);
@@ -1966,9 +2230,9 @@ public class GUI extends javax.swing.JFrame {
         jListKompUde.setModel(ListModelKompUde);
 
 //Pris
-        jTextFieldCreateOrdreManuel.setText("0");
+//        jTextFieldCreateOrdreManuel.setText("0");
         int rabat = con.getKundeList().get(tempKundeList.get(jCBoxKunde.getSelectedItem())).getRabat();
-        jLabelCreateOrdreRabatEdit.setText(""+rabat);
+        jLabelCreateOrdreRabatEdit.setText("" + rabat);
     }//GEN-LAST:event_jButtonONextActionPerformed
 
     private void jTFPostNRKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFPostNRKeyTyped
@@ -1980,7 +2244,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFPostNRKeyTyped
 
     private void jButtonOpretOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpretOrdreActionPerformed
-        
+
         jPanelOverblik.setVisible(false);
         jLayeredPaneOpretOrdre.setVisible(true);
         jButtonOpretOrdre.setVisible(false);
@@ -1994,9 +2258,7 @@ public class GUI extends javax.swing.JFrame {
         //JComboBox Kunde 
         jCBoxKunde.setModel(new DefaultComboBoxModel());//.removeAllItems();
         jCBoxKunde.setEnabled(true);
-        for (int kundeid : con.getKundeList().keySet()) {
-            tempKundeList.put(con.getKundeList().get(kundeid).getName(), kundeid);
-        }
+
         for (String kundeNavn : tempKundeList.keySet()) {
             this.jCBoxKunde.addItem(kundeNavn);
         }
@@ -2213,7 +2475,9 @@ public class GUI extends javax.swing.JFrame {
             if (antal >= behov) {
                 ListModelKompUde.addElement(behov + " " + tokens[1]);
                 ListModelKompHjem.removeElement(jListKompHjem.getSelectedValue());
-                if(behov != antal) ListModelKompHjem.addElement((antal-behov) + " " + tokens[1]);
+                if (behov != antal) {
+                    ListModelKompHjem.addElement((antal - behov) + " " + tokens[1]);
+                }
             }
         }
     }//GEN-LAST:event_jButtonKompUdeActionPerformed
@@ -2236,116 +2500,116 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonKompHjemActionPerformed
 
     private void jButtonUpdateOrdreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateOrdreActionPerformed
-        if (jTable1.getSelectedRow() == -1 && jTable2.getSelectedRow() == -1 ) {
+        if (jTable1.getSelectedRow() == -1 && jTable2.getSelectedRow() == -1) {
             jLabelUpdateFejl.setVisible(true);
-        }
-        else {        
+        } else {
             jLabelUpdateFejl.setVisible(false);
             jPanelOverblik.setVisible(false);
             jButtonOpretOrdre.setVisible(false);
             jButtonUpdateOrdre.setVisible(false);
-            
+
             if (jTable1.getSelectedRow() != -1) {
-                
+
                 jLayeredPaneOpretOrdre.setVisible(true);
                 jPanelOpretOPart1.setVisible(true);
                 jLabelOverskrift.setText("Ændring af ordren");
-                
+
                 int selectedRow = jTable1.getSelectedRow();
+
+                int Ordreid = (int) jTable1.getValueAt(selectedRow, 0);
 
                 //JComboBox Kunde 
                 jCBoxKunde.setModel(new DefaultComboBoxModel());//.removeAllItems();
-                jCBoxKunde.addItem(jTable1.getValueAt(selectedRow, 1));
+                jCBoxKunde.addItem(jTable1.getValueAt(selectedRow, 2));
                 jCBoxKunde.setEnabled(false);
 
                 // Vej
                 String setTojTFVej = new String();
-                setTojTFVej += jTable1.getValueAt(selectedRow, 2);  
+                setTojTFVej += jTable1.getValueAt(selectedRow, 3);
                 jTFVej.setText(setTojTFVej);
 
                 //Postnr
                 String setTojTFPostNR = new String();
-                setTojTFPostNR += jTable1.getValueAt(selectedRow, 3);  
+                setTojTFPostNR += jTable1.getValueAt(selectedRow, 4);
                 jTFPostNR.setText(setTojTFPostNR);
+
+                //Pris
+                jTextFieldCreateOrdreManuel.setText("" + con.getOrdreList().get(Ordreid).getPris());
 
                 //DatoStart
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 String setTojDcDatoStart = new String();
-                setTojDcDatoStart += jTable1.getValueAt(selectedRow, 5);  
-                try { 
+                setTojDcDatoStart += jTable1.getValueAt(selectedRow, 6);
+                try {
                     Date datoStartTxt = formatter.parse(setTojDcDatoStart);
                     jDcDatoStart.setDate(datoStartTxt);
-                }catch (ParseException e) {
+                } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
                 //DatoSlut
                 SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
                 String setTojDcDatoSlut = new String();
-                setTojDcDatoSlut += jTable1.getValueAt(selectedRow, 6);  
-                try { 
+                setTojDcDatoSlut += jTable1.getValueAt(selectedRow, 7);
+                try {
                     Date datoSlutTxt = formatter2.parse(setTojDcDatoSlut);
                     jDcDatoSlut.setDate(datoSlutTxt);
-                }catch (ParseException e) {
+                } catch (ParseException e) {
                     e.printStackTrace();
                 }
-            }
-            else {
+            } else {
                 jLayeredPaneOpretOrdre.setVisible(false);
                 jLayeredPaneVisOrdre.setVisible(true);
-                
-                
+
                 int selectedRow2 = jTable2.getSelectedRow();
-                
+
                 //Kunde
                 String setTojLKunde = new String();
                 setTojLKunde += jTable2.getValueAt(selectedRow2, 1);
                 jLabelSetKunde.setText(setTojLKunde);
-                
+
                 //Vej
                 String setTojLVej = new String();
                 setTojLVej += jTable2.getValueAt(selectedRow2, 2);
                 jLabelSetVej.setText(setTojLVej);
-                
+
                 //Post nr.
                 String setTojLPostNR = new String();
                 setTojLPostNR += jTable2.getValueAt(selectedRow2, 3);
                 jLabelSetPostNR.setText(setTojLPostNR);
-                
+
                 //Dato Start
                 String setTojLDatoStart = new String();
                 setTojLDatoStart += jTable2.getValueAt(selectedRow2, 5);
                 jLabelSetDatoStart.setText(setTojLDatoStart);
-                
+
                 //Dato Slut
                 String setTojLDatoSlut = new String();
                 setTojLDatoSlut += jTable2.getValueAt(selectedRow2, 6);
                 jLabelSetDatoSlut.setText(setTojLDatoSlut);
-                
+
                 //Pris
                 String setTojLPris = new String();
                 setTojLPris += jTable2.getValueAt(selectedRow2, 4);
                 jLabelSetPris.setText(setTojLPris);
-                
+
                 //Bekræftelse
                 String setTojLBekreaftelse = new String();
                 setTojLBekreaftelse += jTable2.getValueAt(selectedRow2, 7);
                 if (setTojLBekreaftelse == "true") {
                     jLabelSetBekreaftelse.setText("Ja");
-                }
-                else { 
+                } else {
                     jLabelSetBekreaftelse.setText("Nej");
                 }
-                
+
                 //Salgsmedarbejder
                 String setTojLSalgsMedArb = new String();
                 setTojLSalgsMedArb += jTable2.getValueAt(selectedRow2, 0);
                 jLabelSetSalgsMedArb.setText(setTojLSalgsMedArb);
             }
-        
 
         }
-       
+
     }//GEN-LAST:event_jButtonUpdateOrdreActionPerformed
 
     private void jTabbedPane3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane3MouseClicked
@@ -2361,8 +2625,7 @@ public class GUI extends javax.swing.JFrame {
         if (jTabbedPane3.getSelectedIndex() == 1) {
             jButtonUpdateOrdre.setText("Vis den valgte ordre");
             jTable1.clearSelection();
-        }
-        else {
+        } else {
             jButtonUpdateOrdre.setText("Ændre den valgte ordre");
             jTable2.clearSelection();
         }
@@ -2382,7 +2645,7 @@ public class GUI extends javax.swing.JFrame {
             getToolkit().beep();
             evt.consume();
         }
-        
+
         double rabat = 0;
         double pris = 0;
         try {
@@ -2392,10 +2655,91 @@ public class GUI extends javax.swing.JFrame {
             rabat = 0;
         }
 
-        double sum = pris * (1-rabat);
+        double sum = pris * (1 - rabat);
         String total = Double.toString(sum);
         jLabelCreateOrdreTotalPrisEdit.setText(total);
     }//GEN-LAST:event_jTextFieldCreateOrdreManuelKeyTyped
+
+    private void jButtonVisKomponentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisKomponentActionPerformed
+        jLayeredPaneKomponentOverview.setVisible(false);
+        jLayeredPaneKomponentDetails.setVisible(true);
+
+        int id = (int) jTableKomponent.getValueAt(jTableKomponent.getSelectedRow(), 0);
+        jTextFieldKomponentDetailsNavn.setText(con.getKompList().get(id).getNavn());
+        jTextFieldlKomponentDetailsOpbygningstid.setText("" + con.getKompList().get(id).getOpbygningtid());
+        jLabelKomponentDetailsLagerAantal.setText("" + con.getLagerList().get(0).getKompList().get(id));
+        jLabelKomponentDetailsLagerBantal.setText("" + con.getLagerList().get(1).getKompList().get(id));
+        jLabellKomponentDetailsUdePåOrdreAntal.setText("" + jTableKomponent.getValueAt(jTableKomponent.getSelectedRow(), 4));
+        jTextFieldlKomponentDetailsLagerAantal.setText("0");
+        jTextFieldlKomponentDetailsLagerBantal.setText("0");
+
+    }//GEN-LAST:event_jButtonVisKomponentActionPerformed
+
+    private void jButtonKomponentDetailsAnnullerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKomponentDetailsAnnullerActionPerformed
+        jLayeredPaneKomponentOverview.setVisible(true);
+        jLayeredPaneKomponentDetails.setVisible(false);
+    }//GEN-LAST:event_jButtonKomponentDetailsAnnullerActionPerformed
+
+    private void jButtonOpretDetailKomponentGemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpretDetailKomponentGemActionPerformed
+        int id = (int) jTableKomponent.getValueAt(jTableKomponent.getSelectedRow(), 0);
+        int opbygningstid = 0;
+        try {
+            opbygningstid = Integer.parseInt(jTextFieldlKomponentDetailsOpbygningstid.getText());
+        } catch (Exception e) {
+        }
+        Komponent k = new Komponent(jTextFieldKomponentDetailsNavn.getText(), opbygningstid);
+        con.updateKomp(id, k);
+    }//GEN-LAST:event_jButtonOpretDetailKomponentGemActionPerformed
+
+    private void jButtonlKomponentDetailsLagerATilføjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonlKomponentDetailsLagerATilføjActionPerformed
+        int KompID = (int) jTableKomponent.getValueAt(jTableKomponent.getSelectedRow(), 0);
+        int LagerID = 0;
+        int antal = 0;
+        try {
+            antal = Integer.parseInt(jTextFieldlKomponentDetailsLagerAantal.getText());
+        } catch (Exception e) {
+        }
+        if (antal > 0) {
+            con.updateLagerKomp(LagerID, KompID, antal);
+        }
+    }//GEN-LAST:event_jButtonlKomponentDetailsLagerATilføjActionPerformed
+
+    private void jButtonlKomponentDetailsLagerBTilføjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonlKomponentDetailsLagerBTilføjActionPerformed
+        int KompID = (int) jTableKomponent.getValueAt(jTableKomponent.getSelectedRow(), 0);
+        int LagerID = 1;
+        int antal = 0;
+        try {
+            antal = Integer.parseInt(jTextFieldlKomponentDetailsLagerBantal.getText());
+        } catch (Exception e) {
+        }
+        if (antal > 0) {
+            con.updateLagerKomp(LagerID, KompID, antal);
+        }
+    }//GEN-LAST:event_jButtonlKomponentDetailsLagerBTilføjActionPerformed
+
+    private void jButtonlKomponentDetailsLagerAFjernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonlKomponentDetailsLagerAFjernActionPerformed
+        int KompID = (int) jTableKomponent.getValueAt(jTableKomponent.getSelectedRow(), 0);
+        int LagerID = 0;
+        int antal = 0;
+        try {
+            antal -= Integer.parseInt(jTextFieldlKomponentDetailsLagerAantal.getText());
+        } catch (Exception e) {
+        }
+        if (antal < 0) {
+            con.updateLagerKomp(LagerID, KompID, antal);
+        }
+    }//GEN-LAST:event_jButtonlKomponentDetailsLagerAFjernActionPerformed
+
+    private void jButtonLagerBFjernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLagerBFjernActionPerformed
+        int KompID = (int) jTableKomponent.getValueAt(jTableKomponent.getSelectedRow(), 0);
+        int LagerID = 1;
+        int antal = 0;
+        try {
+            antal -= Integer.parseInt(jTextFieldlKomponentDetailsLagerBantal.getText());
+        } catch (Exception e) {
+        }
+        if(antal<0) con.updateLagerKomp(LagerID, KompID, antal);
+    }//GEN-LAST:event_jButtonLagerBFjernActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2435,6 +2779,8 @@ public class GUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonKompHjem;
     private javax.swing.JButton jButtonKompUde;
+    private javax.swing.JButton jButtonKomponentDetailsAnnuller;
+    private javax.swing.JButton jButtonLagerBFjern;
     private javax.swing.JButton jButtonLastHjem;
     private javax.swing.JButton jButtonLastUde;
     private javax.swing.JButton jButtonMonHjem;
@@ -2444,6 +2790,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOCancel2;
     private javax.swing.JButton jButtonOInsert;
     private javax.swing.JButton jButtonONext;
+    private javax.swing.JButton jButtonOpretDetailKomponentGem;
     private javax.swing.JButton jButtonOpretKomponentAnnuller;
     private javax.swing.JButton jButtonOpretKomponentOpret;
     private javax.swing.JButton jButtonOpretKundeAnnuller;
@@ -2459,10 +2806,20 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOpretStaffOpret;
     private javax.swing.JButton jButtonTilbage;
     private javax.swing.JButton jButtonUpdateOrdre;
+    private javax.swing.JButton jButtonVisKomponent;
+    private javax.swing.JButton jButtonlKomponentDetailsLagerAFjern;
+    private javax.swing.JButton jButtonlKomponentDetailsLagerATilføj;
+    private javax.swing.JButton jButtonlKomponentDetailsLagerBTilføj;
     private javax.swing.JComboBox jCBoxKunde;
     private com.toedter.calendar.JDateChooser jDcDatoSlut;
     private com.toedter.calendar.JDateChooser jDcDatoStart;
     private javax.swing.JLayeredPane jLPanelOpretOPart2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelBekreaftelse;
     private javax.swing.JLabel jLabelCreateOrdreManuel;
     private javax.swing.JLabel jLabelCreateOrdrePris;
@@ -2475,6 +2832,9 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelDatoStart;
     private javax.swing.JLabel jLabelDatoStart2;
     private javax.swing.JLabel jLabelKomp;
+    private javax.swing.JLabel jLabelKomponentDetailsLagerAantal;
+    private javax.swing.JLabel jLabelKomponentDetailsLagerBantal;
+    private javax.swing.JLabel jLabelKomponentDetailsNavn;
     private javax.swing.JLabel jLabelKomponentNavn;
     private javax.swing.JLabel jLabelKomponentPPD;
     private javax.swing.JLabel jLabelKunde;
@@ -2491,6 +2851,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelOSide2;
     private javax.swing.JLabel jLabelOverskrift;
     private javax.swing.JLabel jLabelOverskriftKomponent;
+    private javax.swing.JLabel jLabelOverskriftKomponentDetail;
     private javax.swing.JLabel jLabelOverskriftKunde;
     private javax.swing.JLabel jLabelOverskriftLastbil;
     private javax.swing.JLabel jLabelOverskriftStaff;
@@ -2512,6 +2873,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelUpdateFejl;
     private javax.swing.JLabel jLabelVej;
     private javax.swing.JLabel jLabelVej2;
+    private javax.swing.JLabel jLabellKomponentDetailsUdePåOrdreAntal;
+    private javax.swing.JLayeredPane jLayeredPaneKomponentDetails;
     private javax.swing.JLayeredPane jLayeredPaneKomponentOprettelse;
     private javax.swing.JLayeredPane jLayeredPaneKomponentOverview;
     private javax.swing.JLayeredPane jLayeredPaneKundeOprettelse;
@@ -2561,6 +2924,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTable jTableLastbil;
     private javax.swing.JTable jTableStaff;
     private javax.swing.JTextField jTextFieldCreateOrdreManuel;
+    private javax.swing.JTextField jTextFieldKomponentDetailsNavn;
     private javax.swing.JTextField jTextFieldKomponentNavn;
     private javax.swing.JTextField jTextFieldKomponentPPD;
     private javax.swing.JTextField jTextFieldKundeEmail;
@@ -2573,5 +2937,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldStaffNavn;
     private javax.swing.JTextField jTextFieldStaffStilling;
     private javax.swing.JTextField jTextFieldStaffTelefon;
+    private javax.swing.JTextField jTextFieldlKomponentDetailsLagerAantal;
+    private javax.swing.JTextField jTextFieldlKomponentDetailsLagerBantal;
+    private javax.swing.JTextField jTextFieldlKomponentDetailsOpbygningstid;
     // End of variables declaration//GEN-END:variables
 }

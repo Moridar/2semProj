@@ -206,6 +206,23 @@ public class Control {
         }
     }
     
+    public void updateKomp(int id, Komponent k) {
+        try {
+            DB.updateKomponent(id, k);
+            KompList = DB.getAllKomponenter();
+        } catch (Exception e) {
+            System.out.println("Control:updateKomp failed");
+        }
+    }
+     public void updateLagerKomp(int Lagerid, int kompID, int antal) {
+        try {
+            DB.updateLagerKompList(Lagerid, kompID, antal);
+            LagerList = DB.getAllLager();
+        } catch (Exception e) {
+            System.out.println("Control:updateKomp failed");
+        }
+    }
+    
    public void printOrdreList(HashMap<Integer, Integer> OrdreKompList){
         try {
             Printer.printOrdreList(OrdreKompList, KompList);

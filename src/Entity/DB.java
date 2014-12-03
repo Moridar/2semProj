@@ -112,7 +112,7 @@ public class DB {
             //	 check for the existence of a row  
             while (rs.next()) {
                 list.put(rs.getInt(1), new Komponent(rs.getString(2),
-                        rs.getInt(3), rs.getInt(4)));
+                        rs.getInt(3)));
             }
 
         } catch (Exception ee) {
@@ -334,7 +334,6 @@ public class DB {
             while (rs.next()) {
                 Lager l = list.get(rs.getInt(1));
                 l.getKompList().put(rs.getInt(2), rs.getInt(3));
-                l.getDefekteList().put(rs.getInt(2), rs.getInt(4));
             }
 
         } catch (Exception ee) {
@@ -780,8 +779,7 @@ public class DB {
             statement = connection.createStatement();
 
             String insertSQL = "INSERT INTO komponent VALUES ("
-                    + id + ",'" + k.getNavn() + "'," + k.getPrisPerDag() + ","
-                    + k.getOpbygningtid() + ")";
+                    + id + ",'" + k.getNavn() + "',"+ k.getOpbygningtid() + ")";
             //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
             int rows = statement.executeUpdate(insertSQL);
@@ -917,11 +915,11 @@ public class DB {
             connection = DriverManager.getConnection(URL, ID, PW);
             statement = connection.createStatement();
 
-            String insertSQL = "UPDATE ordre SET SalgsmedarbID="
-                    + o.getSalgsmedarbsID() + ",KundeID=" + o.getKundeID() + ",Vej='" + o.getVej() + "',PostNR="
-                    + o.getPostNR() + ",Bekræftelse=" + o.getConfirmation() + ",Pris="
-                    + o.getPris() + ",datoStart='" + convertJavaDateToSqlDate(o.getDatoStart())
-                    + "',datoSlut'" + convertJavaDateToSqlDate(o.getDatoSlut()) + "' where id=" + id;
+            String insertSQL = "UPDATE ordre SET SalgsmedarbID ="
+                    + o.getSalgsmedarbsID() + ",KundeID = " + o.getKundeID() + ",Vej = '" + o.getVej() + "',PostNR = "
+                    + o.getPostNR() + ",Bekræftelse = " + o.getConfirmation() + ",Pris = "
+                    + o.getPris() + ",datoStart = '" + convertJavaDateToSqlDate(o.getDatoStart())
+                    + "',datoSlut = '" + convertJavaDateToSqlDate(o.getDatoSlut()) + "' where id = " + id;
             //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
             int rows = statement.executeUpdate(insertSQL);
@@ -949,16 +947,16 @@ public class DB {
             Class.forName(driver);
             connection = DriverManager.getConnection(URL, ID, PW);
 
-            String query = "UPDATE ude SET KomponenterID = ?, antal = ? where OrdreID = ?";
+            String query = "UPDATE ude SET antal = ? where OrdreID = ? and KomponenterID = ?";
             statement = connection.prepareStatement(query);
             // Read data for new parts from file and insert into database 
             // Format of file: Each line contains values for one part.
             // pno pname qoh price olevel
 
             for (Integer KompID : KompList.keySet()) {
-                statement.setInt(1, KompID);
-                statement.setInt(2, KompList.get(KompID));
-                statement.setInt(3, id);
+                statement.setInt(1, KompList.get(KompID));
+                statement.setInt(2, id);
+                statement.setInt(3, KompID);
 
                 statement.executeUpdate();
             }
@@ -980,16 +978,16 @@ public class DB {
             Class.forName(driver);
             connection = DriverManager.getConnection(URL, ID, PW);
 
-            String query = "UPDATE arbejde SET StaffID = ?, dato = ? WHERE OrdreID = ?";
+            String query = "UPDATE arbejde SET dato = ? WHERE OrdreID = ? and StaffID = ?";
             statement = connection.prepareStatement(query);
             // Read data for new parts from file and insert into database 
             // Format of file: Each line contains values for one part.
             // pno pname qoh price olevel
 
             for (Integer StaffID : StaffList.keySet()) {
-                statement.setInt(1, StaffID);
-                statement.setDate(2, convertJavaDateToSqlDate(StaffList.get(StaffID)));
-                statement.setInt(3, id);
+                statement.setDate(1, convertJavaDateToSqlDate(StaffList.get(StaffID)));
+                statement.setInt(2, id);
+                statement.setInt(3, StaffID);
                 statement.executeUpdate();
             }
         } catch (Exception ee) {
@@ -1010,13 +1008,13 @@ public class DB {
             Class.forName(driver);
             connection = DriverManager.getConnection(URL, ID, PW);
 
-            String query = "UPDATE transport SET LastbilID = ?, dato = ? where OrdreID = ?";
+            String query = "UPDATE transport SET dato = ? where OrdreID = ? and LastbilID = ?";
             statement = connection.prepareStatement(query);
 
             for (Integer LastbilID : LastbilList.keySet()) {
-                statement.setInt(1, LastbilID);
-                statement.setDate(2, convertJavaDateToSqlDate(LastbilList.get(LastbilID)));
-                statement.setInt(3, id);
+                statement.setDate(1, convertJavaDateToSqlDate(LastbilList.get(LastbilID)));
+                statement.setInt(2, id);
+                statement.setInt(3, LastbilID);
                 statement.executeUpdate();
             }
         } catch (Exception ee) {
@@ -1039,7 +1037,7 @@ public class DB {
             statement = connection.createStatement();
 
             String insertSQL = "UPDATE komponent SET navn='"
-                    + k.getNavn() + "',PrisPrDag=" + k.getPrisPerDag() + ",Opbygningtid="
+                    + k.getNavn() + "',Opbygningtid="
                     + k.getOpbygningtid() + " WHERE ID=" + id;
             //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
@@ -1089,6 +1087,37 @@ public class DB {
             connection.close();
         }
     }
+    
+    public static void updateLagerKompList(int Lagerid, int kompID, int antal) throws SQLException {
+        PreparedStatement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+
+            String query = "UPDATE hjemme SET antal = ? where LagerID = ? and KomponenterID = ?";
+            statement = connection.prepareStatement(query);
+            // Read data for new parts from file and insert into database 
+            // Format of file: Each line contains values for one part.
+            // pno pname qoh price olevel
+       
+                statement.setInt(1, antal);
+                statement.setInt(2, Lagerid);
+                statement.setInt(3, kompID);
+
+                statement.executeUpdate();         
+        } catch (Exception ee) {
+            System.out.println("DB:updateLagerKompList fail");
+            System.err.println(ee);
+            ee.printStackTrace();
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
+    
+    
 
      public static void deleteKomponent(int id) throws SQLException {
         Statement statement = null;
@@ -1099,7 +1128,7 @@ public class DB {
             connection = DriverManager.getConnection(URL, ID, PW);
             statement = connection.createStatement();
 
-            String insertSQL = "DELETE FROM komponent WHERE ID=" + id;
+            String insertSQL = "DELETE FROM komponent WHERE ID = " + id;
             //=== Execute the statement and retrieve 
             //	a count of how many rows was inserted      
             int rows = statement.executeUpdate(insertSQL);

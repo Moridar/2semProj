@@ -14,31 +14,20 @@ import java.util.HashMap;
  */
 public class Komponent {
     private String navn;
-    private int PrisPerDag;
     private int Opbygningtid;
     
-    public Komponent(String navn, int PrisPerDag) {
+    public Komponent(String navn) {
         this.navn = navn;
-        this.PrisPerDag = PrisPerDag;
+        Opbygningtid = 0;
      }
 
-    public Komponent(String navn, int PrisPerDag, int Opbygningtid) {
+    public Komponent(String navn, int Opbygningtid) {
         this.navn = navn;
-        this.PrisPerDag = PrisPerDag;
         this.Opbygningtid = Opbygningtid;
     }
     
-    
-    public void updatePris(int p){
-        PrisPerDag = p;
-    }
-
     public String getNavn() {
         return navn;
-    }
-
-    public int getPrisPerDag() {
-        return PrisPerDag;
     }
 
     public int getOpbygningtid() {
