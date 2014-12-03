@@ -6,8 +6,11 @@
 package Control;
 
 import Entity.*;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -164,7 +167,7 @@ public class Control {
         }
     }
     
-     public void createNewLastbil(Lastbil k) {
+    public void createNewLastbil(Lastbil k) {
         int id = 0;
         for (Integer Lastbilid : LastbilList.keySet()) {
             if (Lastbilid >= id) {
@@ -179,7 +182,7 @@ public class Control {
         }
     }
      
-      public void createNewStaff(Staff s) {
+    public void createNewStaff(Staff s) {
         int id = 0;
         for (Integer Staffid : StaffList.keySet()) {
             if (Staffid >= id) {
@@ -194,6 +197,23 @@ public class Control {
         }
     }
       
-   
+    public void updateOrdre(int id, Ordre o) {
+        try {
+            DB.updateOrdre(id, o);
+            OrdreList = DB.getAllOrder();
+        } catch (Exception e) {
+            System.out.println("Control:updateOrdre failed");
+        }
+    }
+    
+   public void printOrdreList(HashMap<Integer, Integer> OrdreKompList){
+        try {
+            Printer.printOrdreList(OrdreKompList, KompList);
+        } catch (IOException ex) {
+            System.out.println("Printer failed");;
+        }
+   }
+    
+    
 
 }

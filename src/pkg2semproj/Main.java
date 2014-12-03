@@ -5,9 +5,6 @@
  */
 
 package pkg2semproj;
-
-import Control.Control;
-
 /**
  *
  * @author Computer
@@ -18,13 +15,16 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Umair!");
-        for (String string : args) {
-            System.out.println(string);
+        System.out.println("lols");
+        
+        Runtime rt=Runtime.getRuntime();
+
+        String file="ToBePrint.txt";
+        try {
+            Process p= rt.exec("notepad "+file); // a space is required after notepad
+        } catch (Exception e) {
         }
-        Control con = new Control();
-        System.out.println(con.getKundeList().get(0).getName());
-        System.out.println("lel");
+        
     }
     
 }

@@ -22,12 +22,27 @@ public class Ordre {
     private double pris;
     private Date datoStart;
     private Date datoSlut;
-    
+    private int id;
+
     //KompList<KompID, Antal>
     private HashMap<Integer, Integer> KompList;
     private HashMap<Integer, Date> StaffList;
     private HashMap<Integer, Date> LastbilList;
-    
+
+    public Ordre(int id, int SalgsmedarbsID, int KundeID, String vej, int PostNR, boolean confirmation, double pris, Date datoStart, Date datoSlut) {
+        this.id = id;
+        this.SalgsmedarbsID = SalgsmedarbsID;
+        this.KundeID = KundeID;
+        this.vej = vej;
+        this.PostNR = PostNR;
+        this.pris = pris;
+        this.datoStart = datoStart;
+        this.datoSlut = datoSlut;
+        confirmation = false;
+        KompList = new HashMap<>();
+        StaffList = new HashMap<>();
+        LastbilList = new HashMap<>();
+    }
     public Ordre(int SalgsmedarbsID, int KundeID, String vej, int PostNR, boolean confirmation, double pris, Date datoStart, Date datoSlut) {
         this.SalgsmedarbsID = SalgsmedarbsID;
         this.KundeID = KundeID;
@@ -73,9 +88,11 @@ public class Ordre {
     public boolean isConfirmation() {
         return confirmation;
     }
-    
-    public int getConfirmation(){
-        if(isConfirmation()) return 1;
+
+    public int getConfirmation() {
+        if (isConfirmation()) {
+            return 1;
+        }
         return 0;
     }
 

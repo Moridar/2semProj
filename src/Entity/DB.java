@@ -218,7 +218,7 @@ public class DB {
             //=== Move cursor one step at a time and
             //	 check for the existence of a row  
             while (rs.next()) {
-                list.put(rs.getInt(1), new Ordre(rs.getInt(2), rs.getInt(3),
+                list.put(rs.getInt(1), new Ordre(rs.getInt(1), rs.getInt(2), rs.getInt(3),
                         rs.getString(4), rs.getInt(5), rs.getInt(6) == 1,
                         rs.getDouble(7), rs.getDate(8), rs.getDate(9)));
             }
@@ -256,7 +256,7 @@ public class DB {
             //=== Move cursor one step at a time and
             //	 check for the existence of a row  
             while (rs.next()) {
-                list.put(rs.getInt(1), new Ordre(rs.getInt(2), rs.getInt(3),
+                list.put(rs.getInt(1), new Ordre(rs.getInt(1), rs.getInt(2), rs.getInt(3),
                         rs.getString(4), rs.getInt(5), rs.getInt(6) == 1,
                         rs.getDouble(7), rs.getDate(8), rs.getDate(9)));
             }
@@ -1090,4 +1090,32 @@ public class DB {
         }
     }
 
+     public static void deleteKomponent(int id) throws SQLException {
+        Statement statement = null;
+        Connection connection = null;
+
+        try {
+            Class.forName(driver);
+            connection = DriverManager.getConnection(URL, ID, PW);
+            statement = connection.createStatement();
+
+            String insertSQL = "DELETE FROM komponent WHERE ID=" + id;
+            //=== Execute the statement and retrieve 
+            //	a count of how many rows was inserted      
+            int rows = statement.executeUpdate(insertSQL);
+
+            //=== Validate the result
+            if (rows == 1) {
+                System.out.println("One row deleted!");
+            } else {
+                System.out.println("No row deleted (fail)");
+            }
+        } catch (Exception ee) {
+            System.out.println("Fail: DB deleteKomponent");
+            System.err.println(ee);
+        } finally {
+            statement.close();
+            connection.close();
+        }
+    }
 }
